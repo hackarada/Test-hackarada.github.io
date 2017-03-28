@@ -212,10 +212,15 @@ aside p#printfriendly {
   color: #d9efff;
   margin-top: 50px;
 }
-#footer{
-  margin-bottom: 10px;
-    margin-top: 600px;
-    color: rgb(221, 236, 246);
+.footer{
+   position: absolute;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   padding: 1rem;
+  color: rgb(221, 236, 246);
+  text-align: center;
+  background-color: #043f68;;
 }
 .social-inline{
   margin-top: 10px;
@@ -224,6 +229,7 @@ aside p#printfriendly {
   display: inline-block;
   padding-right: 5px;
   padding-left: 5px;
+
 }
 .social-inline li a{
   color: #ffffff;
@@ -235,7 +241,7 @@ aside p#printfriendly {
       width: 2em;
       display: block;
       border-radius: 50%;
-      background: #004f85;
+      background: #004f85;htm
 }
 .social-inline li a:hover{
 
