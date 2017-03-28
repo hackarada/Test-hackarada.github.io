@@ -191,10 +191,13 @@ aside p#printfriendly {
     font-weight: 100;
     font-size: small
 }
+.wrapper{
+  padding-top: 100px;
+}
 #selam{
   color: #ffffff;
-    font-size: 120px;
-    font-weight: 900;
+    font-size: 100px;
+    font-weight: 800;
     text-size-adjust: 100%;
     z-index: 100;
     white-space: nowrap;
