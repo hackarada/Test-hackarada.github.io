@@ -210,7 +210,12 @@ aside p#printfriendly {
   font-weight: 500;
   font-size: 13px;
   color: #d9efff;
-  margin-top: 40px;
+  margin-top: 50px;
+}
+#footer{
+  margin-bottom: 10px;
+    margin-top: 600px;
+    color: rgb(221, 236, 246);
 }
 .social-inline{
   margin-top: 10px;
@@ -222,24 +227,26 @@ aside p#printfriendly {
 }
 .social-inline li a{
   color: #ffffff;
-      padding: 10px 8px;
-      padding-bottom: 4px;
-      height: 3em;
-      width: 3em;
+      padding-left: 8px;
+      padding-right: 8px;
+      padding-bottom: 2px;
+      padding-top: 7px;
+      height: 2em;
+      width: 2em;
       display: block;
       border-radius: 50%;
-      background: #0077c8;
+      background: #004f85;
 }
 .social-inline li a:hover{
 
 
-      background: #084874;
+      background: #186193;
 }
 
 .social-inline li a i{
 
-  font-size: 2.5em;
-}
+  font-size: 1.5em;
+}2
 .wrapper {
     width: 90%;
     margin: 0 5%
