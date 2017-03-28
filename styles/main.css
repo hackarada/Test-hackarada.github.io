@@ -165,7 +165,7 @@ a:link {
     font-weight: 400
 }
 a:visited {
-    color: rgba(98, 196, 243, 0.99);
+    color: rgba(98, 196, 243, 0.99);fo
 }
 a:active,
 a:focus,
@@ -190,6 +190,55 @@ aside #thislink {
 aside p#printfriendly {
     font-weight: 100;
     font-size: small
+}
+#selam{
+  color: #ffffff;
+    font-size: 120px;
+    font-weight: 900;
+    text-size-adjust: 100%;
+    z-index: 100;
+    white-space: nowrap;
+    font-family: Roboto,sans-serif;
+    display: block;
+    margin-top: 60px;
+}
+#Desc{
+  z-index: 100;
+  text-size-adjust: 100%;
+  white-space: normal;
+  display: block;
+  font-weight: 500;
+  font-size: 13px;
+  color: #d9efff;
+  margin-top: 40px;
+}
+.social-inline{
+  margin-top: 10px;
+}
+.social-inline li{
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.social-inline li a{
+  color: #ffffff;
+      padding: 10px 8px;
+      padding-bottom: 4px;
+      height: 3em;
+      width: 3em;
+      display: block;
+      border-radius: 50%;
+      background: #0077c8;
+}
+.social-inline li a:hover{
+
+
+      background: #084874;
+}
+
+.social-inline li a i{
+
+  font-size: 2.5em;
 }
 .wrapper {
     width: 90%;
@@ -372,7 +421,8 @@ html {
     height: 100%;
     padding: 0;
     margin: 0;
-    overflow-x: hidden
+    overflow-x: hidden;
+    background: rgba(1, 58, 97, 0.92);
 }
 .vignette {
     position: fixed;
