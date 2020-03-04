@@ -5,5 +5,4 @@ relative_links:
   enabled: true
   collections: true
 include:
-  - index.md
   - README.md
