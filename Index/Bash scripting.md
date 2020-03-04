@@ -1,0 +1,21 @@
+# Bash scripting
+
+## Resources
+
+[https://explainshell.com/](https://explainshell.com/)
+
+- [ ]  [https://www.shellscript.sh/](https://www.shellscript.sh/)
+- [ ]  [https://www.tutorialspoint.com/unix/shell_scripting.htm](https://www.tutorialspoint.com/unix/shell_scripting.htm)
+- [ ]  [https://www.guru99.com/introduction-to-shell-scripting.html](https://www.guru99.com/introduction-to-shell-scripting.html)
+- [ ]  [https://linuxhint.com/bash_scripting_tutorial_beginners/](https://linuxhint.com/bash_scripting_tutorial_beginners/)
+- [ ]  [https://likegeeks.com/bash-script-easy-guide/](https://likegeeks.com/bash-script-easy-guide/)
+- [ ]  [https://cs.lmu.edu/~ray/notes/bash/](https://cs.lmu.edu/~ray/notes/bash/)
+- [ ]  [https://www.gnu.org/software/bash/manual/bash.html](https://www.gnu.org/software/bash/manual/bash.html)
+- [ ]  [https://linuxconfig.org/bash-scripting-tutorial-for-beginners](https://linuxconfig.org/bash-scripting-tutorial-for-beginners)
+- [ ]  [https://ryanstutorials.net/bash-scripting-tutorial/](https://ryanstutorials.net/bash-scripting-tutorial/)
+- [ ]  [https://www.linode.com/docs/development/bash/intro-bash-shell-scripting/](https://www.linode.com/docs/development/bash/intro-bash-shell-scripting/)
+- [ ]  [https://wiki.bash-hackers.org/](https://wiki.bash-hackers.org/)
+
+[Notes](Bash%20scripting/Notes.md)
+
+[Reads](Bash%20scripting/Reads.md)

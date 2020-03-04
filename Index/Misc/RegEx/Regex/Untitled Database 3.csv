@@ -1,0 +1,4 @@
+﻿Flag,Description
+i,Case insensitive: Sets matching to be case-insensitive.
+g,Global Search: Search for a pattern throughout the input string.
+m,Multiline: Anchor meta character works on each line.

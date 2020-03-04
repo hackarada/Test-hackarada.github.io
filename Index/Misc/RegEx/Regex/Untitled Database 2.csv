@@ -1,0 +1,5 @@
+﻿Symbol,Description
+?=,Positive Lookahead
+?!,Negative Lookahead
+?<=,Positive Lookbehind
+?<!,Negative Lookbehind
