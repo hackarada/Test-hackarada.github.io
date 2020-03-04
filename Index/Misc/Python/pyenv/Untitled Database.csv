@@ -1,4 +1,0 @@
-﻿Flag,Description
--l/--list,Lists all available Python versions for installation
--g/--debug,Builds a debug version of Python
--v/--verbose,Verbose mode: print compilation status to stdout

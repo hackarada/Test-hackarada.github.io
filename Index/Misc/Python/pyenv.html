@@ -1,0 +1,721 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>pyenv</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="cd3dbc02-51cc-4874-bdb4-0b4d68a6c582" class="page sans"><header><h1 class="page-title">pyenv</h1></header><div class="page-body"><hr id="42763d5f-e3c4-4906-8eff-15c1a4cb5519"/><p id="278528a2-6be4-4d08-95ea-31e9f3b8af17" class="">[Source](https://realpython.com/intro-to-pyenv/</p><h1 id="0051a701-d528-4977-9f09-001186344302" class="">Managing Multiple Python Versions With pyenv – Real Python</h1><p id="7972b61c-f0b4-4f79-90f0-1fb1fe2f3ca1" class="">Have you ever wanted to contribute to a project that supports multiple versions of Python but aren’t sure how you would easily <a href="https://realpython.com/python-testing/">test</a> all the versions? Are you ever curious about the latest and greatest versions of Python? Maybe you’d like to try out these new features, but you don’t want to worry about messing up your development environment. Luckily, managing multiple version of Python doesn’t have to be confusing if you use <code>pyenv</code>.</p><p id="ad0e2eca-3bd0-4466-86a5-bd88dbbcc9f6" class="">This article will provide you with a great overview of how to maximize your time spent working on projects and minimize the time spent in headaches trying to use the right version of Python.</p><p id="98f6dcd5-abfb-4137-beda-a1549bcb0d81" class=""><strong>In this article, you’ll learn how to:</strong></p><ol id="c23387d5-914b-4c3f-9dce-7d6690605278" class="numbered-list" start="1"><li>Install multiple versions of Python</li></ol><ol id="c16dd36d-a649-4db3-a2d4-04cbd8fb1aa5" class="numbered-list" start="2"><li>Install the latest development version of Python</li></ol><ol id="94fefeb5-13d4-4ea7-825c-1d4efa93a44a" class="numbered-list" start="3"><li>Switch between the installed versions</li></ol><ol id="1b2d61e3-ac67-4867-ae50-0e54b048a713" class="numbered-list" start="4"><li>Use virtual environments with <code>pyenv</code></li></ol><ol id="dd1c257b-0a01-4288-bc04-3d3432ff0864" class="numbered-list" start="5"><li>Activate different Python versions and virtual environments automatically</li></ol><h2 id="287e8b9e-1337-4296-98bd-7d811a31ee39" class="">Why Use <code>pyenv</code>?</h2><p id="f2194cbe-792e-4cc2-8ac4-f29f3cfc42b4" class=""><code>pyenv</code> is a wonderful tool for managing multiple Python versions. Even if you already have Python installed on your system, it is worth having <code>pyenv</code> installed so that you can easily try out new language features or help contribute to a project that is on a different version of Python.</p><h3 id="3250a3ee-17c7-4352-a420-ba639503633f" class="">Why Not Use System Python?</h3><p id="23b3b95a-0061-40c4-8836-cb8a88f82394" class="">“System Python” is the Python that comes installed on your operating system. If you’re on Mac or Linux, then by default, when you type <code>python</code> in your terminal, you get a nice Python REPL.</p><p id="c6dfb0e9-d05f-47aa-8259-d46bd76512b8" class="">So, why not use it? One way to look at it is that this Python really <em>belongs</em> to the operating system. After all, it came installed with the operating system. That’s even reflected when you run <code>which</code>:</p><pre id="99271fda-f6aa-462a-91bf-0b0552a49517" class="code"><code>$ which python
+/usr/bin/python</code></pre><p id="89718bec-9c00-4ce3-adb5-377aa9edd138" class="">Here, <code>python</code> is available to all users as evidenced by its location <code>/usr/bin/python</code>. Chances are, this isn’t the version of Python you want either:</p><pre id="75bdfe13-f5e0-4b8f-8c1e-06b5b4194437" class="code"><code>$ python -V
+Pyhton 2.7.12</code></pre><p id="d538b270-480f-47b1-be72-a773ac935809" class="">To install a package into your system Python, you have to run <code>sudo pip install</code>. That’s because you’re installing the Python package globally, which is a real problem if another user comes along and wants to install a slightly older version of the package.</p><p id="1a36f213-5237-4a9e-96b2-ce499d700553" class="">Problems with multiple versions of the same package tend to creep up on you and bite you when you least expect it. One common way this problem presents itself is a popular and stable package suddenly misbehaving on your system. After hours of troubleshooting and Googling, you may find that you’ve installed the wrong version of a dependency, and it’s ruining your day.</p><p id="9c59150e-f4ca-43ce-93d8-1f39530afe55" class="">Even if your Python version is installed in <code>/usr/local/bin/python3</code>, you’re still not safe. You will run into the same permissions and flexibility problems described above.</p><p id="18f325f9-cd28-4165-bcc2-57617026e7eb" class="">In addition, you don’t really have much control over what version of Python comes installed on your OS. If you want to use the latest features in Python, and you’re on Ubuntu for example, you might just be out of luck. The default versions might be too old, which means you’ll just have to wait for a new OS to come out.</p><p id="a9aae47d-0360-4590-8b49-6c59ef10b340" class="">Finally, some operating systems actually use the packaged Python for operation. Take <code>yum</code> for example, which makes heavy use of Python to do its job. If you install a new version of Python and aren’t careful to install it into your user space, you could seriously damage your ability to use your OS.</p><h3 id="73ad87f4-2736-4c07-b4b8-27dde77f84ad" class="">What About a Package Manager?</h3><p id="fc776621-7453-4b5e-9271-a7d90aa8c91c" class="">The next logical place to look is package managers. Programs such as <code>apt</code>, <code>yum</code>, <code>brew</code>, or <code>port</code> are typical next options. After all, this is how you install most packages to your system. Unfortunately, you’ll find some of the same problems using a package manager.</p><p id="43ce8baa-8a7b-4e43-bd84-1e7c28054958" class="">By default, package managers tend to install their packages into the global system space instead of the user space. Again, these system level packages pollute your development environment and make it hard to share a workspace with others.</p><p id="76314828-016c-4215-bc13-9d244b407255" class="">Once again, you still don’t have control over what version of Python you can install. It’s true some repositories give you a greater selection, but by default, you’re looking at whatever version of Python your particular vendor is up to on any given day.</p><p id="7be9e4c7-39e0-4f53-9ca0-fcf99ace12b6" class="">Even if you do install Python from a package manager, consider what would happen if you’re writing a package and want to support and test on Python 3.4 - 3.7.</p><p id="0bed0f2c-0ca5-4102-a575-13dc6ea1a10f" class="">What would happen on your system when you type <code>python3</code>? How would you switch quickly between the different versions? You can certainly do it, but it is tedious and prone to error. Nevermind the fact that if you want PyPy, Jython, or Miniconda, then you’re probably just out of luck with your package manager.</p><p id="43c39b5b-7c2b-49fd-9f9e-bf1231417b5c" class="">With these constraints in mind, let’s recap the criteria that would let you install and manage Python versions easily and flexibly:</p><ol id="61f7a1fd-da5b-4113-9187-e0c38b7c8a3e" class="numbered-list" start="1"><li>Install Python in your user space</li></ol><ol id="e6eeecd8-bec6-4902-ac38-d73ec172b7a3" class="numbered-list" start="2"><li>Install multiple versions of Python</li></ol><ol id="55332efd-4274-4638-b73b-08ea35bea6e0" class="numbered-list" start="3"><li>Specify the exact Python version you want</li></ol><ol id="f9a50259-c788-479a-9371-d68afa47b114" class="numbered-list" start="4"><li>Switch between the installed versions</li></ol><p id="beff5a88-f24d-4f89-8c4d-1d266110d934" class=""><code>pyenv</code> lets you do all of these things and more.</p><h2 id="5b73dd4d-ad87-4509-b0e2-a8b87dddc702" class="">Installing <code>pyenv</code></h2><p id="17481c39-b94a-46ac-9595-0e270b73ff94" class="">Before you install <code>pyenv</code> itself, you’re going to need some OS-specific dependencies. These dependencies are mostly development utilities written in C and are required because <code>pyenv</code> installs Python by building from source. For a more detailed breakdown and explanation of the build dependencies, you can check out the <a href="https://devguide.python.org/setup/#build-dependencies">official docs.</a> In this tutorial, you’ll see the most common ways to install these dependencies.</p><p id="af052cf3-060a-47c5-8fee-410d3b84c675" class=""><strong>Note:</strong> <code>pyenv</code> did not originally support Windows. However, there appears to be some basic support with the <a href="https://github.com/pyenv-win/pyenv-win">pyenv-win</a> project that recently became active. If you use Windows, feel free to check it out.</p><h3 id="494ae6bd-549b-4487-8934-5ce5899e22ec" class="">Build Dependencies</h3><p id="a1cba6b5-da05-4d22-ae5f-91f1794fd6f4" class=""><code>pyenv</code> builds Python from source, which means you’ll need build dependencies to actually use <code>pyenv</code>. The build dependencies vary by platform. If you are on <strong>Ubuntu/Debian</strong> and want to install the build dependencies, you could use the following:</p><pre id="fb60f7f1-20eb-449e-9d0a-9bba10f6e556" class="code"><code>$ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev 
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev 
+libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl</code></pre><p id="d14b7cc1-189d-4ed4-85ec-8125d159c836" class="">This uses <a href="https://wiki.debian.org/Apt">Apt</a> to install all the build dependencies. Let this run, and you’ll be ready to go for Debian systems.</p><p id="52fd115d-dde1-4ec5-b4e0-a5b301c07770" class="">If you use <strong>Fedora/CentOS/RHEL</strong>, you could use <code>yum</code> to install your build dependencies:</p><pre id="c30ec2dd-bedb-4615-8f8e-41ddfca66a0d" class="code"><code>$ sudo yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite 
+sqlite-devel openssl-devel xz xz-devel libffi-devel</code></pre><p id="3a025023-3f96-4c41-b992-5c6a0d8e59de" class="">This command will install all the build dependencies for Python using <code>yum</code>.</p><p id="c6508dcb-7a00-40ee-92d0-d4f688607ab7" class=""><strong>macOS</strong> users can use the following command:</p><pre id="888e327d-04e7-4bb4-a59a-46651068808f" class="code"><code>$ brew install openssl readline sqlite3 xz zlib</code></pre><p id="523b6946-2b97-472f-b44d-5729425d900d" class="">This command relies on <a href="https://brew.sh/">Homebrew</a> and installs the few dependencies for macOS users.</p><p id="d011a931-e24f-4574-8b83-cca4012c2787" class=""><strong>Tip:</strong> When running Mojave or higher (10.14+) you will also need to install the <a href="https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes#3035624">additional SDK headers</a>:</p><pre id="0ce50fb9-8d70-45d1-bef7-1cdc1d3addd1" class="code"><code>sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /</code></pre><p id="e83077d5-2bce-4756-943c-41145a3fbbd0" class="">Thanks to Rodrigo Viera for the update.</p><p id="a777adea-0105-4481-934f-e523de0cba6e" class="">If you’re instead using <strong>openSUSE</strong> then you would run the following:</p><pre id="b09cc8dc-5d18-4083-b233-c46ea7e07b6d" class="code"><code>$ zypper in zlib-devel bzip2 libbz2-devel libffi-devel 
+libopenssl-devel readline-devel sqlite3 sqlite3-devel xz xz-devel</code></pre><p id="bbd0c5cc-709d-4ec8-82fe-033f494776d4" class="">Once again, this command installs all the Python build dependencies for your system.</p><p id="7c116594-1a8b-4d95-bd4e-d608de3c4c05" class="">Finally, for <strong>Alpine</strong> users, you can use this:</p><pre id="45219ee0-fedf-448a-b491-27c648f5a033" class="code"><code>$ apk add libffi-dev ncurses-dev openssl-dev readline-dev 
+tk-dev xz-dev zlib-dev</code></pre><p id="d257b3f1-1323-4489-9484-9b0e11a336d8" class="">This command uses <a href="https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management"><code>apk</code></a> as the package manager and will install all build dependencies for Python on Alpine.</p><h3 id="b7d282d8-dba1-4947-ad1f-2bbb649aac1a" class="">Using the pyenv-installer</h3><p id="03a8258e-4bc9-4a7d-b4f0-0bd34d8b9a70" class="">After you’ve installed the build dependencies, you’re ready to install <code>pyenv</code> itself. I recommend using the <a href="https://github.com/pyenv/pyenv-installer">pyenv-installer project</a>:</p><pre id="b16ec5fd-5590-4295-b394-1cd2c65c8e31" class="code"><code>$ curl https://pyenv.run | bash</code></pre><p id="de6ead02-16f8-44ff-a67c-09944e665cee" class="">This will install <code>pyenv</code> along with a few plugins that are useful:</p><ol id="07034b27-2524-42b0-9992-d0fca43827bf" class="numbered-list" start="1"><li><code><strong>pyenv</strong></code>: The actual <code>pyenv</code> application</li></ol><ol id="b2bc2553-35e5-46a9-8082-5f02bade318a" class="numbered-list" start="2"><li><code><strong>pyenv-virtualenv</strong></code>: Plugin for <code>pyenv</code> and virtual environments</li></ol><ol id="94f4473d-fb97-4686-bf2c-541b12335a95" class="numbered-list" start="3"><li><code><strong>pyenv-update</strong></code>: Plugin for updating <code>pyenv</code></li></ol><ol id="045dd222-6edc-4619-9747-38b66c4e0b5d" class="numbered-list" start="4"><li><code><strong>pyenv-doctor</strong></code>: Plugin to verify that <code>pyenv</code> and build dependencies are installed</li></ol><ol id="fd39dca1-adaa-4523-9094-1923ff350b53" class="numbered-list" start="5"><li><code><strong>pyenv-which-ext</strong></code>: Plugin to automatically lookup system commands</li></ol><p id="d0dc8b3e-8aeb-4af7-9d86-fc66c009540f" class=""><strong>Note:</strong> The above command is the same as downloading the <a href="https://github.com/pyenv/pyenv-installer/blob/master/bin/pyenv-installer">pyenv-installer script</a> and running it locally. So if you’d like to see exactly what you’re running, you can view the file yourself. Alternatively, if you really don’t want to run a script, you can checkout the <a href="https://github.com/pyenv/pyenv#basic-github-checkout">manual installation instructions.</a></p><p id="ebbe45ed-376d-4d6f-b60b-7de5a709899f" class="">At the end of the run, you should see something like this:</p><pre id="613300c1-dba6-42f9-a237-21c93692aa1f" class="code"><code>WARNING: seems you still have not added &#x27;pyenv&#x27; to the load path.
+
+# Load pyenv automatically by adding
+# the following to ~/.bashrc:
+
+export PATH=&quot;$HOME/.pyenv/bin:$PATH&quot;
+eval &quot;$(pyenv init -)&quot;
+eval &quot;$(pyenv virtualenv-init -)&quot;</code></pre><p id="268477a5-248f-4da9-a233-103bb1a36302" class="">The output will be based on your shell. But you should follow the instructions to add <code>pyenv</code> to your path and to initialize <code>pyenv</code>/<code>pyenv-virtualenv</code> auto completion. Once you’ve done this, you need to reload your shell:</p><pre id="57042baf-84f7-4d2f-a939-9ac43803206d" class="code"><code>$ exec &quot;$SHELL&quot; # Or just restart your terminal</code></pre><p id="d325a05c-1f72-4b06-90e7-480784e11d7e" class="">That’s it. You now have <code>pyenv</code> and four useful plugins installed.</p><h2 id="aa91b2ee-8e33-40ec-9f83-eab0404c8263" class="">Using <code>pyenv</code> to Install Python</h2><p id="2dd66472-3f37-4d67-bed9-1b862a06da86" class="">Now that you have <code>pyenv</code> installed, installing Python is the next step. You have many versions of Python to choose from. If you wanted to see all the available CPython 3.6 through 3.8, you can do this:</p><pre id="17986aba-4028-44ea-a309-c76027044521" class="code"><code>$ pyenv install --list | grep &quot; 3.[678]&quot;
+  3.6.0
+  3.6-dev
+  3.6.1
+  3.6.2
+  3.6.3
+  3.6.4
+  3.6.5
+  3.6.6
+  3.6.7
+  3.6.8
+  3.7.0
+  3.7-dev
+  3.7.1
+  3.7.2
+  3.8-dev</code></pre><p id="19610ab4-033f-4e48-8f38-768239c6044a" class="">The above shows all the Python versions that <code>pyenv</code> knows about that match the regular expression. In this case, that is all available CPython versions 3.6 through 3.8. Likewise, if you wanted to see all the Jython versions, you could do this:</p><pre id="196aec33-3853-427b-b0d7-1868d33e6044" class="code"><code>$ pyenv install --list | grep &quot;jython&quot;
+  jython-dev
+  jython-2.5.0
+  jython-2.5-dev
+  jython-2.5.1
+  jython-2.5.2
+  jython-2.5.3
+  jython-2.5.4-rc1
+  jython-2.7.0
+  jython-2.7.1</code></pre><p id="c7722869-2d36-4e2f-b5bf-96d7e75a93af" class="">Again, you can see all the Jython versions that <code>pyenv</code> has to offer. If you want to see all the versions, you can do the following:</p><pre id="eeaa4337-540e-4c32-85bd-a72ae0d3938f" class="code"><code>$ pyenv install --list
+...
+# There are a lot</code></pre><p id="6bcec147-0f7c-4346-b370-0911785b2bc1" class="">Once you find the version you want, you can install it with a single command:</p><pre id="10ccb1a8-2bf3-47e5-aba4-00b22df01600" class="code"><code>$ pyenv install -v 3.7.2
+/tmp/python-build.20190208022403.30568 ~
+Downloading Python-3.7.2.tar.xz...
+-&gt; https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tar.xz
+Installing Python-3.7.2...
+/tmp/python-build.20190208022403.30568/Python-3.7.2 /tmp/python-build.20190208022403.30568 ~
+[...]
+Installing collected packages: setuptools, pip
+Successfully installed pip-18.1 setuptools-40.6.2
+Installed Python-3.7.2 to /home/realpython/.pyenv/versions/3.7.2</code></pre><p id="f48213c2-ed2b-4cae-be50-7772e206f17b" class="">This will take a while because <code>pyenv</code> is building Python from source, but once it’s done, you’ll have Python 3.7.2 available on your local machine. If you don’t want to see all the output, just remove the <code>-v</code> flag. Even development versions of CPython can be installed:</p><p id="c448af58-d9f1-4b58-bd2b-84ffea0d3481" class=""><strong>Pro Tip:</strong> If you’ve been using <code>pyenv</code> for a while and don’t see the version you’re looking for, you may need to run <code>pyenv update</code> to update the tool and make sure you have access to the latest versions.</p><p id="1a54f690-e9c6-4990-8f39-799fc5ac4789" class="">For the rest of the tutorial, the examples assume you’ve installed <code>3.6.8</code> and <code>2.7.15</code>, but you’re free to substitute these values for the Python versions you actually installed. Also note that the system Python version in the examples is <code>2.7.12</code>.</p><h3 id="074d2b04-fca8-4411-95db-7a7240192448" class="">Installation Location</h3><p id="3d6b3ead-d526-4a32-90cd-7c57d588cef0" class="">As mentioned before, <code>pyenv</code> works by building Python from source. Each version that you have installed is located nicely in your <code>pyenv</code> root directory:</p><pre id="db86f035-fa95-4644-a586-ebf63cc7de37" class="code"><code>$ ls ~/.pyenv/versions/
+2.7.15  3.6.8  3.8-dev</code></pre><p id="5ef112dc-074a-4e8a-afd7-9758d3a9034a" class="">All of your versions will be located here. This is handy because removing these versions is trivial:</p><pre id="0c1b42ce-9a02-409f-bdb8-b98e8a718ad7" class="code"><code>$ rm -rf ~/.pyenv/versions/2.7.15</code></pre><p id="915e0d10-e07e-48b7-a633-f7908ffcb619" class="">Of course <code>pyenv</code> also provides a command to uninstall a particular Python version:</p><h3 id="3feba9f9-8ca3-4c7b-92ce-c8f93b7da28f" class="">Using Your New Python</h3><p id="713d7fea-3e74-4a68-92fe-3844e002852e" class="">Now that you’ve installed a couple of different Python versions, let’s see some basics on how to use them. First, check what versions of Python you have available:</p><pre id="71156b02-4a38-4224-b99d-c381d0250823" class="code"><code>$ pyenv versions
+* system (set by /home/realpython/.pyenv/version)
+  2.7.15
+  3.6.8
+  3.8-dev</code></pre><p id="d534bf0f-c973-4e32-be1b-fd97b065daf1" class="">The <code>*</code> indicates that the <code>system</code> Python version is active currently. You’ll also notice that this is set by a file in your root <code>pyenv</code> directory. This means that, by default, you are still using your system Python:</p><pre id="94025c15-df98-41d2-84e4-004342fa366f" class="code"><code>$ python -V
+Python 2.7.12</code></pre><p id="c1df6a33-d0f1-4db2-8c22-cab0e0e3e43a" class="">If you try to confirm this using <code>which</code>, you’ll see this:</p><pre id="e008797b-64be-4f5b-adf1-5af45db55f21" class="code"><code>$ which python
+/home/realpython/.pyenv/shims/python</code></pre><p id="962539b4-be75-4d2c-93c0-d35541386839" class="">This might be surprising, but this is how <code>pyenv</code> works. <code>pyenv</code> inserts itself into your <code>PATH</code> and from your OS’s perspective <em>is</em> the executable that is getting called. If you want to see the actual path, you can run the following:</p><pre id="a42f12d4-19f5-49d4-88c9-feb4dcc527c0" class="code"><code>$ pyenv which python
+/usr/bin/python</code></pre><p id="8cb522df-6407-4dd1-970a-36ca49d94e5b" class="">If, for example, you wanted to use version 2.7.15, then you can use the <code>global</code> command:</p><pre id="13fad17d-e0d2-4d71-9a54-2b2caecc59f9" class="code"><code>$ pyenv global 2.7.15
+$ python -V
+Python 2.7.15
+
+$ pyenv versions
+  system
+* 2.7.15 (set by /home/realpython/.pyenv/version)
+  3.6.8
+  3.8-dev</code></pre><p id="42c94375-0f26-46ff-9274-eebfc79f551b" class=""><strong>Pro Tip:</strong> A great way to get peace of mind that the version of Python you just installed is working properly is to run the built-in test suite:</p><pre id="ad754496-960a-4295-bfcd-6c879ff3e418" class="code"><code>$ pyenv global 3.8-dev
+$ python -m test</code></pre><p id="7d0d9005-3a06-45d1-a30a-0fb71248ec12" class="">This will kick off lots of internal Python tests that will verify your installation. You can just kick back and watch the tests pass.</p><p id="80925a83-9847-46c4-be8c-f03dba12a0d6" class="">If you ever want to go back to the system version of Python as the default, you can run this:</p><pre id="8e8d7250-e3b8-4bea-8ae9-0de20895948c" class="code"><code>$ pyenv global system
+$ python -V
+Python 2.7.12</code></pre><p id="2f1cccd1-e1e3-40d2-ad15-bc0493b3e71a" class="">You can now switch between different versions of Python with ease. This is just the beginning. If you have many versions that you want to switch between, typing these commands consistently is tedious. This section goes over the basics, but a better workflow is described in <a href="https://realpython.com/#working-with-multiple-environments">working with multiple environments.</a></p><h2 id="f0d038aa-954e-4caf-8afc-a3e0914e2304" class="">Exploring <code>pyenv</code> Commands</h2><p id="cb04a291-7a59-4366-ac11-b71a5a7807b4" class=""><code>pyenv</code> offers many commands. You can see a complete list of all available commands with this:</p><pre id="36a7a260-38f5-4a53-8f53-d2b9a6623616" class="code"><code>$ pyenv commands
+activate
+commands
+completions
+deactivate
+...
+virtualenvs
+whence
+which</code></pre><p id="ee227358-1ff2-470d-970a-3d6554b008dc" class="">This outputs all command names. Each command has a <code>\--help</code> flag that will give you more detailed information. For example, if you wanted to see more information on the <code>shims</code> command you could run the following:</p><pre id="e60caffc-22a8-4025-b785-cb915a8cdab2" class="code"><code>$ pyenv shims --help
+Usage: pyenv shims [--short]
+
+List existing pyenv shims</code></pre><p id="fb5adebd-b975-450f-a597-e56bb325b629" class="">The help message describes what the command is used for and any options you can use in conjunction with the command. In the following sections, you’ll find a quick, high-level overview of the most used commands.</p><h3 id="982178a5-c19a-454e-abd4-f1788d2087e4" class=""><code>install</code></h3><p id="52db12ca-1219-4566-8bdb-758843548889" class="">You’ve already seen the <code>install</code> command above. This command can be used to install a specific version of Python. For example, if you wanted to install <code>3.6.8</code> you would use this:</p><p id="f8b5c8f3-aae1-4f65-9c47-5627d50977c8" class="">The output shows us <code>pyenv</code> downloading and installing Python. Some of the common flags you may want to use are the following:</p><div id="bd87e763-a19b-472c-bbc9-00adbae900b1" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th>Flag</th><th>Description</th></tr></thead><tbody><tr id="c74908e6-da7b-49d8-b085-e8185f228b38"><td class="cell-title"><a href="pyenv/Untitled%20Database/l%20list.html">-l/--list</a></td><td class="cell-J.-W">Lists all available Python versions for installation</td></tr><tr id="5c91e60e-9fa9-4e77-a429-e728996c81c0"><td class="cell-title"><a href="pyenv/Untitled%20Database/g%20debug.html">-g/--debug</a></td><td class="cell-J.-W">Builds a debug version of Python</td></tr><tr id="44426d68-641e-448b-8e5d-697a26d5b02a"><td class="cell-title"><a href="pyenv/Untitled%20Database/v%20verbose.html">-v/--verbose</a></td><td class="cell-J.-W">Verbose mode: print compilation status to stdout</td></tr></tbody></table></div><h3 id="0bfb57e2-a4c0-4ab9-ad7b-29efcdd49daa" class=""><code>versions</code></h3><p id="aab40b8c-6619-467b-91d8-6a902bbbd21d" class="">The <code>versions</code> command displays all currently installed Python versions:</p><pre id="150ec1a0-a8a9-40da-b687-21ca4f0f65bb" class="code"><code>$ pyenv versions
+* system (set by /home/realpython/.pyenv/version)
+  2.7.15
+  3.6.8
+  3.8-dev</code></pre><p id="8131aafe-4504-46ce-ac16-53401009acdd" class="">This output shows not only that <code>2.7.15</code>, <code>3.6.8</code>, <code>3.8-dev</code>, and your <code>system</code> Python are installed, but also shows you that the <code>system</code> Python is active. If you only care about the current active version, you can use the following command:</p><pre id="d34ea47e-0462-429d-97e8-78b033333d64" class="code"><code>$ pyenv version
+system (set by /home/realpython/.pyenv/version)</code></pre><p id="3a1acbea-1457-4ba0-92b7-2e189a75ba0b" class="">This command is similar to <code>versions</code> but only shows you the current active Python version.</p><h3 id="9f7e0688-37ab-4f65-adff-84a6babb560a" class=""><code>which</code></h3><p id="a95822d1-2286-4812-8df4-1adfb27b1528" class="">The <code>which</code> command is helpful for determining the full path to a system executable. Because <code>pyenv</code> works by using shims, this command allows you to see the full path to the executable <code>pyenv</code> is running. For example, if you wanted to see where <code>pip</code> is installed, you could run this:</p><pre id="73d5c2fa-12ec-4a98-8b4b-aad59a098572" class="code"><code>$ pyenv which pip
+/home/realpython/.pyenv/versions/3.6.8/bin/pip</code></pre><p id="c6ce9d37-220d-4f52-9ae5-7797b20d3a80" class="">The output displays the full system path for <code>pip</code>. This can be helpful when you’ve installed command-line applications.</p><h3 id="0ce2539b-096b-4b47-9bbb-d5896e7d8013" class=""><code>global</code></h3><p id="a6f72552-847a-4c84-ae27-47098f86947f" class="">The <code>global</code> command sets the global Python version. This can be overridden with other commands, but is useful for ensuring you use a particular Python version by default. If you wanted to use <code>3.6.8</code> by default, then you could run this:</p><p id="3fa48911-80a8-4116-be74-93ecfdfcf29c" class="">This command sets the <code>~/.pyenv/version</code> to <code>3.6.8</code>. For more information, see the section on <a href="https://realpython.com/#specifying-your-python-version">specifying your Python version</a>.</p><h3 id="75354bcd-ddd7-4e7c-8e03-963dcc09e74e" class=""><code>local</code></h3><p id="3457b903-9254-47a3-a456-a1d85f4befdc" class="">The <code>local</code> command is often used to set an application-specific Python version. You could use it to set the version to <code>2.7.15</code>:</p><p id="5ef827c4-1d39-4037-99e2-af7e1317dbc4" class="">This command creates a <code>.python-version</code> file in your current directory. If you have <code>pyenv</code> active in your environment, this file will automatically activate this version for you.</p><h3 id="fbabcc75-3a3b-4d02-9521-ea60d59ceadc" class=""><code>shell</code></h3><p id="12f14183-4f7c-4f7f-8e41-a2e1328250ee" class="">The <code>shell</code> command is used to set a shell-specific Python version. For example, if you wanted to test out the <code>3.8-dev</code> version of Python, you can do this:</p><p id="da5f1856-fc22-4115-ad81-b1a89d792008" class="">This command activates the version specified by setting the <code>PYENV_VERSION</code> environment variable. This command overwrites any applications or global settings you may have. If you want to deactivate the version, you can use the <code>\--unset</code> flag.</p><h2 id="f7be1a41-865f-410c-8eff-16f3a92219da" class="">Specifying Your Python Version</h2><p id="237f82e9-61f1-4cc8-9485-8557ceb4371f" class="">One of the more confusing parts of <code>pyenv</code> is how exactly the <code>python</code> command gets resolved and what commands can be used to modify it. As mentioned in the commands, there are 3 ways to modify which version of <code>python</code> you’re using. So how do all these commands interact with one another? The resolution order looks a little something like this:</p><figure id="b595d09b-ec05-48f1-b816-8da090e48479" class="image"><a href="https://files.realpython.com/media/pyenv-pyramid.d2f35a19ded9.png"><img style="width:432px" src="https://files.realpython.com/media/pyenv-pyramid.d2f35a19ded9.png"/></a></figure><p id="5f46ee23-cf78-4f33-8833-83bd2d56b0d9" class="">Pyenv pyramid for order of resolution</p><p id="89f5904b-f6ee-412a-98b7-ce26487a0c61" class="">This pyramid is meant to be read from top to bottom. The first of these options that <code>pyenv</code> can find is the option it will use. Let’s see a quick example:</p><pre id="a8a6d1cc-7faf-47d5-9a6d-f1b8a966c3d3" class="code"><code>$ pyenv versions
+* system (set by /home/realpython/.pyenv/version)
+  2.7.15
+  3.6.8
+  3.8-dev</code></pre><p id="74ec6e91-cb48-46b4-898c-eaea65474007" class="">Here, your <code>system</code> Python is being used as denoted by the <code>*</code>. To exercise the next most global setting, you use <code>global</code>:</p><pre id="b37fce87-1354-4373-b6b0-927f34f0ee9e" class="code"><code>$ pyenv global 3.6.8
+$ pyenv versions
+  system
+  2.7.15
+* 3.6.8 (set by /home/realpython/.pyenv/version)
+  3.8-dev</code></pre><p id="ad0dfad0-3666-423f-9069-1f956ba7e212" class="">You can see that now <code>pyenv</code> wants to use <code>3.6.8</code> as our Python version. It even indicates the location of the file it found. That file does indeed exist, and you can list its contents:</p><pre id="5010b678-c730-4ef8-a20c-13ad6c389aa9" class="code"><code>$ cat ~/.pyenv/version
+3.6.8</code></pre><p id="a83cd414-ebfd-4977-b811-b75d1d65e23e" class="">Now, let’s create a <code>.python-version</code> file with <code>local</code>:</p><pre id="10c6db35-74b2-439e-9e44-331147a87a23" class="code"><code>$ pyenv local 2.7.15
+$ pyenv versions
+  system
+* 2.7.15 (set by /home/realpython/.python-version)
+  3.6.8
+  3.8-dev
+$ ls -a
+.  ..  .python-version
+$ cat .python-version
+2.7.15</code></pre><p id="584c36a1-4aee-407e-b94b-48ef39f2606d" class="">Here again, <code>pyenv</code> indicates how it would resolve our <code>python</code> command. This time it comes from <code>~/.python-version</code>. Note that the searching for <code>.python-version</code> is recursive:</p><pre id="4a4383a9-5be4-46dc-8c4e-7eeaa91670b5" class="code"><code>$ mkdir subdirectory
+$ cd subdirectory
+$ ls -la # Notice no .python-version file
+. ..
+$ pyenv versions
+  system
+* 2.7.15 (set by /home/realpython/.python-version)
+  3.6.8
+  3.8-dev</code></pre><p id="de09ba96-9676-4a3e-b580-a5e2c0c5a3e7" class="">Even though there isn’t a <code>.python-version</code> in <code>subdirectory</code>, the version is still set to <code>2.7.15</code> because <code>.python-version</code> exists in a parent directory.</p><p id="317034b2-fdae-4534-a7a8-4b0c698b2618" class="">Finally, you can set the Python version with <code>shell</code>:</p><pre id="46481cf0-d34e-453c-99dc-592590dc27d2" class="code"><code>$ pyenv shell 3.8-dev
+$ pyenv versions
+  system
+  2.7.15
+  3.6.8
+* 3.8-dev (set by PYENV_VERSION environment variable)</code></pre><p id="9aca875d-2839-432c-af40-3e550e6651f0" class="">All this did is set the <code>$PYENV_VERSION</code> environment variable:</p><pre id="d82247dd-e5d4-40fc-b3f4-06acebac6ecc" class="code"><code>$ echo $PYENV_VERSION
+3.8-dev</code></pre><p id="b043fa2c-0bce-43a8-8c4a-02c5bc86bf7d" class="">If you’re feeling overwhelmed by the options, the section on <a href="https://realpython.com/#working-with-multiple-environments">working with multiple environments</a> goes over an opinionated process for managing these files, mostly using <code>local</code>.</p><h2 id="7b2f8fc3-0055-460f-b7f9-81b85adb0400" class="">Virtual Environments and <code>pyenv</code></h2><p id="1387c2c7-17f5-4204-8ab0-d92b42876e31" class="">Virtual environments are a big part of managing Python installations and applications. If you haven’t heard of virtual environments before, you can check out <a href="https://realpython.com/python-virtual-environments-a-primer/">Python Virtual Environments: A Primer</a>.</p><p id="73a3ed92-4e18-4a18-89d3-76be9f1c687c" class="">Virtual environments and <code>pyenv</code> are a match made in heaven. <code>pyenv</code> has a wonderful plugin called <a href="https://github.com/pyenv/pyenv-virtualenv"><code>pyenv-virtualenv</code></a> that makes working with multiple Python version <em>and</em> multiple virtual environments a breeze. If you’re wondering what the difference is between <code>pyenv</code>, <code>pyenv-virtualenv</code>, and tools like <code>virtualenv</code> or <code>venv</code>, then don’t worry. You’re not alone.</p><p id="3d781617-3cd1-4ba1-9e77-ef63ea222d92" class="">Here’s what you need to know:</p><ul id="a0f14a52-21c3-4d1f-ad9b-95bfc2302069" class="bulleted-list"><li><strong>pyenv</strong> manages multiple versions of Python itself.</li></ul><ul id="822d1661-cfc3-4873-a8a5-e46aeb530ab8" class="bulleted-list"><li><strong>virtualenv/venv</strong> manages virtual environments for a specific Python version.</li></ul><ul id="98c066db-d105-4b7b-8ff0-d611a988c666" class="bulleted-list"><li><strong>pyenv-virtualenv</strong> manages virtual environments for across varying versions of Python.</li></ul><p id="6d81f57a-b593-491f-808f-961ff6a73d04" class="">If you’re a die-hard <code>virtualenv</code> or <code>venv</code> user, don’t worry: <code>pyenv</code> plays nicely with either. In fact, you can keep the same workflow you’ve had if you’d prefer, though I think <code>pyenv-virtualenv</code> makes for a nicer experience when you’re switching between multiple environments that require different Python versions.</p><p id="6faa8750-9653-4e0e-8147-ab064699f0c8" class="">The good news is that since you used the <code>pyenv-installer</code> script to install <code>pyenv</code>, you already have <code>pyenv-virtualenv</code> installed and ready to go.</p><h3 id="2d2fdf1b-729d-4019-ab28-5bf470990c64" class="">Creating Virtual Environments</h3><p id="5d686f1c-2655-4bb5-bed6-738a458ea081" class="">Creating a virtual environment is a single command:</p><pre id="723081ef-8a6d-4d0f-ab8f-63821517462f" class="code"><code>$ pyenv virtualenv</code></pre><p id="06e80ad6-58db-4f28-8463-26e3045ebb3b" class="">Technically, the `` is optional, but you should consider always specifying it so that you’re certain of what Python version you’re using.</p><p id="1c9a333b-f93f-461d-abd5-d8c75e994af6" class="">The `<code>is just a name for you to help keep your environments separate. A good practice is to name your environments the same name as your project. For example, if you were working on</code>myproject` and wanted to develop against Python 3.6.8, you would run this:</p><pre id="54bfbaa9-1fee-410f-a285-94bb12569201" class="code"><code>$ pyenv virtualenv 3.6.8 myproject</code></pre><p id="f4dfe311-00fb-4d3e-96d6-4a201a6b34e6" class="">The output includes messages that show a couple of extra Python packages getting installed, namely <code>wheel</code>, <code>pip</code>, and <code>setuptools</code>. This is strictly for convenience and just sets up a more full featured environment for each of your virtual environments.</p><h3 id="a9ab4e63-4b44-4a86-92f7-e7f18b54fc90" class="">Activating Your Versions</h3><p id="c0ee1669-1042-4937-bfa8-106a4b57d32d" class="">Now that you’ve created your virtual environment, using it is the next step. Normally, you should activate your environments by running the following:</p><p id="991eb0f3-539d-4074-9294-fe372d4dd4c5" class="">You’ve seen the <code>pyenv local</code> command before, but this time, instead of specifying a Python version, you specify an environment. This creates a <code>.python-version</code> file in your current working directory and because you ran <code>eval &quot;$(pyenv virtualenv-init -)&quot;</code> in your environment, the environment will automatically be activated.</p><p id="98de2c6b-9a62-4b39-bb35-328d4efe9842" class="">You can verify this by running the following:</p><pre id="8d43ad66-2966-426b-b67b-a17af1ea7223" class="code"><code>$ pyenv which python
+/home/realpython/.pyenv/versions/myproject/bin/python</code></pre><p id="376fafe1-d101-45f0-a414-95448d81540b" class="">You can see a new version has been created called <code>myproject</code> and the <code>python</code> executable is pointing to that version. If you look at any executable this environment provides, you will see the same thing. Take, for example, <code>pip</code>:</p><pre id="2c13b68f-590e-4814-8960-8876eff13fc6" class="code"><code>$ pyenv which pip
+/home/realpython/.pyenv/versions/myproject/bin/pip</code></pre><p id="b5bb8594-460a-4ccb-ac59-bd98f3968da8" class="">If you did not configure <code>eval &quot;$(pyenv virtualenv-init -)&quot;</code> to run in your shell, you can manually activate/deactivate your Python versions with this:</p><pre id="b9d055d5-d101-49e4-8738-8d90e6a56c5a" class="code"><code>$ pyenv activate 
+$ pyenv deactivate</code></pre><p id="ce9cab8f-4143-40c6-acb8-8473d934c766" class="">The above is what <code>pyenv-virtualenv</code> is doing when it enters or exits a directory with a <code>.python-version</code> file in it.</p><h2 id="ceadc5e9-e5e0-46ad-a05a-3e45a4b198b9" class="">Working With Multiple Environments</h2><p id="469afcd3-047c-48fd-a1d7-130eed751bbf" class="">Putting everything you’ve learned together, you can work effectively with multiple environments. Let’s assume you have the following versions installed:</p><pre id="30b5f486-8f4b-470b-a607-f28e8a2d0467" class="code"><code>$ pyenv versions
+* system (set by /home/realpython/.pyenv/version)
+  2.7.15
+  3.6.8
+  3.8-dev</code></pre><p id="0db01e67-8259-4b2d-9184-647622d69c88" class="">Now you want to work on two different, aptly named, projects:</p><ol id="ee74d39c-2a90-4e11-b6bf-908f647a0022" class="numbered-list" start="1"><li><strong>project1</strong> supports Python 2.7 and 3.6.</li></ol><ol id="d92f6307-38c2-4790-8a9b-60ac6121578f" class="numbered-list" start="2"><li><strong>project2</strong> supports Python 3.6 and experiments with 3.8-dev.</li></ol><p id="15d3fd72-0224-4dbd-ac33-bb9565810423" class="">You can see that, by default, you are using the system Python, which is indicated by the <code>*</code> in the <code>pyenv versions</code> output. First, create a virtual environment for the first project:</p><pre id="6dba2f7d-35b4-4e1d-9bb8-1fc468ca1373" class="code"><code>$ cd project1/
+$ pyenv which python
+/usr/bin/python
+$ pyenv virtualenv 3.6.8 project1
+...
+$ pyenv local project1
+$ python -V
+/home/realpython/.pyenv/versions/project1/bin/python</code></pre><p id="72bb9c5e-b662-4cc5-9953-9537749bca2b" class="">Finally, notice that when you <code>cd</code> out of the directory, you default back to the system Python:</p><pre id="520a86cd-7235-4242-a18e-6e352a573630" class="code"><code>$ cd $HOME
+$ pyenv which python
+/usr/bin/python</code></pre><p id="723e4e8b-a95f-48e5-be47-940a24e5b15f" class="">You can follow the above steps and create a virtual environment for project2:</p><pre id="c64f0359-3ac5-4058-8156-83a1de7b1002" class="code"><code>$ cd project2/
+$ pyenv which python
+/usr/bin/python
+$ pyenv virtualenv 3.8-dev project2
+...
+$ pyenv local 3.8-dev
+$ pyenv which python
+/home/realpython/.pyenv/versions/3.8-dev/bin/python</code></pre><p id="a56974aa-5009-4744-93ea-cdd010cb7878" class="">These are one time steps for your projects. Now, as you <code>cd</code> between the projects, your environments will automatically activate:</p><pre id="29713a32-7d84-4d89-a5a7-bfdf82521bae" class="code"><code>$ cd project2/
+$ python -V
+Python 3.8.0a0
+$ cd ../project1
+$ python -V
+Python 3.6.8</code></pre><p id="c3f960de-d3f4-4bbe-918d-362930d769d4" class="">No more remembering to activate environments: you can switch between all your projects, and <code>pyenv</code> will take care of automatically activating the correct Python versions <em>and</em> the correct virtual environments.</p><h2 id="1738dd62-df1d-4aac-b77b-a91dc771ea69" class="">Activating Multiple Versions Simultaneously</h2><p id="66f7b36d-0aa6-486c-8b66-17091f508535" class="">As described in the example above, <code>project2</code> uses experimental features in 3.8. Suppose you wanted to ensure that your code still works on Python 3.6. If you try running <code>python3.6</code>, you’ll get this:</p><pre id="b03d6ce2-a071-4d14-8bca-b17633d1c43d" class="code"><code>$ cd project2/
+$ python3.6 -V
+pyenv: python3.6: command not found
+
+The `python3.6&#x27; command exists in these Python versions:
+  3.6.8
+  3.6.8/envs/project1
+  project1</code></pre><p id="fb9c566a-4caf-4195-b874-45b6d8aeb0ee" class=""><code>pyenv</code> informs you that, while Python 3.6 is not available in the current active environment, it is available in other environments. <code>pyenv</code> gives you a way to activate multiple environments at once using a familiar command:</p><pre id="a99af89c-3a1a-4c85-b3e6-5f1b23bc0376" class="code"><code>$ pyenv local project2 3.6.8</code></pre><p id="7cbaa6f4-2b87-4060-ac0e-90e8ae9a1414" class="">This indicates to <code>pyenv</code> that you would like to use the virtual environment <code>project2</code> as the first option. So if a command, for example <code>python</code>, can be resolved in both environments, it will pick <code>project2</code> before <code>3.6.8</code>. Let’s see what happens if you run this:</p><pre id="2cc19fd2-8e29-43f8-93e5-66833bf63b5c" class="code"><code>$ python3.6 -V
+Python 3.6.8</code></pre><p id="a1f9e2ce-5f4d-4694-8c81-61a1d65a0acc" class="">Here, <code>pyenv</code> attempts to find the <code>python3.6</code> command, and because it finds it in an environment that is active, it allows the command to execute. This is extremely useful for tools like <a href="https://tox.readthedocs.io/en/latest/">tox</a> that require multiple versions of Python to be available on your <code>PATH</code> in order to execute.</p><p id="8520d4bb-d3f4-4c40-9148-2c45d83691f2" class=""><strong>Pro Tip:</strong> If you’re using tox and <code>pyenv</code>, you should checkout the <a href="https://pypi.org/project/tox-pyenv/">tox-pyenv</a> package.</p><p id="fdfe8b93-6752-43f4-a7d2-125a9ed3a377" class="">Suppose that in the above example, you’ve found a compatibility problem with your library and would like to do some local testing. The testing requires that you install all the dependencies. You should follow the steps to create a new environment:</p><pre id="5f7917b9-ce9b-461e-b50e-be6856f507d8" class="code"><code>$ pyenv virtualenv 3.6.8 project2-tmp
+$ pyenv local project2-tmp</code></pre><p id="d1d95d5c-39f7-4836-9345-35d90925b09f" class="">Once you’re satisfied with your local testing, you can easily switch back to your default environment:</p><pre id="941f9df9-7513-4723-8a1d-3ee0466f697e" class="code"><code>$ pyenv local project2 3.6.8</code></pre><h2 id="ab37d75f-ed05-47bd-9e55-cec2f4b0bdf6" class="">Conclusion</h2><p id="0063c20f-1b02-42b9-ad04-dea8d7a6183f" class="">You can now more easily contribute to a project that wants to support multiple environments. You can also more easily test out the latest and greatest Python versions without having to worry about messing up your development machine, all with a wonderful tool: <code>pyenv</code>.</p><p id="d64df2ba-26a5-453b-82f1-ca0178abf590" class="">You’ve seen how <code>pyenv</code> can help you:</p><ul id="507b2a0a-5c3c-4b27-982e-fafa4e41d534" class="bulleted-list"><li>Install multiple versions of Python</li></ul><ul id="50451436-e6f0-4198-88d6-e49bcda9a440" class="bulleted-list"><li>Switch between the installed versions</li></ul><ul id="88918229-cf3a-49d8-a0d2-fcce5d799b87" class="bulleted-list"><li>Use virtual environments with <code>pyenv</code></li></ul><ul id="bf39d72c-da58-4649-8ddd-02788c9ccb3d" class="bulleted-list"><li>Activate different Python versions and virtual environments automatically</li></ul><p id="6dec6f0e-f7cb-4819-9ead-b3d9f7f95363" class="">If you still have questions, feel free to reach out either in the comments section or on Twitter. Additionally, the <a href="https://github.com/pyenv/pyenv">pyenv documentation</a> is a great resource.</p><h2 id="2a8d7a02-6928-4bdb-b148-5172b74779c4" class="">Bonus: Displaying Your Environment Name in Your Command Prompt</h2><p id="3188d252-0a5c-43b1-9954-533a64dafa9b" class="">If you’re like me and constantly switching between various virtual environments and Python versions, it’s easy to get confused about which version is currently active. I use <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> and the <a href="https://github.com/agnoster/agnoster-zsh-theme">agnoster theme</a>, which by default makes my prompt look like this:</p><figure id="0a30383c-a2a8-4bb4-a643-fadd526031a3" class="image"><a href="https://files.realpython.com/media/agnoster-no-pyenv-prompt.01f0966b78d7.png"><img style="width:864px" src="https://files.realpython.com/media/agnoster-no-pyenv-prompt.01f0966b78d7.png"/></a></figure><p id="e4e892f8-e266-4f12-b5fc-cfc2f4afc376" class="">Agnoster theme with no pyenv prompt</p><p id="9ad07775-4f77-4c73-8fd5-d4c52b1e9beb" class="">At a glance, I don’t know which Python version is active. To figure it out, I would have to run <code>python -V</code> or <code>pyenv version</code>. To help reduce my time spent on figuring out my active Python environment, I add the <code>pyenv</code> virtual environment I’m using to my prompt:</p><figure id="2722e411-12cf-4e45-b3b4-6e212140b5b2" class="image"><a href="https://files.realpython.com/media/ljones-agnoster-pyenv-prompt.0b24a4a8f077.png"><img style="width:864px" src="https://files.realpython.com/media/ljones-agnoster-pyenv-prompt.0b24a4a8f077.png"/></a></figure><p id="6404a0d4-be3a-4d2c-9c35-5cd6157e68be" class="">Environment name being shown in ZSH command prompt</p><p id="4610366a-cdb4-4046-aabf-5bb34f7f2aa2" class="">My Python version in this case is <code>project1-venv</code> and is displayed immediately at the beginning of the prompt. This allows me to quickly see what version of Python I’m using right away. If you’d like to use this too, you can use my <a href="https://gist.github.com/loganasherjones/bd9b7614f80b96cf700fd60e9e256f41">agnoster-pyenv theme</a>.</p><p id="fa23f9f3-024d-4dc4-a13b-a51d2ff1d9d4" class="">
+</p></div></article></body></html>

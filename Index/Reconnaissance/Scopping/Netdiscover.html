@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Netdiscover</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,73 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
+</style></head><body><article id="8ad9d8cf-218d-4ed6-8f3d-9ed799091178" class="page sans"><header><h1 class="page-title">Netdiscover</h1></header><div class="page-body"><hr id="ece0b9f8-2bc6-48f9-a240-c9c34b0f3e71"/><p id="81939383-d17e-402b-af44-bfab411c76f0" class=""><a href="https://github.com/alexxy/netdiscover">https://github.com/alexxy/netdiscover</a></p><h2 id="d804a7d4-e15a-477f-9571-825e39ae90e3" class="">Usage</h2><p id="24f54fc8-7ee3-4806-b13a-019ee6defc2c" class="">
+</p><p id="04fd3299-a27a-46f6-b2af-aa9796c4c08a" class="">Screen Keys:
+</p><pre id="27a38a63-bbce-49ad-8a8b-1cbfe4554975" class="code"><code>	- k/j (or up/down arrow keys) scroll up/down
+	- q quit</code></pre><pre id="80eae25a-f591-429c-9cb5-0572a9f1fddc" class="code"><code>
+Usage: ./netdiscover [-i device] [-r range | -p] [-s time] [-n node] [-c count] [-f] [-S]</code></pre><pre id="4e067c48-a796-455b-9730-5124bda6f0f7" class="code"><code>  -i device
+    The network device to sniff at and inject packets. If no device was
+    specified, first available will be used.
+
+  -r range
+    Scan a given range instead of auto scan. Valid range values are:
+    192.168.0.0/24, 192.168.0.0/16 or 192.168.0.0/8
+
+  -p
+    Enable passive mode do not send anything, only sniff
+
+  -s time
+    It will sleep given time in milliseconds between each arp request
+    injection. (default 1)
+
+  -c count
+    Number of times to send each arp reques. Usefull for networks with
+    packet loss, so it will scan given times for each host.
+
+  -n node
+    Last ip octet used for scanning as source host, you can change it
+    if the default host is already used (from 2 to 253) (default 66)
+
+  -S
+    Enable sleep time supression betwen each request. I will sleep each 255
+    scanned hosts instead of do it by each one, this mode was used on 0.3 beta4
+    and older releases. Avoid this option on networks with packet lossing,
+    or in wireless networks with low signal level. (also called hardcore mode)
+
+  -f
+    Enable fastmode scan, it will only scan for hosts .1, .100, .254 on each
+    network, usefull when searching for addresses being used, after find one
+    you can make a specific range scan to see online boxes.
+    Scanned hosts can be easily modified at fast_ips[] array on main.c source.
+
+If -p or -r options are not used, netdiscover will automatically scan for common
+lan addresses. Those address lists can be modified at common_net[] on main.c</code></pre><p id="e59432ca-0eaa-4374-9988-e2f1fb52f0e7" class="">
+</p><pre id="ba19cf2e-30ca-4f8f-992b-34cc91f488ab" class="code"><code>
+
+Examples
+========
+
+Scan common lan addresses on eth0
+# netdiscover -i eth0
+
+Fast scan common lan addresses on eth0 (search only for gateways)
+# netdiscover -i eth0 -f
+
+Scan some fixed ranges
+# netdiscover -i eth0 172.26.0.0/24
+# netdiscover -i eth0 192.168.0.0/16
+# netdiscover -i eth0 10.0.0.0/8
+
+Scan common lan addresses with sleep time 0.5 instead of default 1
+# netdiscover -i eth0 -s 0.5
+
+Scan fixed range on fast mode with sleep time 0.5 instead of default 1
+# netdiscover -i eth0 192.168.0.0/16 -f -s 0.5
+
+Only sniff for arp traffic, dont send nothing
+# netdiscover -i eth0 -p
+
+Scan for common lan addresses using old hardcore mode (much more faster, but
+avoid it on networks with bad link)
+# netdiscover -i eth0 -S</code></pre><p id="fddde979-4663-40f9-9265-9eaafec65c1b" class="">
 </p></div></article></body></html>

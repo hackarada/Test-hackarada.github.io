@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Windows Misc</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,17 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
-</p></div></article></body></html>
+</style></head><body><article id="c66a901f-f90a-4f6b-a66a-9729d02582d9" class="page sans"><header><h1 class="page-title">Windows Misc</h1></header><div class="page-body"><p id="cdc0bdd4-35df-4bb4-8eee-cb9e043ea9dd" class="">
+</p><h2 id="ca3fbc27-e7cb-484f-a5a6-6c963d786fb0" class="">Windows Terminal </h2><p id="06d656b0-0b71-43a2-b11e-4987ffb91f1d" class="">split-panes</p><p id="816521bf-fb1d-42cf-87bb-8d400f979b72" class=""> Alt+Shift+-, Alt+Shift+= will split horizontally and vertically. Users can now also reorder tabs to shift around various command-line tools.</p><p id="e46abe0f-625d-4fd2-9482-e12a9d1d2d67" class="">can be launched from a command prompt using the <code>wt</code> command or with </p><pre id="9601f735-cd2b-4a15-a353-91010bffaebd" class="code"><code>wt -d .
+//Opens the Terminal with the default profile in the current working directory.
+
+wt -d . ; new-tab -d C:\ pwsh.exe
+/* The first is running the default profile starting in the current working directory. The second is using the default profile with pwsh.exe as the &quot;commandline&quot; (instead of the default profile’s &quot;commandline&quot;) starting in the C:\ directory. */
+
+`wt -p &quot;Windows PowerShell&quot; -d . ; split-pane -V wsl.exe`
+
+/* Opens the Terminal with two panes, split vertically. The top pane is running the profile with the name “Windows Terminal” and the bottom pane is running the default profile using wsl.exe as the `&quot;commandline&quot;` (instead of the default profile’s `&quot;commandline&quot;`). */
+
+wt -d C:\Users\cinnamon\GitHub\WindowsTerminal ; split-pane -p &quot;Command Prompt&quot; ; split-pane -p &quot;Ubuntu&quot; -d \\wsl$\Ubuntu\home\cinnak -H  // My setup </code></pre><figure id="b1172d13-eff0-464a-aef7-d589399e59d3" class="image"><a href="https://devblogs.microsoft.com/commandline/wp-content/uploads/sites/33/2020/02/terminal-command-args.gif"><img style="width:576px" src="https://devblogs.microsoft.com/commandline/wp-content/uploads/sites/33/2020/02/terminal-command-args.gif"/></a></figure><p id="fa8f8226-454c-46e7-ac68-cbc5bd09c038" class="">
+</p><figure id="04799494-355a-4b7f-acba-d38a250659cb" class="link-to-page"><a href="Windows%20Misc/WSL.html">WSL</a></figure><p id="86cfd752-4fcc-40ef-9916-5d6142624181" class="">
+</p><figure id="3aedbc04-7283-4369-afe3-66a9995cd2d4" class="link-to-page"><a href="Windows%20Misc/Terminal.html">Terminal </a></figure></div></article></body></html>

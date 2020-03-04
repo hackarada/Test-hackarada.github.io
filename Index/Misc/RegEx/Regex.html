@@ -1,0 +1,567 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Regex</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f9b6c6e4-7b81-4065-a264-116fd6eb40d5" class="page sans"><header><h1 class="page-title">Regex</h1></header><div class="page-body"><p id="78cb22e1-5db4-4aa6-9c66-5f15d3e1ae8f" class="">
+</p><h2 id="3337dc05-7519-4eba-8847-a0cdc6be49c0" class="">What is Regular Expression?</h2><blockquote id="608023d1-ed9c-4132-a08f-db528e15b930" class="">Regular expression is a group of characters or symbols which is used to find a specific pattern from a text.</blockquote><p id="0aad9b34-d23b-428a-9980-8cd3a1c396da" class="">A regular expression is a pattern that is matched against a subject string from left to right. Regular expression is used for replacing a text within a string, validating form, extract a substring from a string based upon a pattern match, and so much more. The word “Regular expression” is a mouthful, so you will usually find the term abbreviated as “regex” or “regexp”.</p><p id="9b50b909-233e-45a5-b2ed-a2f43828c543" class="">Imagine you are writing an application and you want to set the rules for when a user chooses their username. We want to allow the username to contain letters, numbers, underscores and hyphens. We also want to limit the number of characters in username so it does not look ugly. We use the following regular expression to validate a username:</p><p id="9cc38d84-b475-490d-af8e-1f7b59473172" class="">Above regular expression can accept the strings <code>john_doe</code>, <code>jo-hn_doe</code> and <code>john12_as</code>. It does not match <code>Jo</code> because that string contains uppercase letter and also it is too short.</p><h2 id="4f088314-7c08-4c36-b782-60153dc8c73e" class="">1. Basic Matchers</h2><p id="fca86054-9bf6-4bc6-b5e3-5ebd70118ca4" class="">A regular expression is just a pattern of characters that we use to perform search in a text. For example, the regular expression <code>the</code> means: the letter <code>t</code>, followed by the letter <code>h</code>, followed by the letter <code>e</code>.</p><pre id="889db13e-b70a-4848-ba7a-cadb2bdb734c" class="code"><code>the</code></pre><p id="a0b04e86-8e26-4885-a343-2092bb50cabd" class=""><a href="https://regex101.com/r/dmRygT/1">Test the regular expression</a></p><p id="315280c1-6c19-49f0-b8d8-a8c2d80ac5f6" class="">The regular expression <code>123</code> matches the string <code>123</code>. The regular expression is matched against an input string by comparing each character in the regular expression to each character in the input string, one after another. Regular expressions are normally case-sensitive so the regular expression <code>The</code> would not match the string <code>the</code>.</p><pre id="0c55c0df-6897-4ce6-902e-37df27c5c841" class="code"><code>The</code></pre><p id="fc28d423-ae02-4be3-aa5b-2c7db82b7f53" class=""><a href="https://regex101.com/r/1paXsy/1">Test the regular expression</a></p><h2 id="d96211da-fc08-4f0b-989c-2284ee2174cb" class="">2. Meta Characters</h2><p id="f073b947-3dcd-4a4a-af2b-54b31f18caf2" class="">Meta characters are the building blocks of the regular expressions. Meta characters do not stand for themselves but instead are interpreted in some special way. Some meta characters have a special meaning and are written inside square brackets. The meta characters are as follows:</p><div id="3032a3a4-b88e-441a-9889-980d961533a3" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th>Meta character</th><th>Description</th></tr></thead><tbody><tr id="1b0b4b6a-1e8a-4fff-bb71-010829139851"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled.html">.</a></td><td class="cell-i}/F">Period matches any single character except a line break.</td></tr><tr id="b0719533-ed2f-4d43-8834-b60bd5095b30"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%201.html">[ ]</a></td><td class="cell-i}/F">Character class. Matches any character contained between the square brackets.</td></tr><tr id="16992466-6644-442b-a58f-2d33a58c27ff"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%202.html">[^ ]</a></td><td class="cell-i}/F">Negated character class. Matches any character that is not contained between the square brackets</td></tr><tr id="6091e13a-61d0-4cf7-9dfb-0ab4cc1ed95c"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%203.html">*</a></td><td class="cell-i}/F">Matches 0 or more repetitions of the preceding symbol.</td></tr><tr id="b8ccc711-4e4b-4570-aba0-424a80535fa1"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%204.html">+</a></td><td class="cell-i}/F">Matches 1 or more repetitions of the preceding symbol.</td></tr><tr id="ed8a3ea0-207b-491c-9c00-0a3005b61bd1"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%205.html">?</a></td><td class="cell-i}/F">Makes the preceding symbol optional.</td></tr><tr id="f47109d1-f88c-4816-8b2e-2b74b60b0202"><td class="cell-title"><a href="Regex/Untitled%20Database/n%20m.html">{n,m}</a></td><td class="cell-i}/F">Braces. Matches at least “n” but not more than “m” repetitions of the preceding symbol.</td></tr><tr id="7749f463-0b5c-4404-bc99-c0832f718cae"><td class="cell-title"><a href="Regex/Untitled%20Database/xyz.html">(xyz)</a></td><td class="cell-i}/F">Character group. Matches the characters xyz in that exact order.</td></tr><tr id="00ee733f-ef4a-40e1-a1db-ec2ab84fa4e5"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%206.html">|</a></td><td class="cell-i}/F">Alternation. Matches either the characters before or the characters after the symbol.</td></tr><tr id="877d31fa-bf74-41b8-8ad5-be0ca62c41b3"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%207.html">\</a></td><td class="cell-i}/F">Escapes the next character. This allows you to match reserved characters [ ] ( ) { } . * + ? ^ $  |</td></tr><tr id="3c3b5519-d39b-46cf-a54a-730ebb006cc1"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%208.html">^</a></td><td class="cell-i}/F">Matches the beginning of the input.</td></tr><tr id="56d5f80b-d633-432d-97a8-262343300349"><td class="cell-title"><a href="Regex/Untitled%20Database/Untitled%209.html">$</a></td><td class="cell-i}/F">Matches the end of the input.</td></tr></tbody></table></div><h2 id="83e85dcc-891f-4846-9d3b-37e6dc75c0e5" class="">2.1 Full stop</h2><p id="61ee6965-aaa0-46c7-bbf2-1ec4d7923c66" class="">Full stop <code>.</code> is the simplest example of meta character. The meta character <code>.</code> matches any single character. It will not match return or newline characters. For example, the regular expression <code>.ar</code> means: any character, followed by the letter <code>a</code>, followed by the letter <code>r</code>.</p><pre id="12701f53-dd8a-479e-b5e0-b959007196bb" class="code"><code>carpargar</code></pre><p id="bfd3f90d-3508-40f5-af7f-aee5d73d09a0" class=""><a href="https://regex101.com/r/xc9GkU/1">Test the regular expression</a></p><h2 id="2dcbfcdb-9355-44c8-8f5f-24025431f1d0" class="">2.2 Character set</h2><p id="51eb09bc-8b6b-49d0-9cb6-935c4ceb363e" class="">Character sets are also called character class. Square brackets are used to specify character sets. Use a hyphen inside a character set to specify the characters’ range. The order of the character range inside square brackets doesn’t matter. For example, the regular expression <code>[Tt]he</code> means: an uppercase <code>T</code> or lowercase <code>t</code>, followed by the letter <code>h</code>, followed by the letter <code>e</code>.</p><pre id="f44587f7-f655-4263-8efd-0377d49fb0d2" class="code"><code>Thethe</code></pre><p id="97ad0adb-e1ab-496e-91b6-61c6addd75cb" class=""><a href="https://regex101.com/r/2ITLQ4/1">Test the regular expression</a></p><p id="05c0ddc1-609e-4abc-a287-ae7196cc3195" class="">A period inside a character set, however, means a literal period. The regular expression <code>ar[.]</code> means: a lowercase character <code>a</code>, followed by letter <code>r</code>, followed by a period <code>.</code> character.</p><pre id="3fde1d95-dc78-4082-8c4d-798a8df0dfd0" class="code"><code>ar.</code></pre><p id="74b4d189-fc15-4d3f-97ab-31467896fa7b" class=""><a href="https://regex101.com/r/wL3xtE/1">Test the regular expression</a></p><h3 id="0078e0f9-0fe9-49cf-a06f-f7024d410f70" class="">2.2.1 Negated character set</h3><p id="af0c9f5c-f8a9-4446-9678-be05b9e3f0e4" class="">In general, the caret symbol represents the start of the string, but when it is typed after the opening square bracket it negates the character set. For example, the regular expression <code>[^c]ar</code> means: any character except <code>c</code>, followed by the character <code>a</code>, followed by the letter <code>r</code>.</p><pre id="408e3977-2ec4-437f-9c31-cac5dde72294" class="code"><code>pargar</code></pre><p id="dfc67ca9-1172-42a5-9a39-7639cda6ebc3" class=""><a href="https://regex101.com/r/nNNlq3/1">Test the regular expression</a></p><h2 id="dfd0d04a-665f-4e82-8e1d-dc6c6bd4ff39" class="">2.3 Repetitions</h2><p id="fb404186-074e-463b-b438-7c255fac7b4c" class="">Following meta characters <code>+</code>, <code>*</code> or <code>?</code> are used to specify how many times a subpattern can occur. These meta characters act differently in different situations.</p><h3 id="9cb7906a-755c-4893-81fe-ff659677017c" class="">2.3.1 The Star</h3><p id="3e7dcff1-7f6a-44a5-aae1-7b642c3a07e7" class="">The symbol <code>*</code> matches zero or more repetitions of the preceding matcher. The regular expression <code>a*</code> means: zero or more repetitions of preceding lowercase character <code>a</code>. But if it appears after a character set or class then it finds the repetitions of the whole character set. For example, the regular expression <code>[a-z]*</code> means: any number of lowercase letters in a row.</p><pre id="ff651a28-0b9a-4742-94f2-c8ec7accdce9" class="code"><code>hecarparkedinthegarage</code></pre><p id="5a2bdf47-12bc-41ff-a726-a96cdeb6e325" class=""><a href="https://regex101.com/r/7m8me5/1">Test the regular expression</a></p><p id="e11fe785-0962-4d57-abea-2ce68b463db2" class="">The <code>*</code> symbol can be used with the meta character <code>.</code> to match any string of characters <code>.*</code>. The <code>*</code> symbol can be used with the whitespace character <code>\s</code> to match a string of whitespace characters. For example, the expression <code>\s*cat\s*</code> means: zero or more spaces, followed by lowercase character <code>c</code>, followed by lowercase character <code>a</code>, followed by lowercase character <code>t</code>, followed by zero or more spaces.</p><pre id="11e586f4-d6e8-4936-9da8-68f0b9e5af44" class="code"><code>catcat</code></pre><p id="bcde1b30-e6d1-44ac-88a0-0526796e9cb3" class=""><a href="https://regex101.com/r/gGrwuz/1">Test the regular expression</a></p><h3 id="ced5a584-f726-42db-b5e5-ff6c1897ed8e" class="">2.3.2 The Plus</h3><p id="29400eab-c607-4a35-b903-ade5b280cfbb" class="">The symbol <code>+</code> matches one or more repetitions of the preceding character. For example, the regular expression <code>c.+t</code> means: lowercase letter <code>c</code>, followed by at least one character, followed by the lowercase character <code>t</code>. It needs to be clarified that <code>t</code> is the last <code>t</code> in the sentence.</p><pre id="b0290ab9-9096-48c4-821a-fc6a8585b421" class="code"><code>cat sat on the mat</code></pre><p id="07b0c506-471c-4fe8-9fbc-89dad046bdff" class=""><a href="https://regex101.com/r/Dzf9Aa/1">Test the regular expression</a></p><h3 id="3ed4ea59-ec3a-4f0d-9163-dba38e5d8c6f" class="">2.3.3 The Question Mark</h3><p id="0e5be539-3f70-468f-8efc-3a46f3847f60" class="">In regular expression the meta character <code>?</code> makes the preceding character optional. This symbol matches zero or one instance of the preceding character. For example, the regular expression <code>[T]?he</code> means: Optional the uppercase letter <code>T</code>, followed by the lowercase character <code>h</code>, followed by the lowercase character <code>e</code>.</p><pre id="21490d76-6ad4-413f-b2db-6eb6ab42b1ef" class="code"><code>The</code></pre><p id="eb3c72e2-dbf5-490a-9eec-39f7670c128d" class=""><a href="https://regex101.com/r/cIg9zm/1">Test the regular expression</a></p><pre id="dff7051e-c936-4f4f-8db2-4d2e78da62a0" class="code"><code>Thehe</code></pre><p id="f6da0b07-0edb-4ee0-8fcf-86a390a04b68" class=""><a href="https://regex101.com/r/kPpO2x/1">Test the regular expression</a></p><h2 id="ad2884a0-8b5d-4516-9978-9bc4e1b4ea9c" class="">2.4 Braces</h2><p id="8ebda86b-93fe-4072-889b-3bddc0e80dcc" class="">In regular expression braces that are also called quantifiers are used to specify the number of times that a character or a group of characters can be repeated. For example, the regular expression <code>[0-9]{2,3}</code> means: Match at least 2 digits but not more than 3 (characters in the range of 0 to 9).</p><pre id="145d08c3-bc60-4cc9-87d9-2d85f1e85ecd" class="code"><code>99910</code></pre><p id="4aa1f2ee-79ba-41eb-81bb-3bd18f2c36f4" class=""><a href="https://regex101.com/r/juM86s/1">Test the regular expression</a></p><p id="525762ed-8980-4e78-aa22-caf052b301dd" class="">We can leave out the second number. For example, the regular expression <code>[0-9]{2,}</code> means: Match 2 or more digits. If we also remove the comma the regular expression <code>[0-9]{3}</code> means: Match exactly 3 digits.</p><pre id="efe8dbab-56b1-489f-baf0-893f3fec9b14" class="code"><code>999710</code></pre><p id="5d12d94c-d7fa-4f62-9ecc-e65e575d5194" class=""><a href="https://regex101.com/r/Gdy4w5/1">Test the regular expression</a></p><pre id="4b1fbc64-287b-43c7-acf9-94949aca8d43" class="code"><code>999</code></pre><p id="ee972e76-8b6b-45d9-a3c1-4f65b87efeaf" class=""><a href="https://regex101.com/r/Sivu30/1">Test the regular expression</a></p><h2 id="3a35a6c1-3c88-4e31-b04f-ccadace131eb" class="">2.5 Capturing Group</h2><p id="dca6d71d-8960-4523-b46c-dc0a1aac56e5" class="">A capturing group is a group of sub-patterns that is written inside Parentheses <code>(...)</code>. Like as we discussed before that in regular expression if we put a quantifier after a character then it will repeat the preceding character. But if we put quantifier after a capturing group then it repeats the whole capturing group. For example, the regular expression <code>(ab)*</code> matches zero or more repetitions of the character “ab”. We can also use the alternation <code>|</code> meta character inside capturing group. For example, the regular expression <code>(c|g|p)ar</code> means: lowercase character <code>c</code>, <code>g</code> or <code>p</code>, followed by character <code>a</code>, followed by character <code>r</code>.</p><pre id="288620d3-ace3-4c71-98ae-cd02e5ed1d67" class="code"><code>carpargar</code></pre><p id="94d88717-a680-4232-b8ae-d2929175490a" class=""><a href="https://regex101.com/r/tUxrBG/1">Test the regular expression</a></p><p id="5167d705-7a80-4ef9-ac5a-d8017ddf2922" class="">Note that capturing groups do not only match but also capture the characters for use in the parent language. The parent language could be python or javascript or virtually any language that implements regular expressions in a function definition.</p><h3 id="a9ad4be6-e06b-4af2-bca9-7de899a1f8a8" class="">2.5.1 Non-capturing group</h3><p id="e0664c2c-c408-4612-9df4-182aaa0842f1" class="">A non-capturing group is a capturing group that only matches the characters, but does not capture the group. A non-capturing group is denoted by a <code>?</code> followed by a <code>:</code> within parenthesis <code>(...)</code>. For example, the regular expression <code>(?:c|g|p)ar</code> is similar to <code>(c|g|p)ar</code> in that it matches the same characters but will not create a capture group.</p><pre id="120a7516-8a02-453d-a9b3-74f0f6399b2e" class="code"><code>carpargar</code></pre><p id="65eddc67-1e76-4a1f-8bb9-a0388d15d0a4" class=""><a href="https://regex101.com/r/Rm7Me8/1">Test the regular expression</a></p><p id="fb144cb7-b473-4ae0-935c-e7c3f105fd37" class="">Non-capturing groups can come in handy when used in find-and-replace functionality or when mixed with capturing groups to keep the overview when producing any other kind of output. See also <a href="about:blank#4-lookaround">4. Lookaround</a>.</p><h2 id="3add546b-86a5-46a3-8d54-0994a6b10b55" class="">2.6 Alternation</h2><p id="a4d66d91-9151-4a60-80fd-54ebea884082" class="">In a regular expression, the vertical bar <code>|</code> is used to define alternation. Alternation is like an OR statement between multiple expressions. Now, you may be thinking that character set and alternation works the same way. But the big difference between character set and alternation is that character set works on character level but alternation works on expression level. For example, the regular expression <code>(T|t)he|car</code> means: either (uppercase character <code>T</code> or lowercase <code>t</code>, followed by lowercase character <code>h</code>, followed by lowercase character <code>e</code>) OR (lowercase character <code>c</code>, followed by lowercase character <code>a</code>, followed by lowercase character <code>r</code>). Note that I put the parentheses for clarity, to show that either expression in parentheses can be met and it will match.</p><pre id="f99d4f7c-099a-4a65-a779-823a5ecbd8da" class="code"><code>Thecarthe</code></pre><p id="2d8dcf9f-e0ba-4bb0-b9c9-e28facc85926" class=""><a href="https://regex101.com/r/fBXyX0/1">Test the regular expression</a></p><h2 id="e4b79b58-cb5b-4354-ac38-b2633a78a2a4" class="">2.7 Escaping special character</h2><p id="8a1f5235-56e0-41df-a564-200d344e0701" class="">Backslash <code>\</code> is used in regular expression to escape the next character. This allows us to specify a symbol as a matching character including reserved characters <code>{ } / \ + * . $ ^ | ?</code>. To use a special character as a matching character prepend <code>\</code> before it.</p><p id="9c82bdee-5076-48d2-8357-5626fb0da5c2" class="">For example, the regular expression <code>.</code> is used to match any character except newline. Now to match <code>.</code> in an input string the regular expression <code>(f|c|m)at\.?</code> means: lowercase letter <code>f</code>, <code>c</code> or <code>m</code>, followed by lowercase character <code>a</code>, followed by lowercase letter <code>t</code>, followed by optional <code>.</code> character.</p><pre id="b578ee12-a766-44cf-b4d5-10b16317e4a7" class="code"><code>fatcatmat.</code></pre><p id="48bc953c-01a8-4d76-946e-3715b101fb02" class=""><a href="https://regex101.com/r/DOc5Nu/1">Test the regular expression</a></p><h2 id="10267f49-d7a3-4bd9-9895-53ce573fe606" class="">2.8 Anchors</h2><p id="3383e0a5-ab48-43ba-aa55-91c318559bce" class="">In regular expressions, we use anchors to check if the matching symbol is the starting symbol or ending symbol of the input string. Anchors are of two types: First type is Caret <code>^</code> that check if the matching character is the start character of the input and the second type is Dollar <code>$</code> that checks if matching character is the last character of the input string.</p><h3 id="2a3bf776-abe2-47de-aa1e-8d4721a4ca32" class="">2.8.1 Caret</h3><p id="6fcbba82-6b96-4dad-b497-bd05d1ad5b54" class="">Caret <code>^</code> symbol is used to check if matching character is the first character of the input string. If we apply the following regular expression <code>^a</code> (if a is the starting symbol) to input string <code>abc</code> it matches <code>a</code>. But if we apply regular expression <code>^b</code> on above input string it does not match anything. Because in input string <code>abc</code> “b” is not the starting symbol. Let’s take a look at another regular expression <code>^(T|t)he</code> which means: uppercase character <code>T</code> or lowercase character <code>t</code> is the start symbol of the input string, followed by lowercase character <code>h</code>, followed by lowercase character <code>e</code>.</p><pre id="4703fcf6-438a-40a3-a0ad-bed339daac6a" class="code"><code>Thethe</code></pre><p id="3e9cd2d1-f3db-4849-9247-1a6c6d4808ea" class=""><a href="https://regex101.com/r/5ljjgB/1">Test the regular expression</a></p><pre id="4732c8e5-884a-433a-9f5b-5cd1021d238e" class="code"><code>The</code></pre><p id="ffe7a0bd-60a3-47ef-9e77-985eed89ac30" class=""><a href="https://regex101.com/r/jXrKne/1">Test the regular expression</a></p><h3 id="149127e1-b7a4-48fe-b3bc-341354be0ecf" class="">2.8.2 Dollar</h3><p id="21489d9f-f0c1-447c-a547-621a6effe37f" class="">Dollar <code>$</code> symbol is used to check if matching character is the last character of the input string. For example, regular expression <code>(at\.)$</code> means: a lowercase character <code>a</code>, followed by lowercase character <code>t</code>, followed by a <code>.</code> character and the matcher must be end of the string.</p><pre id="e58fd424-ae01-40e8-8ad2-3b5d16251f63" class="code"><code>at.at.at.</code></pre><p id="1bc9f4ee-0549-4d3c-aa65-286fa05cc0a7" class=""><a href="https://regex101.com/r/y4Au4D/1">Test the regular expression</a></p><pre id="c80fe70e-f8a8-4c61-8192-4c07d83cc560" class="code"><code>at.</code></pre><p id="9a802a5c-c0e0-43d3-a77e-4e03bc440ff9" class=""><a href="https://regex101.com/r/t0AkOd/1">Test the regular expression</a></p><h2 id="206fed85-a7de-4214-952b-21b50bf0d39d" class="">3. Shorthand Character Sets</h2><p id="2bae76dc-29d9-4a96-9e1c-34627559af44" class="">Regular expression provides shorthands for the commonly used character sets, which offer convenient shorthands for commonly used regular expressions. The shorthand character sets are as follows:</p><div id="840a9dc7-cc85-4031-9ad6-e315dd77e18c" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th>Shorthand</th><th>Description</th></tr></thead><tbody><tr id="8a895b4c-65b0-4690-bdc7-da2b39dc7241"><td class="cell-title"><a href="Regex/Untitled%20Database%201/Untitled.html">.</a></td><td class="cell-u2\u">Any character except new line</td></tr><tr id="7f15c6d6-381a-48f3-96a2-3ddab0acb448"><td class="cell-title"><a href="Regex/Untitled%20Database%201/Untitled%201.html">Untitled</a></td><td class="cell-u2\u">Matches alphanumeric characters: [a-zA-Z0-9_]</td></tr><tr id="4347fbb1-b980-42b3-9ecd-a7750c3258b0"><td class="cell-title"><a href="Regex/Untitled%20Database%201/Untitled%202.html">Untitled</a></td><td class="cell-u2\u">Matches non-alphanumeric characters: [^\w]</td></tr><tr id="cf4b36a2-b594-48f6-b2ad-c12a46532846"><td class="cell-title"><a href="Regex/Untitled%20Database%201/Matches%20digit%200%209.html">Matches digit: [0-9]</a></td><td class="cell-u2\u"></td></tr><tr id="c5ea5dc9-1354-46ab-91fa-f2a29a1f8177"><td class="cell-title"><a href="Regex/Untitled%20Database%201/Untitled%203.html">Untitled</a></td><td class="cell-u2\u">Matches non-digit: [^\d]</td></tr><tr id="fe5678f1-14d4-4eee-a15b-837a23a6702d"><td class="cell-title"><a href="Regex/Untitled%20Database%201/Untitled%204.html">Untitled</a></td><td class="cell-u2\u">Matches whitespace character: [\t\n\f\r\p{Z}]</td></tr><tr id="e584e355-0fce-4948-bb64-19d2a94313d3"><td class="cell-title"><a href="Regex/Untitled%20Database%201/Untitled%205.html">Untitled</a></td><td class="cell-u2\u">Matches non-whitespace character: [^\s]</td></tr></tbody></table></div><h2 id="01340d70-0626-480e-a755-092eefd020ef" class="">4. Lookaround</h2><p id="9e39b68d-2a5c-4ecd-9ae5-b7fa73f854d9" class="">Lookbehind and lookahead (also called lookaround) are specific types of <em><strong>non-capturing groups</strong></em> (used to match the pattern but not included in matching list). Lookarounds are used when we have the condition that this pattern is preceded or followed by another certain pattern. For example, we want to get all numbers that are preceded by <code>$</code> character from the following input string <code>$4.44 and $10.88</code>. We will use following regular expression <code>(?&lt;=\$)[0-9\.]*</code> which means: get all the numbers which contain <code>.</code> character and are preceded by <code>$</code> character. Following are the lookarounds that are used in regular expressions:</p><div id="01a93e84-2870-4ae3-9df1-e9f15b340153" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th>Symbol</th><th>Description</th></tr></thead><tbody><tr id="6c5cf352-2d25-43d8-a8b4-00997355a9fa"><td class="cell-title"><a href="Regex/Untitled%20Database%202/Untitled.html">?=</a></td><td class="cell-18&quot;d">Positive Lookahead</td></tr><tr id="3150cf04-9c5b-45cf-9206-31d143d903d1"><td class="cell-title"><a href="Regex/Untitled%20Database%202/Untitled%201.html">?!</a></td><td class="cell-18&quot;d">Negative Lookahead</td></tr><tr id="5a83f029-b8f1-4651-abea-8fb87c72607d"><td class="cell-title"><a href="Regex/Untitled%20Database%202/Untitled%202.html">?&lt;=</a></td><td class="cell-18&quot;d">Positive Lookbehind</td></tr><tr id="3e4dd391-caa1-4c8c-bb98-858c3c832bdd"><td class="cell-title"><a href="Regex/Untitled%20Database%202/Untitled%203.html">?&lt;!</a></td><td class="cell-18&quot;d">Negative Lookbehind</td></tr></tbody></table></div><h3 id="e2da1cfa-9124-46ac-b55f-15d4e7ebd419" class="">4.1 Positive Lookahead</h3><p id="2812f7a8-7759-471c-9bd3-b0e412f72b4d" class="">The positive lookahead asserts that the first part of the expression must be followed by the lookahead expression. The returned match only contains the text that is matched by the first part of the expression. To define a positive lookahead, parentheses are used. Within those parentheses, a question mark with equal sign is used like this: <code>(?=...)</code>. Lookahead expression is written after the equal sign inside parentheses. For example, the regular expression <code>(T|t)he(?=\sfat)</code> means: optionally match lowercase letter <code>t</code> or uppercase letter <code>T</code>, followed by letter <code>h</code>, followed by letter <code>e</code>. In parentheses we define positive lookahead which tells regular expression engine to match <code>The</code> or <code>the</code> which are followed by the word <code>fat</code>.</p><pre id="47723968-2dcb-49a1-896b-19deb555fcf7" class="code"><code>The</code></pre><p id="82a386c2-6bba-426d-819e-6998ffe087d4" class=""><a href="https://regex101.com/r/IDDARt/1">Test the regular expression</a></p><h3 id="ff32c175-2648-44ef-9810-4fc476065835" class="">4.2 Negative Lookahead</h3><p id="2a39e9c6-3a40-481a-b62d-4c9bedf2482d" class="">Negative lookahead is used when we need to get all matches from input string that are not followed by a pattern. Negative lookahead is defined same as we define positive lookahead but the only difference is instead of equal <code>=</code> character we use negation <code>!</code> character i.e. <code>(?!...)</code>. Let’s take a look at the following regular expression <code>(T|t)he(?!\sfat)</code> which means: get all <code>The</code> or <code>the</code> words from input string that are not followed by the word <code>fat</code> precedes by a space character.</p><pre id="fae4ccaf-0439-413b-bc46-99c25695e74b" class="code"><code>the</code></pre><p id="86c23c37-a2bd-4b82-9d16-0c56893be842" class=""><a href="https://regex101.com/r/V32Npg/1">Test the regular expression</a></p><h3 id="4629cb4c-a777-464a-992f-1a65495f6509" class="">4.3 Positive Lookbehind</h3><p id="0118907f-e292-4b1a-8960-0c5aef575638" class="">Positive lookbehind is used to get all the matches that are preceded by a specific pattern. Positive lookbehind is denoted by <code>(?&lt;=...)</code>. For example, the regular expression <code>(?&lt;=(T|t)he\s)(fat|mat)</code> means: get all <code>fat</code> or <code>mat</code> words from input string that are after the word <code>The</code> or <code>the</code>.</p><pre id="42f832ac-fbf6-43e8-9ecf-e6943775a7ac" class="code"><code>fatmat</code></pre><p id="ba2d30a4-8ae5-4dbe-8171-ca5066ee6bea" class=""><a href="https://regex101.com/r/avH165/1">Test the regular expression</a></p><h3 id="e49cf3d6-856d-4040-a06d-7f511e8d42fb" class="">4.4 Negative Lookbehind</h3><p id="0093035a-7a0d-4c54-8e81-15461daa3338" class="">Negative lookbehind is used to get all the matches that are not preceded by a specific pattern. Negative lookbehind is denoted by <code>(?&lt;!...)</code>. For example, the regular expression <code>(?&lt;!(T|t)he\s)(cat)</code> means: get all <code>cat</code> words from input string that are not after the word <code>The</code> or <code>the</code>.</p><pre id="f5a0ffe4-20a3-4a92-ac1e-a98f713f2248" class="code"><code>cat</code></pre><p id="2b5d53e5-cd96-477b-8656-3e491caa0442" class=""><a href="https://regex101.com/r/8Efx5G/1">Test the regular expression</a></p><h2 id="e2c3992d-6117-4a45-8445-f6382793f952" class="">5. Flags</h2><p id="a28a36b9-b6bd-4cb9-8f5a-e9b590851e15" class="">Flags are also called modifiers because they modify the output of a regular expression. These flags can be used in any order or combination, and are an integral part of the RegExp.</p><div id="74a4e871-f585-4c65-b701-bdbb9abc6083" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th>Flag</th><th>Description</th></tr></thead><tbody><tr id="6feea24f-9777-415e-abcd-2c88012ebe49"><td class="cell-title"><a href="Regex/Untitled%20Database%203/i.html">i</a></td><td class="cell-X.aL">Case insensitive: Sets matching to be case-insensitive.</td></tr><tr id="aeef43e3-add2-46c4-8abb-a9846d4fef5a"><td class="cell-title"><a href="Regex/Untitled%20Database%203/g.html">g</a></td><td class="cell-X.aL">Global Search: Search for a pattern throughout the input string.</td></tr><tr id="c69a04a2-f709-4f4a-a13d-dc0bfe20fbe9"><td class="cell-title"><a href="Regex/Untitled%20Database%203/m.html">m</a></td><td class="cell-X.aL">Multiline: Anchor meta character works on each line.</td></tr></tbody></table></div><h3 id="73dcf5ed-9812-43d9-916b-f470373f4b94" class="">5.1 Case Insensitive</h3><p id="d60aba04-ae90-4578-8662-48aa0a44f7c9" class="">The <code>i</code> modifier is used to perform case-insensitive matching. For example, the regular expression <code>/The/gi</code> means: uppercase letter <code>T</code>, followed by lowercase character <code>h</code>, followed by character <code>e</code>. And at the end of regular expression the <code>i</code> flag tells the regular expression engine to ignore the case. As you can see we also provided <code>g</code> flag because we want to search for the pattern in the whole input string.</p><pre id="ce183f5d-9ef8-48ce-a4c3-1ffaae92115b" class="code"><code>The</code></pre><p id="c24ea4c5-ca2c-4364-afb9-0a5b61cb93bf" class=""><a href="https://regex101.com/r/dpQyf9/1">Test the regular expression</a></p><pre id="8e47576f-f4fe-4a87-87ef-724ac178843e" class="code"><code>Thethe</code></pre><p id="f00fa726-438a-4ea6-ba3a-ec262fea5fc9" class=""><a href="https://regex101.com/r/ahfiuh/1">Test the regular expression</a></p><h3 id="cc91890d-4bf4-4e65-9555-4f23ba1828f0" class="">5.2 Global search</h3><p id="1df1acee-8357-4038-a041-140b41210473" class="">The <code>g</code> modifier is used to perform a global match (find all matches rather than stopping after the first match). For example, the regular expression<code>/.(at)/g</code> means: any character except new line, followed by lowercase character <code>a</code>, followed by lowercase character <code>t</code>. Because we provided <code>g</code> flag at the end of the regular expression now it will find all matches in the input string, not just the first one (which is the default behavior).</p><pre id="21fc9c29-c467-4d31-8c46-7a0935017bb8" class="code"><code>fat</code></pre><p id="dc3ce302-fe8d-463d-97f4-db17b497036e" class=""><a href="https://regex101.com/r/jnk6gM/1">Test the regular expression</a></p><pre id="ca0cc364-8ba2-4c9e-becf-5a5881f32dbb" class="code"><code>fatcatsatmat</code></pre><p id="af4fa0d5-b13f-48fa-b89c-b75bd63bf827" class=""><a href="https://regex101.com/r/dO1nef/1">Test the regular expression</a></p><h3 id="6db3bda1-a43a-4a1d-b114-c13a34192797" class="">5.3 Multiline</h3><p id="f28531ba-19c5-4f7d-87d1-4e1646e7da7a" class="">The <code>m</code> modifier is used to perform a multi-line match. As we discussed earlier anchors <code>(^, $)</code> are used to check if pattern is the beginning of the input or end of the input string. But if we want that anchors works on each line we use <code>m</code> flag. For example, the regular expression <code>/at(.)?$/gm</code> means: lowercase character <code>a</code>, followed by lowercase character <code>t</code>, optionally anything except new line. And because of <code>m</code> flag now regular expression engine matches pattern at the end of each line in a string.</p><pre id="e608993a-0ef0-4d87-be93-a157ddef9680" class="code"><code>mat.</code></pre><p id="f6a95e49-ae4b-441e-8e37-8fa8f1880a6d" class=""><a href="https://regex101.com/r/hoGMkP/1">Test the regular expression</a></p><pre id="82e75ac1-a105-49a9-872c-1f938b8ded6e" class="code"><code>fatsatmat.</code></pre><p id="3e50a181-5eff-41c3-b392-41d5efdc2052" class=""><a href="https://regex101.com/r/E88WE2/1">Test the regular expression</a></p><h2 id="db7e011d-4a33-4d41-8ac1-a54a98b3ab33" class="">6. Greedy vs lazy matching</h2><p id="1c34d037-2894-471c-a8b9-e57e8794704d" class="">By default regex will do greedy matching which means it will match as long as possible. We can use <code>?</code> to match in lazy way which means as short as possible.</p><pre id="b8929d4e-73f3-4268-9020-6382c8803c98" class="code"><code>The fat cat sat on the mat</code></pre><p id="2a1d60ad-e64c-4582-9a2e-7049c7bfd960" class=""><a href="https://regex101.com/r/AyAdgJ/1">Test the regular expression</a></p><pre id="8a004dc1-acb6-4d3b-be62-d078b6d5f52f" class="code"><code>The fat</code></pre><p id="fa30b95b-4c30-4613-aa06-b80df87c22bf" class=""><a href="https://regex101.com/r/AyAdgJ/2">Test the regular expression</a></p><h2 id="3ebb1abc-c546-463d-87e0-999c0474af94" class="">Contribution</h2><ul id="9313c033-1969-45f0-bfd4-4a805c8517bf" class="bulleted-list"><li>Open pull request with improvements</li></ul><ul id="785aa76b-8b95-4d56-ba19-05de3529128f" class="bulleted-list"><li>Discuss ideas in issues</li></ul><ul id="c90c6da3-3399-4807-8652-26746a0b8748" class="bulleted-list"><li>Spread the word</li></ul><ul id="1182520f-86d8-49e0-bc9d-715667728e0c" class="bulleted-list"><li>Reach out with any feedback<figure id="dad92f11-914e-4635-bd31-d21db5819cfd" class="image"><a href="https://img.shields.io/twitter/url/https/twitter.com/ziishaned.svg?style=social&amp;label=Follow%20%40ziishaned"><img style="width:192px" src="https://img.shields.io/twitter/url/https/twitter.com/ziishaned.svg?style=social&amp;label=Follow%20%40ziishaned"/></a></figure></li></ul><h2 id="f269bced-3cc9-43e7-82bb-d2deacab89fa" class="">License</h2><p id="411e63df-9ce2-4275-ab3b-ba33c976006e" class="">MIT © <a href="https://twitter.com/ziishaned">Zeeshan Ahmad</a></p><p id="a192ca57-7841-4f86-9e43-28835ae327fe" class="">
+</p></div></article></body></html>

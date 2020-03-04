@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>TTY shell</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,11 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
+</style></head><body><article id="7a51bda0-6796-4b35-a756-d1a8809e4ea0" class="page sans"><header><h1 class="page-title">TTY shell</h1></header><div class="page-body"><hr id="c2c45be3-33c1-43b7-8182-1ef79811ca21"/><p id="d00119b4-ea23-4466-a179-99ff7d23ef37" class="">
+</p><p id="64f4ed46-14cf-4f83-9ea6-6d6e54380268" class="">Often during pen tests you may obtain a shell without having tty, yet wish to interact further with the system. Here are some commands which will allow you to spawn a tty shell. Obviously some of this will depend on the system environment and installed packages.Shell Spawning</p><pre id="ab7d38d8-a9ff-4316-ab36-60b166b12eaa" class="code"><code>python -c &#x27;import pty; pty.spawn(&quot;/bin/sh&quot;)&#x27;
+
+python3 -c &#x27;import pty; pty.spawn(&quot;/bin/sh&quot;)&#x27;</code></pre><pre id="e9cc52fa-fe1b-4a45-ae4b-eac24736b9a4" class="code"><code>echo os.system(&#x27;/bin/bash&#x27;)</code></pre><pre id="811c2786-8a59-428b-ba28-4a43993b8978" class="code"><code>/bin/sh -i</code></pre><pre id="6cdf1b5a-c212-4ece-acf2-1beacd9022bd" class="code"><code>perl —e &#x27;exec &quot;/bin/sh&quot;;&#x27;</code></pre><pre id="19cd7be7-ddc8-4726-a605-ea1de3597f48" class="code"><code>perl: 
+exec &quot;/bin/sh&quot;;</code></pre><pre id="510d79f1-2792-4670-9bd0-f5c7c6b597e2" class="code"><code>ruby:
+exec &quot;/bin/sh&quot;</code></pre><pre id="0eb575ae-968d-4a22-b363-99dd1e69426c" class="code"><code>lua: 
+os.execute(&#x27;/bin/sh&#x27;)</code></pre><pre id="9c20bb30-2c63-4af1-9237-6b1eb5e3b72a" class="code"><code>exec &quot;/bin/sh&quot;</code></pre><p id="ea8a49ce-bf81-4179-9c12-613e9f03491d" class="">• (From within IRB)</p><pre id="23fa5d12-e123-4f34-bb02-a8d1d34e01b1" class="code"><code>:!bash</code></pre><p id="762e4c1d-9e1d-49ff-84ad-d7aac81b7155" class="">• (From within vi)</p><pre id="becf3b39-6054-4d06-aca2-02d71301b111" class="code"><code>:set shell=/bin/bash:shell</code></pre><p id="e6b6098b-1f8c-4d77-be89-8a03bc94330b" class="">• (From within nmap)</p><pre id="1f3639a7-ab74-4c95-85ac-858b620dbf41" class="code"><code>!sh</code></pre><p id="a1abbbae-d5b6-46f3-9ac9-ad4bd9988067" class="">Many of these will also allow you to escape jail shells. The top 3 would be my most successful in general for spawning from the command line.Source</p><p id="e8315e72-0bb5-445a-83b2-c4ee2c062525" class=""><a href="https://netsec.ws/?p=337">https://netsec.ws/?p=337</a></p><p id="24165093-d917-435a-b212-f7da60a5de1a" class="">
 </p></div></article></body></html>

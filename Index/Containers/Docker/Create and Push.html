@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Create and Push</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,16 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
+</style></head><body><article id="dd1ded13-13ea-47ab-96b4-b295c85e03c2" class="page sans"><header><h1 class="page-title">Create and Push</h1></header><div class="page-body"><hr id="6d4aa7f9-55f3-4489-93ad-59be18c2d257"/><p id="a5260a0e-1efc-43ad-9508-5bdd41ec7597" class=""><a href="http://blog.shippable.com/build-a-docker-image-and-push-it-to-docker-hub">http://blog.shippable.com/build-a-docker-image-and-push-it-to-docker-hub</a></p><h1 id="451f1136-9888-4f68-94a8-662083fafeab" class=""><strong>Step-by-step instructions</strong></h1><p id="7f3889ae-0bad-4b49-9b22-dab31917401f" class="">Follow the steps below in order to build and push your Docker image.</p><h1 id="3524f3c3-292f-41c1-967b-cb2c9842b59b" class=""><strong>Step 1: Prep your machine</strong></h1><ul id="6b5ed433-517a-41f0-8081-06cc03e45cea" class="bulleted-list"><li>Create a GitHub repository that will hold the code to build the image. If you do not have your own Dockerfile or application, please feel free to clone our sample here: <a href="https://github.com/devops-recipes/node_app">https://github.com/devops-recipes/node_app</a></li></ul><ul id="ec8d0999-ea07-4006-a449-8435e4a11fee" class="bulleted-list"><li>Create an account on <a href="https://hub.docker.com/">Docker Hub</a>.</li></ul><ul id="e9c0db58-d358-449e-86e2-26dc5dff8d35" class="bulleted-list"><li>Install Docker on your local machine. [Refer to the Docker <a href="https://docs.docker.com/get-started/">Getting Started Guide</a>]</li></ul><ul id="f9848a2b-bb3f-4744-b29e-aa2ed172f5dd" class="bulleted-list"><li>Login to Docker Hub: <code>docker login</code> with your credentials. [Refer to the <a href="https://docs.docker.com/engine/reference/commandline/login/">docker</a><a href="https://docs.docker.com/engine/reference/commandline/login/"> login docs</a> for a complete reference]</li></ul><pre id="73110069-8f66-4558-8f54-2f7b358e3fe7" class="code"><code>docker login --username=yourhubusername --password=yourpassword</code></pre><h1 id="188d2d62-f786-49d7-bf00-df0a3302fd53" class=""><strong>Step 2: Build and Push image</strong></h1><ul id="3e8ff033-8255-4add-9633-bf21e7e5f5e0" class="bulleted-list"><li>Your Dockerfile will look something like this:</li></ul><p id="c242fae6-3c53-4adf-8b98-3b870f149d60" class=""><strong>Dockerfile</strong></p><pre id="e0edba27-961f-4696-a556-1ab60c66fe24" class="code"><code>FROM readytalk/nodejs
+
+# Add our configuration files and scripts
+WORKDIR /app
+ADD . /app
+RUN npm install
+EXPOSE 80
+
+ENTRYPOINT [&quot;/nodejs/bin/npm&quot;, &quot;start&quot;]</code></pre><ul id="ac3318e0-9579-4f5d-a8b7-f4e4e1f11368" class="bulleted-list"><li>Build your image by executing the <code>docker build</code> command. <code>DOCKER_ACC</code> is the name of your account <code>$DOCKER_REPO</code> is your image name and <code>$IMG_TAG</code> is your tag</li></ul><pre id="02acaf83-711f-4008-9962-685ccba8738e" class="code"><code>docker build -t $DOCKER_ACC/$DOCKER_REPO:$IMG_TAG .</code></pre><ul id="52cda727-e5cf-4717-a678-231015319db8" class="bulleted-list"><li>Now, you can push this image to your hub by executing the <code>docker push</code> command.</li></ul><pre id="fd75948a-b0d5-4bc2-b658-398f7f478540" class="code"><code>sudo docker push $DOCKER_ACC/$DOCKER_REPO:$IMG_TAG</code></pre><p id="545462c5-5124-40c2-8718-1beadb82e20e" class="">
+</p><p id="727435fc-7352-44f7-a18d-df9a30fe0b2b" class="">
+</p><p id="62302e05-9eb5-47dc-9893-4f08d84c93d2" class="">
+</p><p id="0aded0bd-e975-45b8-bbf0-55cce23ae65a" class="">
 </p></div></article></body></html>

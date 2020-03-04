@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Users/Group</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,10 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
+</style></head><body><article id="69cc320c-6226-4cbf-b2f6-154e64f25ab6" class="page sans"><header><h1 class="page-title">Users/Group</h1></header><div class="page-body"><hr id="4ade27f5-1af8-4be4-95fc-a2254de7391e"/><p id="43cd69d2-225e-4574-a977-e3e9cf7da9e8" class="">
+</p><h2 id="b8252477-24ea-445e-8a78-ee55d950d52c" class="">User Management</h2><h3 id="693c5421-f0ba-44b9-b9e3-b700680df730" class="">list all users</h3><pre id="5187615e-eaee-42e0-8f1a-a80a20f1cc3a" class="code"><code>less /etc/passwd </code></pre><p id="47324e55-d4b8-4019-8931-036f4d650108" class="">or </p><pre id="919e3073-4f3e-41a9-8d3d-020471d8a7d0" class="code"><code> cat  /etc/passwd</code></pre><p id="05ad780c-3798-4852-a37a-d7a701ca33ae" class="">
+</p><h3 id="7270682e-e1d5-452a-b1ba-114cfda3a7cd" class="">Adding User</h3><pre id="de319bbe-280b-47ac-b026-cd81d4a4623b" class="code"><code>Sudo useraddd -[options] [userName]</code></pre><p id="2766d368-ebfc-4fe6-969b-f38cc8b55e1f" class="">
+</p><h3 id="69e0edd3-f534-4581-8d67-198cdc766bdf" class="">set password for user</h3><pre id="0f306fc2-8235-46e5-87da-7aa0ef57e853" class="code"><code>passwd &lt;username&gt;</code></pre><p id="b5a26ef8-46c4-4edf-ba8a-01e3d2b15f30" class="">
+</p><h3 id="91ac0c4a-1466-4e43-bdd1-97504f74d7a1" class="">add user to Sudoers </h3><pre id="0eb56860-53bc-4b71-84bb-8e7225abcf25" class="code"><code>usermod -aG sudo username </code></pre><p id="f6f3a9d6-74f0-4b56-87df-9b7e92f46980" class="">or </p><pre id="494371f3-b3ca-4aec-bdb4-8ac6ab7f0f2f" class="code"><code>apt-get install adduser</code></pre><p id="001c4172-b001-4216-b8e0-e4117c7e6abc" class="">Delete user</p><pre id="1829fbc9-6e06-41fd-b36f-caa9c47a0fff" class="code"><code>user del</code></pre><p id="4e635a55-7834-49a5-993f-5db45bab5dee" class="">
+</p><p id="c9d2719b-e991-4446-b6c6-1be3ddeec420" class=""><a href="https://linuxize.com/post/how-to-list-users-in-linux/">https://linuxize.com/post/how-to-list-users-in-linux/</a></p><p id="c7dc72c0-5093-4146-9746-77772192a15f" class="">
 </p></div></article></body></html>

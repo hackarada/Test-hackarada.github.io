@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Notes</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,32 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
+</style></head><body><article id="9a6d42d8-aa6e-49d8-a40c-8e6c3d94fe28" class="page sans"><header><h1 class="page-title">Notes</h1></header><div class="page-body"><hr id="1153c8c8-e818-4ce2-882b-e46aa969cf4d"/><p id="7148d4bb-23de-463e-81f6-e64c244aba05" class="">
+</p><p id="29d73d81-3e59-42bc-9e3e-50d704b94138" class="">
+</p><ul id="6b3872c9-1996-4ab1-85cf-9bbd2ad87677" class="toggle"><li><details open=""><summary>Idnetify</summary><pre id="215d512b-8659-4caf-bf88-5dfc0e9676ef" class="code"><code>Initial perimeter scan
+
+Fast scan common lan
+netdiscover -i eth0 -f
+scan range
+netdiscover -i eth0 -r 192.168.61.0/24
+
+
+docker run -it --privileged --net=host bettercap/bettercap -h
+</code></pre></details></li></ul><ul id="46863875-5728-43d7-a340-ad8245638107" class="toggle"><li><details open=""><summary>Recon target</summary><pre id="b8786a3a-f3c6-4eec-9589-fef2341cc472" class="code"><code>nmap -sV -p- [target]
+
+FullScan
+sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all</code></pre><p id="335f3c71-65a0-4dea-8c3d-833e1d197beb" class="">Basic Nmap recon</p><pre id="b8d60c11-287b-4490-b596-d456c117fa66" class="code"><code>nmap -sV -sC -oA ~/nmap-1[ip]
+
+-sV : Probe open ports to determine service/version info
+-sC : to enable the script
+-oA : to save the results
+
+After this quick command you can add &quot;-p-&quot; to run a full scan while you work with the previous result</code></pre></details></li></ul><p id="3fd00a7b-080e-41e0-add7-1ee41e90ba5c" class="">
+</p><p id="fa11ed10-bf1a-4663-b396-81a9f2dd55ef" class="">
+</p><p id="ac3f5ae4-9c8d-4d01-b7b8-3f49b891ecf3" class="">
+</p><p id="cfca6de5-9d85-4039-bb10-4b107251f219" class="">
+</p><ul id="7af935fd-ac3a-4a6a-ac56-d828e1ca28f7" class="toggle"><li><details open=""><summary>recon-ng</summary><pre id="7a492611-24c7-405a-abc4-211952ad3a28" class="code"><code>test@ubuntu:~/$ git clone https://github.com/lanmaster53/recon-ng.git
+test@ubuntu:~/$ cd recon-ng
+	test@ubuntu:~/recon-ng/$ pip install -r REQUIREMENTS</code></pre><p id="90003111-aa53-451d-9e55-1faa7c70dde4" class="">
+</p><p id="6591f9f7-3f37-49d6-bc62-5392f06d8e08" class="">apt-get update &amp;&amp; apt-get install recon-ng</p></details></li></ul><p id="212e063e-db29-44f8-9cb3-1ed5204b71bf" class="">
 </p></div></article></body></html>

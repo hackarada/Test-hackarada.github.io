@@ -1,8 +1,0 @@
-﻿Shorthand,Description
-.,Any character except new line
-,Matches alphanumeric characters: [a-zA-Z0-9_]
-,Matches non-alphanumeric characters: [^\w]
-Matches digit: [0-9],
-,Matches non-digit: [^\d]
-,Matches whitespace character: [\t\n\f\r\p{Z}]
-,Matches non-whitespace character: [^\s]

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Web Recon</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,24 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
+</style></head><body><article id="7d0fd0dd-43d9-4c05-a32d-3d21b08ecd05" class="page sans"><header><h1 class="page-title">Web Recon</h1></header><div class="page-body"><hr id="9454a385-03da-4e9f-8032-38a95e0eae0a"/><p id="48409778-30c2-49a0-ac32-2d7c2299677d" class="">
+</p><p id="6bbb7b91-3f57-49c5-a31b-750ae5ca62fd" class="">
+</p><p id="81bae779-c1d2-4b56-89dc-7a2c64d01444" class=""> WordPress sites</p><p id="be9b3f03-dfe1-4d18-9d1d-d60732278f3d" class="">
+</p><pre id="439bfa8c-feee-4be3-a631-955368da5730" class="code"><code>#Scan installed plugins
+wpscan --url http(s)://your-domain.com --enumerate p
+
+#Scan vulnerable plugins
+wpscan --url http(s)://your-domain.com --enumerate vp
+
+#Scan installed themes
+wpscan --url http(s)://your-domain.com --enumerate t
+
+#Scan vulnerable themes
+wpscan --url http(s)://your-domain.com --enumerate vt
+
+#Scan user accounts:
+wpscan --url http(s)://your-domain.com --enumerate u
+
+#Scan vulnerable timthumb files:
+wpscan --url http(s)://your-domain.com --enumerate tt</code></pre><p id="a592f58d-72f4-401b-bbc0-b5b425f036ea" class="">Using WPVulnDB API</p><h2 id="73a45551-dfd4-4c8d-9ad5-daafbc8289c7" class="">References</h2><ol id="abb3fc61-235f-44ac-abb3-7811a0905228" class="numbered-list" start="1"><li><a href="https://www.linuxbabe.com/security/install-wpscan-wp-vulnerability-scanner">https://www.linuxbabe.com/security/install-wpscan-wp-vulnerability-scanner</a></li></ol><figure id="1d733e9f-1f50-4446-908b-78a0376f2989" class="link-to-page"><a href="Web%20Recon/WordPress.html">WordPress </a></figure><p id="cb4b2793-1bc6-4bb5-a1f9-7c4c8bace76c" class="">
 </p></div></article></body></html>

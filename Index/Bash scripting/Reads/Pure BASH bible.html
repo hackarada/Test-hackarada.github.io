@@ -1,0 +1,1066 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Pure BASH bible</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a4f0519a-de92-4559-bbbc-bf6a18395d48" class="page sans"><header><h1 class="page-title">Pure BASH bible</h1></header><div class="page-body"><hr id="3e0b1b0e-5feb-4aad-abcd-684d691cb055"/><p id="578bffd7-c35f-46c7-acde-85b58c8112c5" class=""><strong>This book is also available to purchase on leanpub. https://leanpub.com/bash</strong></p><ul id="77a15eac-a826-4707-8425-93ebd73e5cda" class="toggle"><li><details open=""><summary>Table of Contents</summary><nav id="2b976835-4b4f-45e4-bd9b-d28298447e2d" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7b59c710-915e-40fe-a33f-84018ee6a430">FOREWORD</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11734555-7caf-4efa-b087-814376dc0f55">STRINGS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f6642938-f04b-45ad-b311-9dbb4e08110f">Trim leading and trailing white-space from string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#48ff620d-ee4f-4a40-9565-2375176622ef">Trim all white-space from string and truncate spaces</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#327e78c4-907c-4bcf-a765-9d58491677cc">Use regex on a string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#80c3a2a2-bf5c-4bac-a148-dda91d9379aa">Split a string on a delimiter</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#acc23519-fb4b-423c-9ba5-975e06695d9c">Change a string to lowercase</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#beb7a1e0-0bb5-4732-b706-4dbba12dcd30">Change a string to uppercase</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c50e2fc2-bc3d-44f9-8771-042565c98e11">Reverse a string case</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ccc994bf-9202-478b-a03f-7961365bdafc">Trim quotes from a string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#50abe49a-d0bc-40cf-af45-491d2426d669">Strip all instances of pattern from string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#049bd081-12d9-407a-8897-134eb7cb319a">Strip first occurrence of pattern from string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#427811c9-29fc-4009-a3f0-f5c1181e8386">Strip pattern from start of string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0414e0b5-52ff-4304-b341-2468a1561cfe">Strip pattern from end of string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#97bb85e7-36d8-4260-918c-43949045a727">Percent-encode a string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#28509b68-eea5-4cf6-aec0-ba83b9f8e03c">Decode a percent-encoded string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d9cc788c-a674-426c-b18e-8b92b1b7135d">Check if string contains a sub-string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9b002a5f-bf05-470c-a1fb-c80f9b345713">Check if string starts with sub-string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3e260f45-8044-4174-92f3-2dbf94d416ce">Check if string ends with sub-string</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7404beea-b13d-4796-a33e-1a0e6b2de854">ARRAYS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d63f642e-d711-4cba-adf8-9a3e029c76b3">Reverse an array</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9b0f97f4-a0e5-459c-b5a8-3c7c1aeeb6a8">Remove duplicate array elements</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#58a503dc-9bec-4bed-a24a-67191fed5e7e">Random array element</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#57b4595d-16aa-4995-8caf-99dbb073b1ff">Cycle through an array</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#edd7ea81-1a17-4a71-be78-494480763540">Toggle between two values</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#49312a62-e06e-47f2-9ece-e4c07bf405d3">LOOPS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6e970252-ea4b-4caa-8fce-2cdfe3d0bcef">Loop over a range of numbers</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10b07904-fdf6-447c-a4a6-c8b04250d8ae">Loop over a variable range of numbers</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#94f1861a-5d30-484c-8c41-8076031907c7">Loop over an array</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#64bf1e33-d18b-4604-a59a-954c3c466405">Loop over an array with an index</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6fdfbfa6-8a68-47f1-a125-a34774ea8446">Loop over the contents of a file</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f6baf33b-073f-47ea-8e09-8d30e4bb9476">Loop over files and directories</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#81c9231a-f834-4278-90ee-463c70e7ccf0">FILE HANDLING</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f21739b0-a0aa-4834-a288-83e2dbba55e0">Read a file to a string</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#672fd350-3126-4328-a404-53fdbe344c55">Read a file to an array (<em>by line</em>)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1dd842bd-6ea7-4045-8e12-f9d4af8da6c5">Get the first N lines of a file</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4a6d1eb7-30e6-4b99-9a9e-f26bd6a61847">Get the last N lines of a file</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f7ab223d-bd6a-4902-9721-2dbecca659f9">Get the number of lines in a file</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8fd9c918-9b88-4c2e-bdcc-6bdd18eab0a9">Count files or directories in directory</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#62521b77-233b-4270-ac83-be579b0f3bb8">Create an empty file</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bf65a882-0a90-4a08-9ff3-dba319003489">Extract lines between two markers</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#581ff095-49b3-4701-bf87-794aa2ab316c">FILE PATHS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#35af9ef2-00dc-403d-9235-236dcdaa5aa7">Get the directory name of a file path</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#02ec78a0-c14b-408c-83a9-2be792317e7c">Get the base-name of a file path</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#80f611ae-a45a-48ed-b6a5-0bf82cd480db">VARIABLES</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#58f82c23-7c3f-4dec-a524-23550fede6dd">Assign and access a variable using a variable</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ad989193-5425-4574-845b-38ace058d12c">Name a variable based on another variable</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e7d613fe-da36-4d87-bb6f-5b4c5baa4f4f">ESCAPE SEQUENCES</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#842a12e8-d70d-459a-8808-a1a6e6a35d49">Text Colors</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e7075dfd-24c0-4ee8-a1e9-a538e4e300b8">Text Attributes</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#46e4e710-4fb2-4144-a285-337681481b04">Cursor Movement</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a119c90b-a882-42c1-b331-0b43e9f4a573">Erasing Text</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c85b8551-eef8-48e9-83fb-1976e23586a5">PARAMETER EXPANSION</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#deacaa90-0c6a-4d1a-bd5f-3dbe5cb797c0">Indirection</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#744fdb9b-7730-4ff9-9b49-c8b68ca1ca86">Replacement</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#30ae0bff-f1b5-4d62-b568-2ffba370de7a">Length</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#746c77a4-fb7e-4af7-883c-b7b1bdec9778">Expansion</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f24de05f-cb97-4268-a297-455bde9f4d19">Case Modification</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#89ede935-2717-4050-8e32-6f3ab0f69ba1">Default Value</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4578c3b6-d4aa-468e-a5e1-ad831846f4aa">BRACE EXPANSION</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#345e328b-2ad9-4cd9-889c-939d7b8ba179">Ranges</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b75fa6c0-db1a-407f-92d1-7ea14ef9b9a0">String Lists</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1623b0c0-f98b-4046-81a9-42a0fd495ab2">CONDITIONAL EXPRESSIONS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a764f33d-7c85-409d-8e57-c75a73a9c46d">File Conditionals</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f6293f00-1f3d-43c6-a72d-3b7e2a9bd83e">File Comparisons</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#23e07f3e-52ed-4386-88be-51dd4d64c312">Variable Conditionals</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e6392aba-d4f0-46d0-b7b4-ccbde1664249">Variable Comparisons</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#82f5bedd-49b9-4a17-8c20-badcbec5014f">ARITHMETIC OPERATORS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#32ed6a62-6839-461d-9a03-a08010a51d97">Assignment</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e39e2c15-7384-4b8c-a339-c198bcd546d6">Arithmetic</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11ad97bc-b4ea-46f9-b318-ce6217c24f05">Bitwise</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e6f2e7ad-5be1-41e3-bbc9-e05498e0aeeb">Logical</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d092fac3-bc62-4365-bc77-ce07160a2b22">Miscellaneous</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4f4bb46a-dc73-4a85-9157-522b755fedd7">ARITHMETIC</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9a7368d2-703d-426f-9fe2-a3c9fd70e125">Simpler syntax to set variables</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fe673520-0336-4cfc-b886-ca0a0f02d620">Ternary Tests</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8c576f8e-1616-47fc-8ae2-0348dee8ec5e">TRAPS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fece662d-2a33-4bfe-ad7d-894913845218">Do something on script exit</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#09e7c403-174e-4f1c-817a-2d04b0e08350">Ignore terminal interrupt (CTRL+C, SIGINT)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e78f6382-f115-454f-8930-dd8ca5b5cd21">React to window resize</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fc435c5b-95da-4604-9357-2774e14d34f5">Do something before every command</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e58a0fd6-d0f6-4d9c-85f4-42897793f467">Do something when a shell function or a sourced file finishes executing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f79862e8-a91c-4e1d-9b70-a1a405f0cdca">PERFORMANCE</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dc105b24-e40a-4e0f-84be-3576c46f25e1">Disable Unicode</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#75a97de8-6c34-4bd5-a222-9acbc78d98ca">OBSOLETE SYNTAX</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b3f58b11-207e-4b57-8d63-a4d0a72352f7">Shebang</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#55fcc472-ae67-442b-8a8e-6c6de3016bec">Command Substitution</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5651f607-98dc-4023-ae6d-5bdf52fdf390">Function Declaration</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10ca602b-6505-48cb-a7f1-0fe804540467">INTERNAL VARIABLES</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ac491e1d-5151-43f3-b432-7e2861bddea6">Get the location to the <code>bash</code> binary</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f51d277d-5d0c-441a-af01-a64f368b37a5">Get the version of the current running <code>bash</code> process</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#28bd59c9-c7f5-4284-8e2c-3860ee8d30ca">Open the user’s preferred text editor</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d147fea9-5c45-47e4-a8d8-830307d2361b">Get the name of the current function</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bccbd378-3564-45c3-96cf-306ac1f5d60e">Get the host-name of the system</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3b25c80d-9bbb-4c78-8d5b-1b41ba32050e">Get the architecture of the Operating System</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#254e9fe4-f8fa-40d7-8110-86f2a5226dfb">Get the name of the Operating System / Kernel</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f09ab318-01c0-4ec2-97e4-86e77d216662">Get the current working directory</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#da957409-dbd9-46dc-acb0-06cda09e9404">Get the number of seconds the script has been running</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#898ed65a-885d-4b4b-8116-b75f33e7630a">Get a pseudorandom integer</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#07b359a7-dea9-4da5-9a1f-3bd8f853eeb8">INFORMATION ABOUT THE TERMINAL</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#08ecb0d0-6d1c-40ee-bca1-dd822453c796">Get the terminal size in lines and columns (<em>from a script</em>)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9fa21fbe-955a-41ba-a626-899a95857aad">Get the terminal size in pixels</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3fccf9bd-5f84-4a6f-9c91-02ef555187b1">Get the current cursor position</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b1bf3662-d712-4af4-9210-9324c25c86c0">CONVERSION</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#488f3e94-9ec3-470b-ab3d-5cf36c4278a3">Convert a hex color to RGB</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4f7d47d0-41b7-4fdb-9782-8ba62586f0ec">Convert an RGB color to hex</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e7c577ca-5419-460b-a7fb-0d2511e504e2">CODE GOLF</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bed49bad-9001-405e-ae4e-50d9f42f1e75">Shorter <code>for</code> loop syntax</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#69504250-e3bd-4273-a9cd-5851241c3a40">Shorter infinite loops</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bbc01a7-b16d-4519-8acb-99b082ca49bb">Shorter function declaration</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0ab0677f-47ac-4bac-a3f6-4dd2850d1217">Shorter <code>if</code> syntax</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ace2addd-30fa-4939-942e-fa5c604783b2">Simpler <code>case</code> statement to set variable</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#845d7e49-7a91-41f8-b4ec-3f41c029a79d">OTHER</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7c845429-5a33-41c0-9664-0f342ef47942">Use <code>read</code> as an alternative to the <code>sleep</code> command</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b3147f80-c56c-447c-82bf-132f9a566de8">Check if a program is in the user’s PATH</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4c9de415-8274-400d-9464-fd42e96359bb">Get the current date using <code>strftime</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#97626118-06c6-4e1a-8134-848078900ab7">Get the username of the current user</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a800ab72-3026-4089-a14f-9e5601080553">Generate a UUID V4</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d8593c4-2576-40ba-8f58-8b66a24d191b">Progress bars</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dd71eeb5-64cb-4fa4-ba16-368392cbe13f">Get the list of functions in a script</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#28c02e87-9847-43fe-8f48-5b9a1583f260">Bypass shell aliases</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9dc31a86-36c0-4632-8cdd-4310640f121f">Bypass shell functions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#04743539-8bff-4f12-8a21-25f73580e2a4">Run a command in the background</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#283d0517-2f0b-45de-955b-c4320166d32d">AFTERWORD</a></div></nav><p id="81e84300-8797-47ba-b379-f298c58e4ac9" class="">
+</p></details></li></ul><h1 id="7b59c710-915e-40fe-a33f-84018ee6a430" class="">FOREWORD</h1><p id="da59db9c-1ca6-4cfd-8cd9-d3ae304eadee" class="">A collection of pure <code>bash</code> alternatives to external processes and programs. The <code>bash</code> scripting language is more powerful than people realise and most tasks can be accomplished without depending on external programs.</p><p id="06d71d82-2f6e-4235-ac61-25bcf3f5bc6b" class="">Calling an external process in <code>bash</code> is expensive and excessive use will cause a noticeable slowdown. Scripts and programs written using built-in methods (<em>where applicable</em>) will be faster, require fewer dependencies and afford a better understanding of the language itself.</p><p id="46642103-3204-4008-910b-861ddb705fe8" class="">The contents of this book provide a reference for solving problems encountered when writing programs and scripts in <code>bash</code>. Examples are in function formats showcasing how to incorporate these solutions into code.</p><h1 id="11734555-7caf-4efa-b087-814376dc0f55" class="">STRINGS</h1><h2 id="f6642938-f04b-45ad-b311-9dbb4e08110f" class="">Trim leading and trailing white-space from string</h2><p id="66134485-bacf-40ff-8f2b-35ff82fc5995" class="">This is an alternative to <code>sed</code>, <code>awk</code>, <code>perl</code> and other tools. The function below works by finding all leading and trailing white-space and removing it from the start and end of the string. The <code>:</code> built-in is used in place of a temporary variable.</p><p id="eaa86b80-805a-4d52-ab27-7fec83c01b65" class=""><strong>Example Function:</strong></p><pre id="36642acb-1398-432f-8c83-bc5c3679c44d" class="code"><code>trim_string() {# Usage: trim_string &quot;   example   string    &quot;: &quot;${1#&quot;${1%%[![:space:]]*}&quot;}&quot;: &quot;${_%&quot;${_##*[![:space:]]}&quot;}&quot;printf &#x27;%s\n&#x27; &quot;$_&quot;}</code></pre><p id="463e06cc-7a55-4676-9873-37f1e798cb4d" class=""><strong>Example Usage:</strong></p><pre id="b4af93d5-367e-48cc-8d92-d3191e521dfe" class="code"><code>$ trim_string &quot;    Hello,  World    &quot;
+Hello,  World
+
+$ name=&quot;   John Black  &quot;
+$ trim_string &quot;$name&quot;
+John Black</code></pre><h2 id="48ff620d-ee4f-4a40-9565-2375176622ef" class="">Trim all white-space from string and truncate spaces</h2><p id="bb3fee95-4560-491c-89f2-1c7e2ad76705" class="">This is an alternative to <code>sed</code>, <code>awk</code>, <code>perl</code> and other tools. The function below works by abusing word splitting to create a new string without leading/trailing white-space and with truncated spaces.</p><p id="7427f691-c660-4680-9e3e-f364bc59fcd7" class=""><strong>Example Function:</strong></p><pre id="510c4a2d-07d1-4333-9795-a0735b2d96c6" class="code"><code># shellcheck disable=SC2086,SC2048trim_all() {# Usage: trim_all &quot;   example   string    &quot;set -fset -- $*printf &#x27;%s\n&#x27; &quot;$*&quot;set +f}</code></pre><p id="1ae792cc-bae4-43ae-9040-58bc60b7abe9" class=""><strong>Example Usage:</strong></p><pre id="c9e07c73-0317-4f16-b3e0-4d6f9cadab81" class="code"><code>$ trim_all &quot;    Hello,    World    &quot;
+Hello, World
+
+$ name=&quot;   John   Black  is     my    name.    &quot;
+$ trim_all &quot;$name&quot;
+John Black is my name.</code></pre><h2 id="327e78c4-907c-4bcf-a765-9d58491677cc" class="">Use regex on a string</h2><p id="10a04344-2367-4fb1-a747-4b6f5a48b97b" class="">The result of <code>bash</code>’s regex matching can be used to replace <code>sed</code> for a large number of use-cases.</p><p id="5f5e1ab4-b641-4675-b5c8-4fa4523506e1" class=""><strong>CAVEAT</strong>: This is one of the few platform dependent <code>bash</code> features. <code>bash</code> will use whatever regex engine is installed on the user’s system. Stick to POSIX regex features if aiming for compatibility.</p><p id="81ac555c-bb0c-4c71-a7d3-1ffb0c7f22bf" class=""><strong>CAVEAT</strong>: This example only prints the first matching group. When using multiple capture groups some modification is needed.</p><p id="a6de075a-692d-4e78-85ff-71a2792c6030" class=""><strong>Example Function:</strong></p><pre id="1a0e340a-a54d-49ee-b916-a31e3d43b76a" class="code"><code>regex() {# Usage: regex &quot;string&quot; &quot;regex&quot;[[ $1 =~ $2 ]] &amp;&amp; printf &#x27;%s\n&#x27; &quot;${BASH_REMATCH[1]}&quot;}</code></pre><p id="4902c022-8325-4893-82e3-0a2f2750e134" class=""><strong>Example Usage:</strong></p><pre id="ab4faab2-ae3c-4f62-bcc8-c5aafe75eb55" class="code"><code>$ # Trim leading white-space.
+$ regex &#x27;    hello&#x27; &#x27;^\s*(.*)&#x27;
+hello
+
+$ # Validate a hex color.
+$ regex &quot;#FFFFFF&quot; &#x27;^(#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))$&#x27;
+#FFFFFF
+
+$ # Validate a hex color (invalid).
+$ regex &quot;red&quot; &#x27;^(#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))$&#x27;
+# no output (invalid)</code></pre><p id="0f90348a-1b5f-49e8-8b50-22d4b0a962b6" class=""><strong>Example Usage in script:</strong></p><pre id="c064bd43-3ce6-4753-8d5f-6a228fe37b4d" class="code"><code>is_hex_color() {
+    if [[ $1 =~ ^(#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))$ ]]; then
+        printf &#x27;%s\n&#x27; &quot;${BASH_REMATCH[1]}&quot;
+    else
+        printf &#x27;%s\n&#x27; &quot;error: $1 is an invalid color.&quot;
+        return 1
+    fi
+}
+
+read -r color
+is_hex_color &quot;$color&quot; || color=&quot;#FFFFFF&quot;
+
+# Do stuff.</code></pre><h2 id="80c3a2a2-bf5c-4bac-a148-dda91d9379aa" class="">Split a string on a delimiter</h2><p id="1aa6402a-42f9-4653-8ee6-44628b8fb918" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="8581bd16-0656-41c0-b841-a391d9a46c3d" class="">This is an alternative to <code>cut</code>, <code>awk</code> and other tools.</p><p id="2303235b-a90b-43e0-9755-5c826dbe6fd1" class=""><strong>Example Function:</strong></p><pre id="295c97f9-e607-436d-bdff-ba0859ab7cf0" class="code"><code>split() {# Usage: split &quot;string&quot; &quot;delimiter&quot;IFS=$&#x27;\n&#x27; read -d &quot;&quot; -ra arr &lt;&lt;&lt; &quot;${1//$2/$&#x27;\n&#x27;}&quot;printf &#x27;%s\n&#x27; &quot;${arr[@]}&quot;}</code></pre><p id="9bf20205-16a4-40db-a98f-3b5cbcc0cc09" class=""><strong>Example Usage:</strong></p><pre id="9f32269d-f52c-46eb-977d-e4e55187a459" class="code"><code>$ split &quot;apples,oranges,pears,grapes&quot; &quot;,&quot;
+apples
+oranges
+pears
+grapes
+
+$ split &quot;1, 2, 3, 4, 5&quot; &quot;, &quot;
+1
+2
+3
+4
+5
+
+# Multi char delimiters work too!
+$ split &quot;hello---world---my---name---is---john&quot; &quot;---&quot;
+hello
+world
+my
+name
+is
+john</code></pre><h2 id="acc23519-fb4b-423c-9ba5-975e06695d9c" class="">Change a string to lowercase</h2><p id="eb259baf-558f-4573-8b09-561ad2408c46" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="5a7240eb-f781-4ea0-b3f7-6859f9e7f0ac" class=""><strong>Example Function:</strong></p><pre id="9762d411-82ba-43b7-af7f-58e607095b07" class="code"><code>lower() {# Usage: lower &quot;string&quot;printf &#x27;%s\n&#x27; &quot;${1,,}&quot;}</code></pre><p id="c7eaa50c-c206-40d1-afa9-06822b9c4c2f" class=""><strong>Example Usage:</strong></p><pre id="fe8bc63f-e252-4b28-954c-df55fcce1673" class="code"><code>$ lower &quot;HELLO&quot;
+hello
+
+$ lower &quot;HeLlO&quot;
+hello
+
+$ lower &quot;hello&quot;
+hello</code></pre><h2 id="beb7a1e0-0bb5-4732-b706-4dbba12dcd30" class="">Change a string to uppercase</h2><p id="73fff92a-be5d-460b-802c-58461a881ec2" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="23ce5345-833b-4db0-b072-a43594561aa3" class=""><strong>Example Function:</strong></p><pre id="2096c343-ff23-4d32-aa56-295a50e3aa62" class="code"><code>upper() {# Usage: upper &quot;string&quot;printf &#x27;%s\n&#x27; &quot;${1^^}&quot;}</code></pre><p id="80d3da0c-d9c4-4aa0-a7c5-dc3048ad30c0" class=""><strong>Example Usage:</strong></p><pre id="17683382-cf48-447c-bd04-0c28712433a9" class="code"><code>$ upper &quot;hello&quot;
+HELLO
+
+$ upper &quot;HeLlO&quot;
+HELLO
+
+$ upper &quot;HELLO&quot;
+HELLO</code></pre><h2 id="c50e2fc2-bc3d-44f9-8771-042565c98e11" class="">Reverse a string case</h2><p id="8f44e134-00a7-4ac0-a4e0-c711d4ec9cd1" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="6e29a9a5-4f74-4951-9c74-7458938a461e" class=""><strong>Example Function:</strong></p><pre id="b652e699-6655-4132-8789-097d8def370f" class="code"><code>reverse_case() {# Usage: reverse_case &quot;string&quot;printf &#x27;%s\n&#x27; &quot;${1~~}&quot;}</code></pre><p id="62d5b4dd-1167-40cb-bb65-558c3c1dc2ad" class=""><strong>Example Usage:</strong></p><pre id="d2cce5b5-1aee-4c7f-b179-0a0a89c6d2e8" class="code"><code>$ reverse_case &quot;hello&quot;
+HELLO
+
+$ reverse_case &quot;HeLlO&quot;
+hElLo
+
+$ reverse_case &quot;HELLO&quot;
+hello</code></pre><h2 id="ccc994bf-9202-478b-a03f-7961365bdafc" class="">Trim quotes from a string</h2><p id="b31b1d05-af3a-4793-ba23-98d8d513624d" class=""><strong>Example Function:</strong></p><pre id="a4e7b778-a66c-447c-87a3-0f411a9310aa" class="code"><code>trim_quotes() {# Usage: trim_quotes &quot;string&quot;: &quot;${1//\&#x27;}&quot;printf &#x27;%s\n&#x27; &quot;${_//\&quot;}&quot;}</code></pre><p id="3adb0e10-c5e8-4dd8-b1a9-27245f788cf2" class=""><strong>Example Usage:</strong></p><pre id="45264a47-46f5-4be1-ad52-fdc7e4a08971" class="code"><code>$ var=&quot;&#x27;Hello&#x27;, \&quot;World\&quot;&quot;
+$ trim_quotes &quot;$var&quot;
+Hello, World</code></pre><h2 id="50abe49a-d0bc-40cf-af45-491d2426d669" class="">Strip all instances of pattern from string</h2><p id="5f304ede-516b-4d2b-8c19-05e26690fac9" class=""><strong>Example Function:</strong></p><pre id="5f96945a-91c7-437c-bede-dabb5b4f67bf" class="code"><code>strip_all() {# Usage: strip_all &quot;string&quot; &quot;pattern&quot;printf &#x27;%s\n&#x27; &quot;${1//$2}&quot;}</code></pre><p id="c29a4d75-e2be-43cc-802b-0acd139f7484" class=""><strong>Example Usage:</strong></p><pre id="e6179d03-6b1f-4c03-89aa-1693025b69a8" class="code"><code>$ strip_all &quot;The Quick Brown Fox&quot; &quot;[aeiou]&quot;
+Th Qck Brwn Fx
+
+$ strip_all &quot;The Quick Brown Fox&quot; &quot;[[:space:]]&quot;
+TheQuickBrownFox
+
+$ strip_all &quot;The Quick Brown Fox&quot; &quot;Quick &quot;
+The Brown Fox</code></pre><h2 id="049bd081-12d9-407a-8897-134eb7cb319a" class="">Strip first occurrence of pattern from string</h2><p id="698e4fd6-fdf0-4827-b92a-ccccb2cf73c8" class=""><strong>Example Function:</strong></p><pre id="4b542ee6-c3a0-4713-b35f-f81107e511c6" class="code"><code>strip() {# Usage: strip &quot;string&quot; &quot;pattern&quot;printf &#x27;%s\n&#x27; &quot;${1/$2}&quot;}</code></pre><p id="7ffd9c32-e18b-4e42-b296-707a9d0b687b" class=""><strong>Example Usage:</strong></p><pre id="a5e518b4-2cb1-4456-a319-58f51a5ef7c9" class="code"><code>$ strip &quot;The Quick Brown Fox&quot; &quot;[aeiou]&quot;
+Th Quick Brown Fox
+
+$ strip &quot;The Quick Brown Fox&quot; &quot;[[:space:]]&quot;
+TheQuick Brown Fox</code></pre><h2 id="427811c9-29fc-4009-a3f0-f5c1181e8386" class="">Strip pattern from start of string</h2><p id="7bbd1ef3-85ee-4578-9419-64480e2c57d4" class=""><strong>Example Function:</strong></p><pre id="8d60d1e0-684a-450e-9811-66c1f6765039" class="code"><code>lstrip() {# Usage: lstrip &quot;string&quot; &quot;pattern&quot;printf &#x27;%s\n&#x27; &quot;${1##$2}&quot;}</code></pre><p id="a9f958a1-4bb1-42a9-b86c-786a6272a2ea" class=""><strong>Example Usage:</strong></p><pre id="fd82a4b1-10e0-4600-ab78-a1f740c73f86" class="code"><code>$ lstrip &quot;The Quick Brown Fox&quot; &quot;The &quot;
+Quick Brown Fox</code></pre><h2 id="0414e0b5-52ff-4304-b341-2468a1561cfe" class="">Strip pattern from end of string</h2><p id="3ca4e64c-a624-44db-bfd9-b3989985340b" class=""><strong>Example Function:</strong></p><pre id="45cbaa48-08cd-4c76-bb50-91e417c98511" class="code"><code>rstrip() {# Usage: rstrip &quot;string&quot; &quot;pattern&quot;printf &#x27;%s\n&#x27; &quot;${1%%$2}&quot;}</code></pre><p id="6b764e1a-d92f-4896-be5e-3f64e118d5b1" class=""><strong>Example Usage:</strong></p><pre id="3d730f31-1cd7-4ead-999c-97ad03acacf1" class="code"><code>$ rstrip &quot;The Quick Brown Fox&quot; &quot; Fox&quot;
+The Quick Brown</code></pre><h2 id="97bb85e7-36d8-4260-918c-43949045a727" class="">Percent-encode a string</h2><p id="478e7950-e4e9-4b24-a942-4babc7b8d497" class=""><strong>Example Function:</strong></p><pre id="79b7f268-618c-48d5-8c46-700c03030638" class="code"><code>urlencode() {# Usage: urlencode &quot;string&quot;local LC_ALL=Cfor (( i = 0; i &lt; ${#1}; i++ )); do: &quot;${1:i:1}&quot;case &quot;$_&quot; in[a-zA-Z0-9.~_-])printf &#x27;%s&#x27; &quot;$_&quot;;;*)printf &#x27;%%%02X&#x27; &quot;&#x27;$_&quot;;;esacdoneprintf &#x27;\n&#x27;}</code></pre><p id="aa0b018a-00b6-41a5-ab13-89e467685bee" class=""><strong>Example Usage:</strong></p><pre id="9f5d8f84-a7aa-453b-b47a-0cc5df0048b3" class="code"><code>$ urlencode &quot;https://github.com/dylanaraps/pure-bash-bible&quot;
+https%3A%2F%2Fgithub.com%2Fdylanaraps%2Fpure-bash-bible</code></pre><h2 id="28509b68-eea5-4cf6-aec0-ba83b9f8e03c" class="">Decode a percent-encoded string</h2><p id="b876fa5e-5154-4224-8da9-49b0905a22bd" class=""><strong>Example Function:</strong></p><pre id="61e6b752-9a75-42b8-8a0c-19bb791db014" class="code"><code>urldecode() {# Usage: urldecode &quot;string&quot;: &quot;${1//+/ }&quot;printf &#x27;%b\n&#x27; &quot;${_//%/\\x}&quot;}</code></pre><p id="90ea67ce-05e8-4d7f-b3b9-4799b42387ae" class=""><strong>Example Usage:</strong></p><pre id="2e28aff1-f71c-49bf-b30a-2282fb142537" class="code"><code>$ urldecode &quot;https%3A%2F%2Fgithub.com%2Fdylanaraps%2Fpure-bash-bible&quot;
+https://github.com/dylanaraps/pure-bash-bible</code></pre><h2 id="d9cc788c-a674-426c-b18e-8b92b1b7135d" class="">Check if string contains a sub-string</h2><p id="e37ca5b9-7f4e-4ef6-9f87-ba39dcbaf19e" class=""><strong>Using a test:</strong></p><pre id="41f91b32-08ec-448d-91cc-065eced81741" class="code"><code>if [[ $var == *sub_string* ]]; then
+    printf &#x27;%s\n&#x27; &quot;sub_string is in var.&quot;
+fi
+
+# Inverse (substring not in string).
+if [[ $var != *sub_string* ]]; then
+    printf &#x27;%s\n&#x27; &quot;sub_string is not in var.&quot;
+fi
+
+# This works for arrays too!
+if [[ ${arr[*]} == *sub_string* ]]; then
+    printf &#x27;%s\n&#x27; &quot;sub_string is in array.&quot;
+fi</code></pre><p id="eb7bcd8d-c921-4e3c-9a37-8a5d0bdb66c4" class=""><strong>Using a case statement:</strong></p><pre id="2893f366-32f8-4c58-98d1-d6bd0e1e8f60" class="code"><code>case &quot;$var&quot; in
+    *sub_string*)
+        # Do stuff
+    ;;
+
+    *sub_string2*)
+        # Do more stuff
+    ;;
+
+    *)
+        # Else
+    ;;
+esac</code></pre><h2 id="9b002a5f-bf05-470c-a1fb-c80f9b345713" class="">Check if string starts with sub-string</h2><pre id="bed8c3c8-3cf7-45a2-a83b-d5f0d51fdfae" class="code"><code>if [[ $var == sub_string* ]]; then
+    printf &#x27;%s\n&#x27; &quot;var starts with sub_string.&quot;
+fi
+
+# Inverse (var does not start with sub_string).
+if [[ $var != sub_string* ]]; then
+    printf &#x27;%s\n&#x27; &quot;var does not start with sub_string.&quot;
+fi</code></pre><h2 id="3e260f45-8044-4174-92f3-2dbf94d416ce" class="">Check if string ends with sub-string</h2><pre id="f4bbc14a-181c-4584-963f-c54ef3319e87" class="code"><code>if [[ $var == *sub_string ]]; then
+    printf &#x27;%s\n&#x27; &quot;var ends with sub_string.&quot;
+fi
+
+# Inverse (var does not end with sub_string).
+if [[ $var != *sub_string ]]; then
+    printf &#x27;%s\n&#x27; &quot;var does not end with sub_string.&quot;
+fi</code></pre><h1 id="7404beea-b13d-4796-a33e-1a0e6b2de854" class="">ARRAYS</h1><h2 id="d63f642e-d711-4cba-adf8-9a3e029c76b3" class="">Reverse an array</h2><p id="bf0ba007-73bd-4c0f-8263-83736b2b7e94" class="">Enabling <code>extdebug</code> allows access to the <code>BASH_ARGV</code> array which stores the current function’s arguments in reverse.</p><p id="b138f3e1-bc70-430c-a36d-6ed16c936541" class=""><strong>CAVEAT</strong>: Requires <code>shopt -s compat44</code> in <code>bash</code> 5.0+.</p><p id="d3e7ec49-b591-45e9-a247-d9a07802014d" class=""><strong>Example Function:</strong></p><pre id="afc9e4c6-08bf-47cf-af66-8cc88fc04aa8" class="code"><code>reverse_array() {# Usage: reverse_array &quot;array&quot;shopt -s extdebugf()(printf &#x27;%s\n&#x27; &quot;${BASH_ARGV[@]}&quot;); f &quot;$@&quot;shopt -u extdebug}</code></pre><p id="a159d50e-fba2-4d0a-bb72-ae9389f250c5" class=""><strong>Example Usage:</strong></p><pre id="ad25cbed-c864-410e-8039-ceb910109240" class="code"><code>$ reverse_array 1 2 3 4 5
+5
+4
+3
+2
+1
+
+$ arr=(red blue green)
+$ reverse_array &quot;${arr[@]}&quot;
+green
+blue
+red</code></pre><h2 id="9b0f97f4-a0e5-459c-b5a8-3c7c1aeeb6a8" class="">Remove duplicate array elements</h2><p id="03df328a-e7e5-4eb3-8056-ecc2059d9ceb" class="">Create a temporary associative array. When setting associative array values and a duplicate assignment occurs, bash overwrites the key. This allows us to effectively remove array duplicates.</p><p id="7c825785-25b3-42c1-b068-0d7b16df38c8" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="12413fe1-bea6-442e-987e-40fe614ecc55" class=""><strong>CAVEAT:</strong> List order may not stay the same.</p><p id="2274f176-5f7f-473f-93df-262ac8681b75" class=""><strong>Example Function:</strong></p><pre id="e3111e64-4056-4f32-a8f8-48ec48316a85" class="code"><code>remove_array_dups() {# Usage: remove_array_dups &quot;array&quot;declare -A tmp_arrayfor i in &quot;$@&quot;; do[[ $i ]] &amp;&amp; IFS=&quot; &quot; tmp_array[&quot;${i:- }&quot;]=1doneprintf &#x27;%s\n&#x27; &quot;${!tmp_array[@]}&quot;}</code></pre><p id="a40984b6-d3cd-4813-a9a8-ba41fcf10c67" class=""><strong>Example Usage:</strong></p><pre id="58b4376a-416b-47a6-959e-f84740aa67bf" class="code"><code>$ remove_array_dups 1 1 2 2 3 3 3 3 3 4 4 4 4 4 5 5 5 5 5 5
+1
+2
+3
+4
+5
+
+$ arr=(red red green blue blue)
+$ remove_array_dups &quot;${arr[@]}&quot;
+red
+green
+blue</code></pre><h2 id="58a503dc-9bec-4bed-a24a-67191fed5e7e" class="">Random array element</h2><p id="0163ccee-e38b-4289-8e7a-56949d5328fc" class=""><strong>Example Function:</strong></p><pre id="bad9cd5d-785d-4d43-9f4f-852f9b67bd97" class="code"><code>random_array_element() {# Usage: random_array_element &quot;array&quot;local arr=(&quot;$@&quot;)printf &#x27;%s\n&#x27; &quot;${arr[RANDOM % $#]}&quot;}</code></pre><p id="e5f64ff2-872c-4bbd-9c38-dea414481b24" class=""><strong>Example Usage:</strong></p><pre id="2e40a5db-dc03-4a4d-a786-79ca87dc8c44" class="code"><code>$ array=(red green blue yellow brown)
+$ random_array_element &quot;${array[@]}&quot;
+yellow
+
+# Multiple arguments can also be passed.
+$ random_array_element 1 2 3 4 5 6 7
+3</code></pre><h2 id="57b4595d-16aa-4995-8caf-99dbb073b1ff" class="">Cycle through an array</h2><p id="8881faf2-0564-45eb-94da-e58d5235d874" class="">Each time the <code>printf</code> is called, the next array element is printed. When the print hits the last array element it starts from the first element again.</p><pre id="e9a1f889-5dd3-4e8a-8764-ac985e249512" class="code"><code>arr=(a b c d)cycle() {printf &#x27;%s &#x27; &quot;${arr[${i:=0}]}&quot;((i=i&gt;=${#arr[@]}-1?0:++i))}</code></pre><h2 id="edd7ea81-1a17-4a71-be78-494480763540" class="">Toggle between two values</h2><p id="e37999be-5675-489f-94a8-f62078a54c3e" class="">This works the same as above, this is just a different use case.</p><pre id="4dc9f27d-8bad-42e3-8320-d7f5a209380f" class="code"><code>arr=(true false)cycle() {printf &#x27;%s &#x27; &quot;${arr[${i:=0}]}&quot;((i=i&gt;=${#arr[@]}-1?0:++i))}</code></pre><h1 id="49312a62-e06e-47f2-9ece-e4c07bf405d3" class="">LOOPS</h1><h2 id="6e970252-ea4b-4caa-8fce-2cdfe3d0bcef" class="">Loop over a range of numbers</h2><p id="1feb0f42-de8d-4cef-87e8-3dfe1f19116e" class="">Alternative to <code>seq</code>.</p><pre id="e47d3254-996d-46ba-86dc-c86d1868c951" class="code"><code># Loop from 0-100 (no variable support).
+for i in {0..100}; do
+    printf &#x27;%s\n&#x27; &quot;$i&quot;
+done</code></pre><h2 id="10b07904-fdf6-447c-a4a6-c8b04250d8ae" class="">Loop over a variable range of numbers</h2><p id="53e62ceb-4fdc-4692-bba8-adbab437b942" class="">Alternative to <code>seq</code>.</p><pre id="f51cd5c0-813c-4472-88e4-f457bb9f7a43" class="code"><code># Loop from 0-VAR.
+VAR=50
+for ((i=0;i&lt;=VAR;i++)); do
+    printf &#x27;%s\n&#x27; &quot;$i&quot;
+done</code></pre><h2 id="94f1861a-5d30-484c-8c41-8076031907c7" class="">Loop over an array</h2><pre id="25a9641b-13df-4f23-b343-9283d837654c" class="code"><code>arr=(apples oranges tomatoes)
+
+# Just elements.
+for element in &quot;${arr[@]}&quot;; do
+    printf &#x27;%s\n&#x27; &quot;$element&quot;
+done</code></pre><h2 id="64bf1e33-d18b-4604-a59a-954c3c466405" class="">Loop over an array with an index</h2><pre id="0cac9b3b-ff05-41f5-979c-80103cbbbefb" class="code"><code>arr=(apples oranges tomatoes)
+
+# Elements and index.
+for i in &quot;${!arr[@]}&quot;; do
+    printf &#x27;%s\n&#x27; &quot;${arr[i]}&quot;
+done
+
+# Alternative method.
+for ((i=0;i&lt;${#arr[@]};i++)); do
+    printf &#x27;%s\n&#x27; &quot;${arr[i]}&quot;
+done</code></pre><h2 id="6fdfbfa6-8a68-47f1-a125-a34774ea8446" class="">Loop over the contents of a file</h2><pre id="4f880594-739f-43f5-a729-79c7134b9f9f" class="code"><code>while read -r line; do
+    printf &#x27;%s\n&#x27; &quot;$line&quot;
+done &lt; &quot;file&quot;</code></pre><h2 id="f6baf33b-073f-47ea-8e09-8d30e4bb9476" class="">Loop over files and directories</h2><p id="9febda4f-b0bd-4d79-a5bf-4efe7721a804" class="">Don’t use <code>ls</code>.</p><pre id="6cf0a4b8-f508-4017-8f0f-5393b46a5f54" class="code"><code># Greedy example.
+for file in *; do
+    printf &#x27;%s\n&#x27; &quot;$file&quot;
+done
+
+# PNG files in dir.
+for file in ~/Pictures/*.png; do
+    printf &#x27;%s\n&#x27; &quot;$file&quot;
+done
+
+# Iterate over directories.
+for dir in ~/Downloads/*/; do
+    printf &#x27;%s\n&#x27; &quot;$dir&quot;
+done
+
+# Brace Expansion.
+for file in /path/to/parentdir/{file1,file2,subdir/file3}; do
+    printf &#x27;%s\n&#x27; &quot;$file&quot;
+done
+
+# Iterate recursively.
+shopt -s globstar
+for file in ~/Pictures/**/*; do
+    printf &#x27;%s\n&#x27; &quot;$file&quot;
+done
+shopt -u globstar</code></pre><h1 id="81c9231a-f834-4278-90ee-463c70e7ccf0" class="">FILE HANDLING</h1><p id="963a746c-24cc-4bb5-a3a5-c314c4e37fc0" class=""><strong>CAVEAT:</strong> <code>bash</code> does not handle binary data properly in versions <code>&lt; 4.4</code>.</p><h2 id="f21739b0-a0aa-4834-a288-83e2dbba55e0" class="">Read a file to a string</h2><p id="5f43e238-dbd8-4479-b6e7-2ada7d086b28" class="">Alternative to the <code>cat</code> command.</p><pre id="8d9fdd1d-75a0-4259-be85-e51e548892e6" class="code"><code>file_data=&quot;$(&lt;&quot;file&quot;)&quot;</code></pre><h2 id="672fd350-3126-4328-a404-53fdbe344c55" class="">Read a file to an array (<em>by line</em>)</h2><p id="a747cb27-ed1b-45a8-a459-1c876345eb58" class="">Alternative to the <code>cat</code> command.</p><pre id="3d259511-ba9f-4b37-b4e5-b313dd06ae02" class="code"><code># Bash &lt;4 (discarding empty lines).
+IFS=$&#x27;\n&#x27; read -d &quot;&quot; -ra file_data &lt; &quot;file&quot;
+
+# Bash &lt;4 (preserving empty lines).
+while read -r line; do
+    file_data+=(&quot;$line&quot;)
+done &lt; &quot;file&quot;
+
+# Bash 4+
+mapfile -t file_data &lt; &quot;file&quot;</code></pre><h2 id="1dd842bd-6ea7-4045-8e12-f9d4af8da6c5" class="">Get the first N lines of a file</h2><p id="75e8c507-f908-4f3e-823a-636407fd16fe" class="">Alternative to the <code>head</code> command.</p><p id="f21c00fb-4262-4bfb-9648-0cf43c332f4a" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="8ee457cb-d055-4e42-ad13-e63032bcb3f3" class=""><strong>Example Function:</strong></p><pre id="e82de90d-9abd-4689-bde4-91b57d1166e1" class="code"><code>head() {# Usage: head &quot;n&quot; &quot;file&quot;mapfile -tn &quot;$1&quot; line &lt; &quot;$2&quot;printf &#x27;%s\n&#x27; &quot;${line[@]}&quot;}</code></pre><p id="d6ccdd1f-049a-4afc-8d2a-207e1f2bd30f" class=""><strong>Example Usage:</strong></p><pre id="4da67f61-30e0-42f9-91e9-2590426a67dc" class="code"><code>$ head 2 ~/.bashrc
+# Prompt
+PS1=&#x27;➜ &#x27;
+
+$ head 1 ~/.bashrc
+# Prompt</code></pre><h2 id="4a6d1eb7-30e6-4b99-9a9e-f26bd6a61847" class="">Get the last N lines of a file</h2><p id="4bf8eb26-f14c-48db-8cdb-89319ed1e145" class="">Alternative to the <code>tail</code> command.</p><p id="e587af71-8c90-49bd-9aec-982226c7fd93" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="a81fc440-3c7c-4458-8acd-39b29f32a1d6" class=""><strong>Example Function:</strong></p><pre id="e15e36de-3d5c-4107-9a67-353d5377d3c8" class="code"><code>tail() {# Usage: tail &quot;n&quot; &quot;file&quot;mapfile -tn 0 line &lt; &quot;$2&quot;printf &#x27;%s\n&#x27; &quot;${line[@]: -$1}&quot;}</code></pre><p id="8bd7a614-581c-45dc-9a7f-b94e5b7ba66e" class=""><strong>Example Usage:</strong></p><pre id="290bdcb2-0611-4461-958b-bdd2430636fa" class="code"><code>$ tail 2 ~/.bashrc
+# Enable tmux.
+# [[ -z &quot;$TMUX&quot;  ]] &amp;&amp; exec tmux
+
+$ tail 1 ~/.bashrc
+# [[ -z &quot;$TMUX&quot;  ]] &amp;&amp; exec tmux</code></pre><h2 id="f7ab223d-bd6a-4902-9721-2dbecca659f9" class="">Get the number of lines in a file</h2><p id="81ac6a3f-dbab-4e2b-9cf5-91648f1f3a2b" class="">Alternative to <code>wc -l</code>.</p><p id="805acb11-fde5-4028-a964-8f64bf396162" class=""><strong>Example Function (bash 4):</strong></p><pre id="2a8fad04-2954-4f67-8b66-a6b118e6291a" class="code"><code>lines() {# Usage: lines &quot;file&quot;mapfile -tn 0 lines &lt; &quot;$1&quot;printf &#x27;%s\n&#x27; &quot;${#lines[@]}&quot;}</code></pre><p id="2060c661-9658-4ed2-b3ce-63f3f9f72788" class=""><strong>Example Function (bash 3):</strong></p><p id="e06f64a6-9d45-4afd-ada7-052762cab02e" class="">This method uses less memory than the <code>mapfile</code> method and works in <code>bash</code> 3 but it is slower for bigger files.</p><pre id="01ac2518-2d64-4b86-ba2f-3986d714a609" class="code"><code>lines_loop() {# Usage: lines_loop &quot;file&quot;count=0while IFS= read -r _; do((count++))done &lt; &quot;$1&quot;printf &#x27;%s\n&#x27; &quot;$count&quot;}</code></pre><p id="baf9c6f9-28ff-4d03-918e-3e186c462c92" class=""><strong>Example Usage:</strong></p><pre id="1f2f27b6-b4de-404c-a32a-eb293609b0b2" class="code"><code>$ lines ~/.bashrc
+48
+
+$ lines_loop ~/.bashrc
+48</code></pre><h2 id="8fd9c918-9b88-4c2e-bdcc-6bdd18eab0a9" class="">Count files or directories in directory</h2><p id="f024acc9-9961-48c6-a525-4f80a26ad8c5" class="">This works by passing the output of the glob to the function and then counting the number of arguments.</p><p id="6d2a62c7-b622-46a9-955e-ed6154273dd7" class=""><strong>Example Function:</strong></p><pre id="bda94886-bee4-424c-a074-c8c771c699d9" class="code"><code>count() {# Usage: count /path/to/dir/*#        count /path/to/dir/*/printf &#x27;%s\n&#x27; &quot;$#&quot;}</code></pre><p id="165944de-e048-4145-8729-530f2eaea5c1" class=""><strong>Example Usage:</strong></p><pre id="678cd931-0750-4d4a-a138-d9bab1066cf2" class="code"><code># Count all files in dir.
+$ count ~/Downloads/*
+232
+
+# Count all dirs in dir.
+$ count ~/Downloads/*/
+45
+
+# Count all jpg files in dir.
+$ count ~/Pictures/*.jpg
+64</code></pre><h2 id="62521b77-233b-4270-ac83-be579b0f3bb8" class="">Create an empty file</h2><p id="f2722d76-8613-413f-8426-649c5996a963" class="">Alternative to <code>touch</code>.</p><pre id="62b826d6-1f84-4fb6-9df6-96564b51bb10" class="code"><code># Shortest.
+&gt;file
+
+# Longer alternatives:
+:&gt;file
+echo -n &gt;file
+printf &#x27;&#x27; &gt;file</code></pre><h2 id="bf65a882-0a90-4a08-9ff3-dba319003489" class="">Extract lines between two markers</h2><p id="a39960ec-7f48-4aa4-8db6-77e54f563fdb" class=""><strong>Example Function:</strong></p><pre id="c197299b-d80e-455b-9753-3e7f195b65aa" class="code"><code>extract() {# Usage: extract file &quot;opening marker&quot; &quot;closing marker&quot;while IFS=$&#x27;\n&#x27; read -r line; do[[ $extract &amp;&amp; $line != &quot;$3&quot; ]] &amp;&amp;printf &#x27;%s\n&#x27; &quot;$line&quot;[[ $line == &quot;$2&quot; ]] &amp;&amp; extract=1[[ $line == &quot;$3&quot; ]] &amp;&amp; extract=done &lt; &quot;$1&quot;}</code></pre><p id="448b9670-82d8-4481-b603-5f34bf389ecb" class=""><strong>Example Usage:</strong></p><pre id="6cb4e45a-3ee3-4378-a2ad-ff8fb091b2fb" class="code"><code># Extract code blocks from MarkDown file.
+$ extract ~/projects/pure-bash/README.md &#x27;```sh&#x27; &#x27;```&#x27;
+# Output here...</code></pre><h1 id="581ff095-49b3-4701-bf87-794aa2ab316c" class="">FILE PATHS</h1><h2 id="35af9ef2-00dc-403d-9235-236dcdaa5aa7" class="">Get the directory name of a file path</h2><p id="981fd318-8328-462a-978d-b9b34848a684" class="">Alternative to the <code>dirname</code> command.</p><p id="cb2dc46a-a999-4365-9a83-ad03194112d9" class=""><strong>Example Function:</strong></p><pre id="a8488080-c40b-4553-9648-4310126d52fe" class="code"><code>dirname() {# Usage: dirname &quot;path&quot;local tmp=${1:-.}[[ $tmp != *[!/]* ]] &amp;&amp; {printf &#x27;/\n&#x27;return}tmp=${tmp%%&quot;${tmp##*[!/]}&quot;}[[ $tmp != */* ]] &amp;&amp; {printf &#x27;.\n&#x27;return}tmp=${tmp%/*}tmp=${tmp%%&quot;${tmp##*[!/]}&quot;}printf &#x27;%s\n&#x27; &quot;${tmp:-/}&quot;}</code></pre><p id="cdd072cf-1fdf-4d91-a9e5-557341157c0f" class=""><strong>Example Usage:</strong></p><pre id="9aa1790b-428f-4fe9-889e-51ea36023226" class="code"><code>$ dirname ~/Pictures/Wallpapers/1.jpg
+/home/black/Pictures/Wallpapers
+
+$ dirname ~/Pictures/Downloads/
+/home/black/Pictures</code></pre><h2 id="02ec78a0-c14b-408c-83a9-2be792317e7c" class="">Get the base-name of a file path</h2><p id="32b22079-3a6b-4294-9b72-98752d183399" class="">Alternative to the <code>basename</code> command.</p><p id="b85da510-531a-4db7-b188-51bb349b546d" class=""><strong>Example Function:</strong></p><pre id="e7d17862-eb2e-4a76-ae1a-93c827e1b19b" class="code"><code>basename() {# Usage: basename &quot;path&quot; [&quot;suffix&quot;]local tmptmp=${1%&quot;${1##*[!/]}&quot;}tmp=${tmp##*/}tmp=${tmp%&quot;${2/&quot;$tmp&quot;}&quot;}printf &#x27;%s\n&#x27; &quot;${tmp:-/}&quot;}</code></pre><p id="e34ad04a-6151-4bce-b321-3a6a8c62007e" class=""><strong>Example Usage:</strong></p><pre id="55cbe473-1a08-4ea7-86fc-41fd9ab3b39d" class="code"><code>$ basename ~/Pictures/Wallpapers/1.jpg
+1.jpg
+
+$ basename ~/Pictures/Wallpapers/1.jpg .jpg
+1
+
+$ basename ~/Pictures/Downloads/
+Downloads</code></pre><h1 id="80f611ae-a45a-48ed-b6a5-0bf82cd480db" class="">VARIABLES</h1><h2 id="58f82c23-7c3f-4dec-a524-23550fede6dd" class="">Assign and access a variable using a variable</h2><pre id="ec4f552a-4cf3-4e13-ae2f-f83b2ca48352" class="code"><code>$ hello_world=&quot;value&quot;
+
+# Create the variable name.
+$ var=&quot;world&quot;
+$ ref=&quot;hello_$var&quot;
+
+# Print the value of the variable name stored in &#x27;hello_$var&#x27;.
+$ printf &#x27;%s\n&#x27; &quot;${!ref}&quot;
+value</code></pre><p id="734938da-6937-4c6d-8e37-8c6bd5cff8a7" class="">Alternatively, on <code>bash</code> 4.3+:</p><pre id="5ab854c1-f7eb-4316-87f0-70ff3f691fe8" class="code"><code>$ hello_world=&quot;value&quot;
+$ var=&quot;world&quot;
+
+# Declare a nameref.
+$ declare -n ref=hello_$var
+
+$ printf &#x27;%s\n&#x27; &quot;$ref&quot;
+value</code></pre><h2 id="ad989193-5425-4574-845b-38ace058d12c" class="">Name a variable based on another variable</h2><pre id="447c08d4-4b19-42be-acb6-e7614d41d4a1" class="code"><code>$ var=&quot;world&quot;
+$ declare &quot;hello_$var=value&quot;
+$ printf &#x27;%s\n&#x27; &quot;$hello_world&quot;
+value</code></pre><h1 id="e7d613fe-da36-4d87-bb6f-5b4c5baa4f4f" class="">ESCAPE SEQUENCES</h1><p id="7ed0da2e-67c6-4906-a1ee-ec4c6cdb6923" class="">Contrary to popular belief, there is no issue in utilizing raw escape sequences. Using <code>tput</code> abstracts the same ANSI sequences as if printed manually. Worse still, <code>tput</code> is not actually portable. There are a number of <code>tput</code> variants each with different commands and syntaxes (<em>try </em><code><em>tput setaf 3</em></code><em> on a FreeBSD system</em>). Raw sequences are fine.</p><h2 id="842a12e8-d70d-459a-8808-a1a6e6a35d49" class="">Text Colors</h2><p id="f19b093d-4c64-411b-8312-df0740a0b992" class=""><strong>NOTE:</strong> Sequences requiring RGB values only work in True-Color Terminal Emulators.</p><h2 id="e7075dfd-24c0-4ee8-a1e9-a538e4e300b8" class="">Text Attributes</h2><p id="03cfdd84-28a9-45cb-b1b5-4ddb18891412" class=""><strong>NOTE:</strong> Prepend 2 to any code below to turn it’s effect off (examples: 21=bold text off, 22=faint text off, 23=italic text off).</p><h2 id="46e4e710-4fb2-4144-a285-337681481b04" class="">Cursor Movement</h2><h2 id="a119c90b-a882-42c1-b331-0b43e9f4a573" class="">Erasing Text</h2><h1 id="c85b8551-eef8-48e9-83fb-1976e23586a5" class="">PARAMETER EXPANSION</h1><h2 id="deacaa90-0c6a-4d1a-bd5f-3dbe5cb797c0" class="">Indirection</h2><h2 id="744fdb9b-7730-4ff9-9b49-c8b68ca1ca86" class="">Replacement</h2><h2 id="30ae0bff-f1b5-4d62-b568-2ffba370de7a" class="">Length</h2><h2 id="746c77a4-fb7e-4af7-883c-b7b1bdec9778" class="">Expansion</h2><h2 id="f24de05f-cb97-4268-a297-455bde9f4d19" class="">Case Modification</h2><h2 id="89ede935-2717-4050-8e32-6f3ab0f69ba1" class="">Default Value</h2><h1 id="4578c3b6-d4aa-468e-a5e1-ad831846f4aa" class="">BRACE EXPANSION</h1><h2 id="345e328b-2ad9-4cd9-889c-939d7b8ba179" class="">Ranges</h2><pre id="6626bb83-b974-4329-8ed3-074c1e15ada5" class="code"><code># Syntax: {&lt;START&gt;..&lt;END&gt;}
+
+# Print numbers 1-100.
+echo {1..100}
+
+# Print range of floats.
+echo 1.{1..9}
+
+# Print chars a-z.
+echo {a..z}
+echo {A..Z}
+
+# Nesting.
+echo {A..Z}{0..9}
+
+# Print zero-padded numbers.
+# CAVEAT: bash 4+
+echo {01..100}
+
+# Change increment amount.
+# Syntax: {&lt;START&gt;..&lt;END&gt;..&lt;INCREMENT&gt;}
+# CAVEAT: bash 4+
+echo {1..10..2} # Increment by 2.</code></pre><h2 id="b75fa6c0-db1a-407f-92d1-7ea14ef9b9a0" class="">String Lists</h2><pre id="eec49613-8975-460b-af0e-e6b9114152d7" class="code"><code>echo {apples,oranges,pears,grapes}
+
+# Example Usage:
+# Remove dirs Movies, Music and ISOS from ~/Downloads/.
+rm -rf ~/Downloads/{Movies,Music,ISOS}</code></pre><h1 id="1623b0c0-f98b-4046-81a9-42a0fd495ab2" class="">CONDITIONAL EXPRESSIONS</h1><h2 id="a764f33d-7c85-409d-8e57-c75a73a9c46d" class="">File Conditionals</h2><h2 id="f6293f00-1f3d-43c6-a72d-3b7e2a9bd83e" class="">File Comparisons</h2><h2 id="23e07f3e-52ed-4386-88be-51dd4d64c312" class="">Variable Conditionals</h2><h2 id="e6392aba-d4f0-46d0-b7b4-ccbde1664249" class="">Variable Comparisons</h2><h1 id="82f5bedd-49b9-4a17-8c20-badcbec5014f" class="">ARITHMETIC OPERATORS</h1><h2 id="32ed6a62-6839-461d-9a03-a08010a51d97" class="">Assignment</h2><h2 id="e39e2c15-7384-4b8c-a339-c198bcd546d6" class="">Arithmetic</h2><h2 id="11ad97bc-b4ea-46f9-b318-ce6217c24f05" class="">Bitwise</h2><h2 id="e6f2e7ad-5be1-41e3-bbc9-e05498e0aeeb" class="">Logical</h2><h2 id="d092fac3-bc62-4365-bc77-ce07160a2b22" class="">Miscellaneous</h2><h1 id="4f4bb46a-dc73-4a85-9157-522b755fedd7" class="">ARITHMETIC</h1><h2 id="9a7368d2-703d-426f-9fe2-a3c9fd70e125" class="">Simpler syntax to set variables</h2><pre id="715cc7ba-2e7d-4fc7-898b-87fb032fe251" class="code"><code># Simple math
+((var=1+2))
+
+# Decrement/Increment variable
+((var++))
+((var--))
+((var+=1))
+((var-=1))
+
+# Using variables
+((var=var2*arr[2]))</code></pre><h2 id="fe673520-0336-4cfc-b886-ca0a0f02d620" class="">Ternary Tests</h2><pre id="dbc9c618-3895-4da8-ba9e-9d4b973cb2ea" class="code"><code># Set the value of var to var2 if var2 is greater than var.
+# var: variable to set.
+# var2&gt;var: Condition to test.
+# ?var2: If the test succeeds.
+# :var: If the test fails.
+((var=var2&gt;var?var2:var))</code></pre><h1 id="8c576f8e-1616-47fc-8ae2-0348dee8ec5e" class="">TRAPS</h1><p id="4c55ddb5-511c-448e-a0d9-9a9ab23054e8" class="">Traps allow a script to execute code on various signals. In <a href="https://github.com/dylanaraps/pxltrm">pxltrm</a> (<em>a pixel art editor written in bash</em>) traps are used to redraw the user interface on window resize. Another use case is cleaning up temporary files on script exit.</p><p id="dfeb0604-93f0-4f6e-8d2e-388cb2e11037" class="">Traps should be added near the start of scripts so any early errors are also caught.</p><p id="c3e3d7dd-3433-4b71-bfd3-b4fa7f223ad2" class=""><strong>NOTE:</strong> For a full list of signals, see <code>trap -l</code>.</p><h2 id="fece662d-2a33-4bfe-ad7d-894913845218" class="">Do something on script exit</h2><pre id="7145f70e-3b54-41af-9613-6604f050a2b4" class="code"><code># Clear screen on script exit.
+trap &#x27;printf \\e[2J\\e[H\\e[m&#x27; EXIT</code></pre><h2 id="09e7c403-174e-4f1c-817a-2d04b0e08350" class="">Ignore terminal interrupt (CTRL+C, SIGINT)</h2><pre id="e4c3abad-3e7b-4e59-8ba0-fb35b8073d26" class="code"><code>trap &#x27;&#x27; INT</code></pre><h2 id="e78f6382-f115-454f-8930-dd8ca5b5cd21" class="">React to window resize</h2><pre id="5b0a684f-3589-4e67-a555-fa5623b7fb68" class="code"><code># Call a function on window resize.
+trap &#x27;code_here&#x27; SIGWINCH</code></pre><h2 id="fc435c5b-95da-4604-9357-2774e14d34f5" class="">Do something before every command</h2><pre id="6c658318-ecbe-4413-beec-c2a8058d74c3" class="code"><code>trap &#x27;code_here&#x27; DEBUG</code></pre><h2 id="e58a0fd6-d0f6-4d9c-85f4-42897793f467" class="">Do something when a shell function or a sourced file finishes executing</h2><pre id="88d9d6ba-14a7-4555-8dac-a511094776a5" class="code"><code>trap &#x27;code_here&#x27; RETURN</code></pre><h1 id="f79862e8-a91c-4e1d-9b70-a1a405f0cdca" class="">PERFORMANCE</h1><h2 id="dc105b24-e40a-4e0f-84be-3576c46f25e1" class="">Disable Unicode</h2><p id="ea12b482-3448-4bb8-8aab-4b9a4b36bbd8" class="">If unicode is not required, it can be disabled for a performance increase. Results may vary however there have been noticeable improvements in <a href="https://github.com/dylanaraps/neofetch">neofetch</a> and other programs.</p><pre id="22900a1d-7a87-4ff6-abe6-0fd292e75988" class="code"><code># Disable unicode.
+LC_ALL=C
+LANG=C</code></pre><h1 id="75a97de8-6c34-4bd5-a222-9acbc78d98ca" class="">OBSOLETE SYNTAX</h1><h2 id="b3f58b11-207e-4b57-8d63-a4d0a72352f7" class="">Shebang</h2><p id="033ff95b-d68e-44d5-9d0e-dc50376fbbf3" class="">Use <code>#!/usr/bin/env bash</code> instead of <code>#!/bin/bash</code>.</p><ul id="069a31c9-45f9-45cf-8513-ae952e050e23" class="bulleted-list"><li>The former searches the user’s <code>PATH</code> to find the <code>bash</code> binary.</li></ul><ul id="84b15592-336d-48b0-b769-c6e50fb3a28f" class="bulleted-list"><li>The latter assumes it is always installed to <code>/bin/</code> which can cause issues.</li></ul><p id="07359f8b-0de3-4efc-82f9-bdd279eb123b" class=""><strong>NOTE</strong>: There are times when one may have a good reason for using <code>#!/bin/bash</code> or another direct path to the binary.</p><pre id="e6cc5361-1588-407f-8231-39846b73c78c" class="code"><code># Right:
+
+    #!/usr/bin/env bash
+
+# Less right:
+
+    #!/bin/bash</code></pre><h2 id="55fcc472-ae67-442b-8a8e-6c6de3016bec" class="">Command Substitution</h2><p id="ee26fa1d-e51f-4a10-8c86-c9cd6725779c" class="">Use <code>$()</code> instead of <code>` `</code>.</p><pre id="4e9721e2-0618-4f40-87e9-e315d16a049c" class="code"><code># Right.
+var=&quot;$(command)&quot;
+
+# Wrong.
+var=`command`
+
+# $() can easily be nested whereas `` cannot.
+var=&quot;$(command &quot;$(command)&quot;)&quot;</code></pre><h2 id="5651f607-98dc-4023-ae6d-5bdf52fdf390" class="">Function Declaration</h2><p id="a9e3c078-a82f-42fc-aad3-3b4cbab7337d" class="">Do not use the <code>function</code> keyword, it reduces compatibility with older versions of <code>bash</code>.</p><pre id="6a2a13c7-321b-4e2b-9880-ca02e5dfd8d0" class="code"><code># Right.
+do_something() {
+    # ...
+}
+
+# Wrong.
+function do_something() {
+    # ...
+}</code></pre><h1 id="10ca602b-6505-48cb-a7f1-0fe804540467" class="">INTERNAL VARIABLES</h1><h2 id="ac491e1d-5151-43f3-b432-7e2861bddea6" class="">Get the location to the <code>bash</code> binary</h2><pre id="d09ca032-4126-4f52-ac83-b813916d387f" class="code"><code>&quot;$BASH&quot;</code></pre><h2 id="f51d277d-5d0c-441a-af01-a64f368b37a5" class="">Get the version of the current running <code>bash</code> process</h2><pre id="01bf815d-8a34-4a07-9b8b-414c274680bc" class="code"><code># As a string.
+&quot;$BASH_VERSION&quot;
+
+# As an array.
+&quot;${BASH_VERSINFO[@]}&quot;</code></pre><h2 id="28bd59c9-c7f5-4284-8e2c-3860ee8d30ca" class="">Open the user’s preferred text editor</h2><pre id="07e3528b-da97-460e-bf57-405e811ba438" class="code"><code>&quot;$EDITOR&quot; &quot;$file&quot;
+
+# NOTE: This variable may be empty, set a fallback value.
+&quot;${EDITOR:-vi}&quot; &quot;$file&quot;</code></pre><h2 id="d147fea9-5c45-47e4-a8d8-830307d2361b" class="">Get the name of the current function</h2><pre id="2c1debe3-2671-4fcb-8502-c722d346723e" class="code"><code># Current function.
+&quot;${FUNCNAME[0]}&quot;
+
+# Parent function.
+&quot;${FUNCNAME[1]}&quot;
+
+# So on and so forth.
+&quot;${FUNCNAME[2]}&quot;
+&quot;${FUNCNAME[3]}&quot;
+
+# All functions including parents.
+&quot;${FUNCNAME[@]}&quot;</code></pre><h2 id="bccbd378-3564-45c3-96cf-306ac1f5d60e" class="">Get the host-name of the system</h2><pre id="e3f23b23-bb8c-47a8-a84e-77884b825bdf" class="code"><code>&quot;$HOSTNAME&quot;
+
+# NOTE: This variable may be empty.
+# Optionally set a fallback to the hostname command.
+&quot;${HOSTNAME:-$(hostname)}&quot;</code></pre><h2 id="3b25c80d-9bbb-4c78-8d5b-1b41ba32050e" class="">Get the architecture of the Operating System</h2><pre id="39b926f3-0969-458a-9953-bf412a5b39e1" class="code"><code>&quot;$HOSTTYPE&quot;</code></pre><h2 id="254e9fe4-f8fa-40d7-8110-86f2a5226dfb" class="">Get the name of the Operating System / Kernel</h2><p id="2bc53988-47bc-413f-ad14-8b66902b38f8" class="">This can be used to add conditional support for different Operating Systems without needing to call <code>uname</code>.</p><pre id="2d616cd9-fe56-4c60-8f3c-f4933f663848" class="code"><code>&quot;$OSTYPE&quot;</code></pre><h2 id="f09ab318-01c0-4ec2-97e4-86e77d216662" class="">Get the current working directory</h2><p id="6a67f651-ff81-45a1-8905-efa99920e398" class="">This is an alternative to the <code>pwd</code> built-in.</p><pre id="5d5e1025-dba1-4d6f-bac4-bbe82f1c9afa" class="code"><code>&quot;$PWD&quot;</code></pre><h2 id="da957409-dbd9-46dc-acb0-06cda09e9404" class="">Get the number of seconds the script has been running</h2><pre id="1a03e1e1-22ee-49a0-b2ce-c5acd1c81154" class="code"><code>&quot;$SECONDS&quot;</code></pre><h2 id="898ed65a-885d-4b4b-8116-b75f33e7630a" class="">Get a pseudorandom integer</h2><p id="a506d4f9-4eb4-4289-a2a8-8ce5f6d16886" class="">Each time <code>$RANDOM</code> is used, a different integer between <code>0</code> and <code>32767</code> is returned. This variable should not be used for anything related to security (<em>this includes encryption keys etc</em>).</p><pre id="481aa70d-b032-4567-ada2-7bd594959dcc" class="code"><code>&quot;$RANDOM&quot;</code></pre><h1 id="07b359a7-dea9-4da5-9a1f-3bd8f853eeb8" class="">INFORMATION ABOUT THE TERMINAL</h1><h2 id="08ecb0d0-6d1c-40ee-bca1-dd822453c796" class="">Get the terminal size in lines and columns (<em>from a script</em>)</h2><p id="8460319e-1534-46de-aa5c-f60c1b2b7cff" class="">This is handy when writing scripts in pure bash and <code>stty</code>/<code>tput</code> can’t be called.</p><p id="d98a17fe-c85e-4baf-ae5f-a2658315efab" class=""><strong>Example Function:</strong></p><pre id="0a57381c-7888-43ea-b96c-d4870a519291" class="code"><code>get_term_size() {# Usage: get_term_size# (:;:) is a micro sleep to ensure the variables are# exported immediately.shopt -s checkwinsize; (:;:)printf &#x27;%s\n&#x27; &quot;$LINES $COLUMNS&quot;}</code></pre><p id="ec5e0ea3-b76d-4913-8b57-c11b04c4f06b" class=""><strong>Example Usage:</strong></p><pre id="4ec6523f-c492-4a7d-80f5-86e3b47c4a6f" class="code"><code># Output: LINES COLUMNS
+$ get_term_size
+15 55</code></pre><h2 id="9fa21fbe-955a-41ba-a626-899a95857aad" class="">Get the terminal size in pixels</h2><p id="e70c438b-e3c8-4e30-b721-a29fad519a06" class=""><strong>CAVEAT</strong>: This does not work in some terminal emulators.</p><p id="f6fc5d2e-819f-4cf6-9ffe-493fb298711c" class=""><strong>Example Function:</strong></p><pre id="f195212f-2ff0-496b-89f0-a898a485dca0" class="code"><code>get_window_size() {# Usage: get_window_sizeprintf &#x27;%b&#x27; &quot;${TMUX:+\\ePtmux;\\e}\\e[14t${TMUX:+\\e\\\\}&quot;IFS=&#x27;;t&#x27; read -d t -t 0.05 -sra term_sizeprintf &#x27;%s\n&#x27; &quot;${term_size[1]}x${term_size[2]}&quot;}</code></pre><p id="9c1022c7-3737-4f0d-8a2a-24f7394dc4e4" class=""><strong>Example Usage:</strong></p><pre id="b903b610-eaed-4b61-b007-f055131e14ce" class="code"><code># Output: WIDTHxHEIGHT
+$ get_window_size
+1200x800
+
+# Output (fail):
+$ get_window_size
+x</code></pre><h2 id="3fccf9bd-5f84-4a6f-9c91-02ef555187b1" class="">Get the current cursor position</h2><p id="3b169339-f3cc-4ffb-9da1-a9feab2e7d97" class="">This is useful when creating a TUI in pure bash.</p><p id="e0923a23-45dd-4b16-a831-63834b4cbd02" class=""><strong>Example Function:</strong></p><pre id="0485b8ec-dc0f-4626-a543-7d3c712dff55" class="code"><code>get_cursor_pos() {# Usage: get_cursor_posIFS=&#x27;[;&#x27; read -p $&#x27;\e[6n&#x27; -d R -rs _ y x _printf &#x27;%s\n&#x27; &quot;$x $y&quot;}</code></pre><p id="b9b564bf-84d0-4a44-b9e9-3e70ee1696bc" class=""><strong>Example Usage:</strong></p><pre id="e903edf0-e060-4e3c-8834-87457b181bb6" class="code"><code># Output: X Y
+$ get_cursor_pos
+1 8</code></pre><h1 id="b1bf3662-d712-4af4-9210-9324c25c86c0" class="">CONVERSION</h1><h2 id="488f3e94-9ec3-470b-ab3d-5cf36c4278a3" class="">Convert a hex color to RGB</h2><p id="48f43c8d-ea61-4c11-bdb0-270f0d2740fa" class=""><strong>Example Function:</strong></p><pre id="5c3c62a0-553e-46bf-8af0-cfff140484a8" class="code"><code>hex_to_rgb() {# Usage: hex_to_rgb &quot;#FFFFFF&quot;#        hex_to_rgb &quot;000000&quot;: &quot;${1/\#}&quot;((r=16#${_:0:2},g=16#${_:2:2},b=16#${_:4:2}))printf &#x27;%s\n&#x27; &quot;$r $g $b&quot;}</code></pre><p id="1e6240fd-f08c-43e2-a017-dad1ba6e5285" class=""><strong>Example Usage:</strong></p><pre id="38f58833-4c6b-41fc-b9d9-3e3a30bfa918" class="code"><code>$ hex_to_rgb &quot;#FFFFFF&quot;
+255 255 255</code></pre><h2 id="4f7d47d0-41b7-4fdb-9782-8ba62586f0ec" class="">Convert an RGB color to hex</h2><p id="b8a4dd0e-5eb2-4b06-8cf4-cd4ce4683c16" class=""><strong>Example Function:</strong></p><pre id="5fe71317-4cf0-4d43-bc51-678b206a2bf8" class="code"><code>rgb_to_hex() {# Usage: rgb_to_hex &quot;r&quot; &quot;g&quot; &quot;b&quot;printf &#x27;#%02x%02x%02x\n&#x27; &quot;$1&quot; &quot;$2&quot; &quot;$3&quot;}</code></pre><p id="017e5c62-9ad2-4c09-8c28-1cdc6cafa0dd" class=""><strong>Example Usage:</strong></p><pre id="52022fc8-682e-4c8d-88dd-4bef54b9d1d8" class="code"><code>$ rgb_to_hex &quot;255&quot; &quot;255&quot; &quot;255&quot;
+#FFFFFF</code></pre><h1 id="e7c577ca-5419-460b-a7fb-0d2511e504e2" class="">CODE GOLF</h1><h2 id="bed49bad-9001-405e-ae4e-50d9f42f1e75" class="">Shorter <code>for</code> loop syntax</h2><pre id="057031af-a8c9-40ab-97c3-72c87bfc488f" class="code"><code># Tiny C Style.
+for((;i++&lt;10;)){ echo &quot;$i&quot;;}
+
+# Undocumented method.
+for i in {1..10};{ echo &quot;$i&quot;;}
+
+# Expansion.
+for i in {1..10}; do echo &quot;$i&quot;; done
+
+# C Style.
+for((i=0;i&lt;=10;i++)); do echo &quot;$i&quot;; done</code></pre><h2 id="69504250-e3bd-4273-a9cd-5851241c3a40" class="">Shorter infinite loops</h2><pre id="f53ea45b-8488-433a-bede-07f0f54e02e5" class="code"><code># Normal method
+while :; do echo hi; done
+
+# Shorter
+for((;;)){ echo hi;}</code></pre><h2 id="1bbc01a7-b16d-4519-8acb-99b082ca49bb" class="">Shorter function declaration</h2><pre id="293be71e-4936-4b57-b88d-40a94239643b" class="code"><code># Normal method
+f(){ echo hi;}
+
+# Using a subshell
+f()(echo hi)
+
+# Using arithmetic
+# This can be used to assign integer values.
+# Example: f a=1
+#          f a++
+f()(($1))
+
+# Using tests, loops etc.
+# NOTE: ‘while’, ‘until’, ‘case’, ‘(())’, ‘[[]]’ can also be used.
+f()if true; then echo &quot;$1&quot;; fi
+f()for i in &quot;$@&quot;; do echo &quot;$i&quot;; done</code></pre><h2 id="0ab0677f-47ac-4bac-a3f6-4dd2850d1217" class="">Shorter <code>if</code> syntax</h2><pre id="b3c5bb30-024f-48b0-8dc1-29df2ceee6e4" class="code"><code># One line
+# Note: The 3rd statement may run when the 1st is true
+[[ $var == hello ]] &amp;&amp; echo hi || echo bye
+[[ $var == hello ]] &amp;&amp; { echo hi; echo there; } || echo bye
+
+# Multi line (no else, single statement)
+# Note: The exit status may not be the same as with an if statement
+[[ $var == hello ]] &amp;&amp;
+    echo hi
+
+# Multi line (no else)
+[[ $var == hello ]] &amp;&amp; {
+    echo hi
+    # ...
+}</code></pre><h2 id="ace2addd-30fa-4939-942e-fa5c604783b2" class="">Simpler <code>case</code> statement to set variable</h2><p id="94888abc-99b4-47ce-b823-e1b80199ea48" class="">The <code>:</code> built-in can be used to avoid repeating <code>variable=</code> in a case statement. The <code>$_</code> variable stores the last argument of the last command. <code>:</code> always succeeds so it can be used to store the variable value.</p><pre id="6750d513-d717-4aff-a461-c6b7b451ec43" class="code"><code># Modified snippet from Neofetch.
+case &quot;$OSTYPE&quot; in
+    &quot;darwin&quot;*)
+        : &quot;MacOS&quot;
+    ;;
+
+    &quot;linux&quot;*)
+        : &quot;Linux&quot;
+    ;;
+
+    *&quot;bsd&quot;* | &quot;dragonfly&quot; | &quot;bitrig&quot;)
+        : &quot;BSD&quot;
+    ;;
+
+    &quot;cygwin&quot; | &quot;msys&quot; | &quot;win32&quot;)
+        : &quot;Windows&quot;
+    ;;
+
+    *)
+        printf &#x27;%s\n&#x27; &quot;Unknown OS detected, aborting...&quot; &gt;&amp;2
+        exit 1
+    ;;
+esac
+
+# Finally, set the variable.
+os=&quot;$_&quot;</code></pre><h1 id="845d7e49-7a91-41f8-b4ec-3f41c029a79d" class="">OTHER</h1><h2 id="7c845429-5a33-41c0-9664-0f342ef47942" class="">Use <code>read</code> as an alternative to the <code>sleep</code> command</h2><p id="8b3c5d60-0987-4f20-9984-13386197c56d" class="">Surprisingly, <code>sleep</code> is an external command and not a <code>bash</code> built-in.</p><p id="8c7003fa-14c0-4e7f-92ef-4dd4c97a718d" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="699d78e9-8816-4194-89ff-795f62765ec9" class=""><strong>Example Function:</strong></p><pre id="87f944da-b48f-42fa-beb4-ab90b0680935" class="code"><code>read_sleep() {# Usage: read_sleep 1#        read_sleep 0.2read -rt &quot;$1&quot; &lt;&gt; &lt;(:) || :}</code></pre><p id="5e28a4f5-0cbc-438b-8f0e-871868a5c1c4" class=""><strong>Example Usage:</strong></p><pre id="b7993d58-b085-49e1-a497-c0f3d197f931" class="code"><code>read_sleep 1
+read_sleep 0.1
+read_sleep 30</code></pre><p id="4ec8b6f6-2c49-4a67-9809-679738da208e" class="">For performance-critical situations, where it is not economic to open and close an excessive number of file descriptors, the allocation of a file descriptor may be done only once for all invocations of <code>read</code>:</p><p id="aa8732d7-bfc9-49bf-8469-24b527d0ff1f" class="">(See the generic original implementation at https://blog.dhampir.no/content/sleeping-without-a-subprocess-in-bash-and-how-to-sleep-forever)</p><pre id="7a65ba05-c2d3-4ff8-97d6-c96dcc4ed4c5" class="code"><code>exec {sleep_fd}&lt;&gt; &lt;(:)
+while some_quick_test; do
+    # equivalent of sleep 0.001
+    read -t 0.001 -u $sleep_fd
+done</code></pre><h2 id="b3147f80-c56c-447c-82bf-132f9a566de8" class="">Check if a program is in the user’s PATH</h2><pre id="ba5096bc-c86c-4a0d-94c3-965992d52cd1" class="code"><code># There are 3 ways to do this and either one can be used.
+type -p executable_name &amp;&gt;/dev/null
+hash executable_name &amp;&gt;/dev/null
+command -v executable_name &amp;&gt;/dev/null
+
+# As a test.
+if type -p executable_name &amp;&gt;/dev/null; then
+    # Program is in PATH.
+fi
+
+# Inverse.
+if ! type -p executable_name &amp;&gt;/dev/null; then
+    # Program is not in PATH.
+fi
+
+# Example (Exit early if program is not installed).
+if ! type -p convert &amp;&gt;/dev/null; then
+    printf &#x27;%s\n&#x27; &quot;error: convert is not installed, exiting...&quot;
+    exit 1
+fi</code></pre><h2 id="4c9de415-8274-400d-9464-fd42e96359bb" class="">Get the current date using <code>strftime</code></h2><p id="56ecabdd-b23f-4494-adcd-1147c45f0a79" class="">Bash’s <code>printf</code> has a built-in method of getting the date which can be used in place of the <code>date</code> command.</p><p id="eba98906-8c8c-455b-b9ff-31f436773668" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4+</p><p id="ba5c7736-3153-42a4-9b1a-0cd33a5f58be" class=""><strong>Example Function:</strong></p><pre id="6d7e6ea0-de6a-427e-883b-4182a5ccf18b" class="code"><code>date() {# Usage: date &quot;format&quot;# See: &#x27;man strftime&#x27; for format.printf &quot;%($1)T\\n&quot; &quot;-1&quot;}</code></pre><p id="f071e14e-f3e5-4bc6-910e-eee257c0ab5f" class=""><strong>Example Usage:</strong></p><pre id="874ac653-6e48-4c8c-ae2a-03e584794bc9" class="code"><code># Using above function.
+$ date &quot;%a %d %b  - %l:%M %p&quot;
+Fri 15 Jun  - 10:00 AM
+
+# Using printf directly.
+$ printf &#x27;%(%a %d %b  - %l:%M %p)T\n&#x27; &quot;-1&quot;
+Fri 15 Jun  - 10:00 AM
+
+# Assigning a variable using printf.
+$ printf -v date &#x27;%(%a %d %b  - %l:%M %p)T\n&#x27; &#x27;-1&#x27;
+$ printf &#x27;%s\n&#x27; &quot;$date&quot;
+Fri 15 Jun  - 10:00 AM</code></pre><h2 id="97626118-06c6-4e1a-8134-848078900ab7" class="">Get the username of the current user</h2><p id="336deaa0-2d6a-44c7-ac97-be4bfb5c00b7" class=""><strong>CAVEAT:</strong> Requires <code>bash</code> 4.4+</p><pre id="ebe16497-360d-4e08-89d5-e8d483fd28b4" class="code"><code>$ : \\u
+# Expand the parameter as if it were a prompt string.
+$ printf &#x27;%s\n&#x27; &quot;${_@P}&quot;
+black</code></pre><h2 id="a800ab72-3026-4089-a14f-9e5601080553" class="">Generate a UUID V4</h2><p id="7bd26ff5-8402-43e9-b9d0-bb74c4a02878" class=""><strong>CAVEAT</strong>: The generated value is not cryptographically secure.</p><p id="522a4c0c-7e98-4b35-b655-4f42940dddee" class=""><strong>Example Function:</strong></p><pre id="79c7b801-2dfa-4c72-992e-c266b4acc0e1" class="code"><code>uuid() {# Usage: uuidC=&quot;89ab&quot;for ((N=0;N&lt;16;++N)); doB=&quot;$((RANDOM%256))&quot;case &quot;$N&quot; in6)  printf &#x27;4%x&#x27; &quot;$((B%16))&quot; ;;8)  printf &#x27;%c%x&#x27; &quot;${C:$RANDOM%${#C}:1}&quot; &quot;$((B%16))&quot; ;;3|5|7|9)printf &#x27;%02x-&#x27; &quot;$B&quot;;;*)printf &#x27;%02x&#x27; &quot;$B&quot;;;esacdoneprintf &#x27;\n&#x27;}</code></pre><p id="73bee812-695b-4159-b451-5b9bf197fc93" class=""><strong>Example Usage:</strong></p><pre id="3e0763a3-f07a-4ac4-b27c-f2307169fe28" class="code"><code>$ uuid
+d5b6c731-1310-4c24-9fe3-55d556d44374</code></pre><h2 id="6d8593c4-2576-40ba-8f58-8b66a24d191b" class="">Progress bars</h2><p id="f46c9013-3ea5-49ea-9d0e-af4578bc818e" class="">This is a simple way of drawing progress bars without needing a for loop in the function itself.</p><p id="f8a2e3d9-7079-4a61-b833-eb758526a8c6" class=""><strong>Example Function:</strong></p><pre id="bd6c6c0c-4b8e-4059-a5b2-936c11f1fd70" class="code"><code>bar() {# Usage: bar 1 10#            ^----- Elapsed Percentage (0-100).#               ^-- Total length in chars.((elapsed=$1*$2/100))# Create the bar with spaces.printf -v prog  &quot;%${elapsed}s&quot;printf -v total &quot;%$(($2-elapsed))s&quot;printf &#x27;%s\r&#x27; &quot;[${prog// /-}${total}]&quot;}</code></pre><p id="60f5b910-127a-401e-8eef-ce7c0b0f64f4" class=""><strong>Example Usage:</strong></p><pre id="f1463709-91dd-4241-8db1-74f332bb7490" class="code"><code>for ((i=0;i&lt;=100;i++)); do
+    # Pure bash micro sleeps (for the example).
+    (:;:) &amp;&amp; (:;:) &amp;&amp; (:;:) &amp;&amp; (:;:) &amp;&amp; (:;:)
+
+    # Print the bar.
+    bar &quot;$i&quot; &quot;10&quot;
+done
+
+printf &#x27;\n&#x27;</code></pre><h2 id="dd71eeb5-64cb-4fa4-ba16-368392cbe13f" class="">Get the list of functions in a script</h2><pre id="4429f2b5-7e23-428f-a4c8-e6eb01874b12" class="code"><code>get_functions() {# Usage: get_functionsIFS=$&#x27;\n&#x27; read -d &quot;&quot; -ra functions &lt; &lt;(declare -F)printf &#x27;%s\n&#x27; &quot;${functions[@]//declare -f }&quot;}</code></pre><h2 id="28c02e87-9847-43fe-8f48-5b9a1583f260" class="">Bypass shell aliases</h2><pre id="97ae3afb-b6aa-455f-a1c3-9bae92cba5f6" class="code"><code># alias
+ls
+
+# command
+# shellcheck disable=SC1001
+\ls</code></pre><h2 id="9dc31a86-36c0-4632-8cdd-4310640f121f" class="">Bypass shell functions</h2><pre id="e17cbc36-6276-489a-9b13-d4e31b1e5f5f" class="code"><code># function
+ls
+
+# command
+command ls</code></pre><h2 id="04743539-8bff-4f12-8a21-25f73580e2a4" class="">Run a command in the background</h2><p id="8a4a7ddc-9e7e-4b21-beae-e83ba0eedfa8" class="">This will run the given command and keep it running, even after the terminal or SSH connection is terminated. All output is ignored.</p><pre id="1afe8f6a-b427-4bca-97ef-de47341ee566" class="code"><code>bkr() {(nohup &quot;$@&quot; &amp;&gt;/dev/null &amp;)}bkr ./some_script.sh # some_script.sh is now running in the background</code></pre><h1 id="283d0517-2f0b-45de-955b-c4320166d32d" class="">AFTERWORD</h1><p id="3ec75004-103c-4fd7-aebd-74ef36b1eae2" class="">Thanks for reading! If this bible helped you in any way and you’d like to give back, consider donating. Donations give me the time to make this the best resource possible. Can’t donate? That’s OK, star the repo and share it with your friends!</p></div></article></body></html>

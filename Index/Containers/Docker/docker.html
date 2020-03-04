@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Downlaod</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>docker</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -562,12 +562,38 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f2178220-4cea-4b9a-9367-b2b67b6e792d" class="page sans"><header><h1 class="page-title">Downlaod</h1></header><div class="page-body"><hr id="5e145ef1-549a-441f-af74-30d5f245055b"/><h3 id="cd8af8c9-cec9-4649-8eb3-adfd0dfab553" class="">Copy remote file to local</h3><pre id="c4c802e8-0fd4-452f-814f-1be519e8138b" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote</code></pre><pre id="752165b5-2d22-4f5f-8f34-977c622478e1" class="code"><code>scp -r user@targetIP:/path/to/share /local/share # remote to local</code></pre><pre id="e10ebfc4-5544-4606-8eb5-102f2580dfbf" class="code"><code>cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized</code></pre><p id="b24104e1-1ba6-4b4c-a2ca-9b94072e8bcd" class="">
-</p><p id="3adb6d5e-9c90-4ee1-9df5-56641909f035" class="">
-</p><p id="5bccbf0e-8536-46c4-9a98-a7a44015bcda" class="">
-</p><h1 id="20f3ae27-e5ac-4c11-89fb-a8ba16147459" class="">Copy files remotely</h1><p id="e00a83d6-2b91-495f-8f1b-2095fb7f08d4" class=""><div class="indented"><pre id="3b17f6b6-b4a2-4f64-bee7-e3b245290507" class="code"><code>scp /path/to/local/file.txt user@targetIP:/path/to/share # local to remote
-scp -r user@targetIP:/path/to/share /local/share # remote to local
-cat ~/.ssh/id_rsa.pub | ssh user@targetIP &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;
-</code></pre><p id="db316752-8c2f-4b58-9228-4a097c22ffab" class="">
-</p></div></p><h1 id="06ec81d0-3fea-43df-96b5-753a70984027" class="">File Permissions</h1><p id="9471d56d-ab42-4083-95b2-b6a7bcc9c16d" class="">
-</p></div></article></body></html>
+</style></head><body><article id="368a5bb9-c0ba-4471-a52a-e01c174d7536" class="page sans"><header><h1 class="page-title">docker</h1></header><div class="page-body"><h2 id="57b33662-8978-4f0e-b988-312a75686a16" class="">Manage images</h2><h3 id="7285c7ac-db57-4be6-aa5e-8197d08aa87a" class=""><code>docker build</code></h3><pre id="e69690e2-e350-4667-aa60-feb38ac07539" class="code"><code>docker build [options] .
+  -t &quot;app/container_name&quot;    # name
+  --build-arg APP_HOME=$APP_HOME    # Set build-time variables</code></pre><p id="467e5df5-2ab0-474a-956d-8dc0d3f946e6" class="">Create an <code>image</code> from a Dockerfile.</p><h3 id="7658bba4-3e23-4712-bdca-6221c476b983" class=""><code>docker run</code></h3><pre id="9840cd3b-9184-482d-ab22-248a47ecf63f" class="code"><code>docker run [options] IMAGE
+  # see `docker create` for options</code></pre><h3 id="ad1186b3-145a-4c65-9d19-d8b4ec4627d2" class="">Example</h3><pre id="ca1db76e-180b-4e92-b2f0-f65f7705452d" class="code"><code>$ docker run -it debian:buster /bin/bash</code></pre><p id="4071f477-d1af-47c6-b20b-7188c656edd8" class="">Run a command in an <code>image</code>.</p><h2 id="bb342c71-28a3-4809-b874-9cf7eb7f2e35" class="">Manage containers</h2><h3 id="a7356fe4-da2b-4827-9b37-20f76d16ff1a" class=""><code>docker create</code></h3><pre id="93bfd00a-e26d-40cf-8b67-cda8d5f30325" class="code"><code>docker create [options] IMAGE
+  -a, --attach               # attach stdout/err
+  -i, --interactive          # attach stdin (interactive)
+  -t, --tty                  # pseudo-tty
+      --name NAME            # name your image
+  -p, --publish 5000:5000    # port map
+      --expose 5432          # expose a port to linked containers
+  -P, --publish-all          # publish all ports
+      --link container:alias # linking
+  -v, --volume `pwd`:/app    # mount (absolute paths needed)
+  -e, --env NAME=hello       # env vars</code></pre><h3 id="d3c1ec5c-137c-456e-bfae-8c81bd7a1326" class="">Example</h3><pre id="3377b636-0640-4841-aed5-fd1be4310133" class="code"><code>$ docker create --name app_redis_1 \
+  --expose 6379 \
+  redis:3.0.2</code></pre><p id="d2887b7a-ad73-44c7-baea-a8465c2f2c3b" class="">Create a <code>container</code> from an <code>image</code>.</p><h3 id="8ec8554d-cf03-4cfe-9ac5-a63fee8a43e5" class=""><code>docker exec</code></h3><pre id="dabe2544-1cb7-4d22-b89b-aaaaf561dad5" class="code"><code>docker exec [options] CONTAINER COMMAND
+  -d, --detach        # run in background
+  -i, --interactive   # stdin
+  -t, --tty           # interactive</code></pre><h3 id="c81b3c3e-9087-438f-b0e2-89e8904005f8" class="">Example</h3><pre id="0a264ba3-ed9e-49c8-9e55-e65607aff54e" class="code"><code>$ docker exec app_web_1 tail logs/development.log
+$ docker exec -t -i app_web_1 rails c</code></pre><p id="139cb74b-6160-4f7e-9ddf-00b683128de5" class="">Run commands in a <code>container</code>.</p><h3 id="77b2bb6d-58ec-4058-b935-853c96501565" class=""><code>docker start</code></h3><pre id="ef98b18c-25f8-4695-87e2-9bb79dd54184" class="code"><code>docker start [options] CONTAINER
+  -a, --attach        # attach stdout/err
+  -i, --interactive   # attach stdin
+
+docker stop [options] CONTAINER</code></pre><p id="6ec84310-0f17-4343-ba73-6a5dc413456e" class="">Start/stop a <code>container</code>.</p><h3 id="6fd432e2-1ddb-4cfb-8676-36895408e368" class=""><code>docker ps</code></h3><pre id="e2180953-172a-485a-bac9-875316316df7" class="code"><code>$ docker ps
+$ docker ps -a
+$ docker kill $ID</code></pre><p id="e49c31d4-66c2-4172-8d5d-0d9a49fe8571" class="">Manage <code>container</code>s using ps/kill.</p><h3 id="9ae2f4ce-9303-490e-befc-ef1a7d22c62d" class=""><code>docker logs</code></h3><pre id="6c31a8cb-894a-43cb-839b-7ae7b5c00a86" class="code"><code>$ docker logs $ID
+$ docker logs $ID 2&gt;&amp;1 | less
+$ docker logs -f $ID # Follow log output</code></pre><p id="f42842e7-6c60-46b6-a0f6-6ccc9ed07d4c" class="">See what’s being logged in an <code>container</code>.</p><h2 id="4694f958-261a-421e-a252-de00a32bcf7d" class="">Images</h2><h3 id="bb93eebb-b489-4201-a773-26fd1cb32955" class=""><code>docker images</code></h3><pre id="49712ae0-0767-419e-8cc2-087a5026bebc" class="code"><code>$ docker images
+  REPOSITORY   TAG        ID
+  ubuntu       12.10      b750fe78269d
+  me/myapp     latest     7b2431a8d968</code></pre><pre id="62d7fcfc-4176-411b-aa16-2e95a6d8e0c0" class="code"><code>$ docker images -a   # also show intermediate</code></pre><p id="c07ceeb7-cf60-41aa-8e6b-b036038f1710" class="">Manages <code>image</code>s.</p><h3 id="e67f6489-3287-45d9-8152-fbae89d63425" class=""><code>docker rmi</code></h3><pre id="7ffe193e-d626-4d86-a95f-63050a425bff" class="code"><code>docker rmi b750fe78269d</code></pre><p id="9fca5aee-6fc6-46af-a38c-fe7ff0d9f580" class="">Deletes <code>image</code>s.</p><h2 id="1e38608e-d01a-4818-98d1-c64c3960205b" class="">Clean up</h2><h3 id="42e1019a-86d3-4b34-8ff7-2f412900850b" class="">Clean all</h3><pre id="cebf887d-2750-4fe9-818d-4857fc5ba40c" class="code"><code>docker system prune</code></pre><p id="704167cb-a94b-40d0-8f9f-f3288ad87679" class="">Cleans up dangling images, containers, volumes, and networks (ie, not associated with a container)</p><pre id="4a9496f7-e43a-47de-b551-044bdd9115ac" class="code"><code>docker system prune -a</code></pre><p id="a5aad92a-6b6c-45c2-bf1d-de9cbc87a616" class="">Additionally remove any stopped containers and all unused images (not just dangling images)</p><h3 id="9dab5b7e-507b-44bd-9c97-8acdcfec03ba" class="">Containers</h3><pre id="89d464f4-5ad1-4e69-80b1-c8c95a330a44" class="code"><code># Stop all running containers
+docker stop $(docker ps -a -q)
+
+# Delete stopped containers
+docker container prune</code></pre><h3 id="f8ea5b1e-8342-4fee-82bb-084b5d670b86" class="">Images</h3><pre id="d6bcd4a9-d3e4-4f5d-a970-015aa7884c8f" class="code"><code>docker image prune [-a]</code></pre><p id="d709fcac-9736-490a-b6ef-e6f55232c491" class="">Delete all the images</p><h3 id="77f492e1-c521-4c26-84f9-736eeb70c8bc" class="">Volumes</h3><pre id="0af86c3c-ad7c-4c28-b0f0-d474cf359675" class="code"><code>docker volume prune</code></pre><p id="4c11763b-2c55-4b39-a68a-d2820c36bb96" class="">Delete all the volumes</p><h2 id="cad96751-3843-47fe-8b8b-25edaa4bb792" class="">Also see</h2><ul id="cb003187-a72d-4ed7-957e-d4ad03bbb58d" class="bulleted-list"><li><a href="http://www.docker.io/gettingstarted/">Getting Started</a> <em>(docker.io)</em></li></ul></div></article></body></html>

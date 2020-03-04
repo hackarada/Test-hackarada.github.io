@@ -1,0 +1,576 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>MASSCAN: Mass IP port scanner</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7c198234-f100-47e5-9795-a6796eb5e661" class="page sans"><header><h1 class="page-title">MASSCAN: Mass IP port scanner</h1></header><div class="page-body"><hr id="a95a8f30-a6d9-4500-ad9b-061cf5593398"/><p id="f26e0887-8192-4e37-870f-30868c449ea6" class=""><a href="https://github.com/robertdavidgraham/masscan">https://github.com/robertdavidgraham/masscan</a></p><p id="977b38a6-a367-49df-9b9a-9ebd50319607" class="">This is an Internet-scale port scanner. It can scan the entire Internet in under 6 minutes, transmitting 10 million packets per second, from a single machine.</p><p id="3cb3cd1d-4b1e-44c9-a233-e7437ab15361" class="">It’s input/output is similar to <code>nmap</code>, the most famous port scanner. When in doubt, try one of those features.</p><p id="9d54a9e5-2313-46d2-9c8f-44aa02dedf20" class="">Internally, it uses asynchronous tranmissions, similar to port scanners like <code>scanrand</code>, <code>unicornscan</code>, and <code>ZMap</code>. It’s more flexible, allowing arbitrary port and address ranges.</p><p id="ffa199d2-726c-44b2-80a2-8c3aebf5db4c" class="">NOTE: masscan uses a its own <strong>custom TCP/IP stack</strong>. Anything other than simple port scans may cause conflict with the local TCP/IP stack. This means you need to either the <code>--src-ip</code> option to run from a different IP address, or use <code>--src-port</code> to configure which source ports masscan uses, then also configure the internal firewall (like <code>pf</code> or <code>iptables</code>) to firewall those ports from the rest of the operating system.</p><h1 id="194ebfd2-b09e-4313-9921-4a138a000adf" class="">Usage</h1><p id="c9d388ba-2200-49a9-a404-9ea7fc451ab1" class="">Usage is similar to <code>nmap</code>. To scan a network segment for some ports:</p><pre id="795b03bc-192d-46a0-a4cc-53831b4dfb8b" class="code"><code>masscan -p80,8000-8100 10.0.0.0/8</code></pre><p id="369347db-e615-4e35-9dd3-569855a1b052" class="">This will: * scan the 10.x.x.x subnet, all 16 million addresses * scans port 80 and the range 8000 to 8100, or 102 addresses total * print output to <code>&lt;stdout&gt;</code> that can be redirected to a file</p><p id="4c5c14da-3eef-4053-92d7-e03813faef10" class="">To see the complete list of options, use the <code>--echo</code> feature. This dumps the current configuration and exits. This output can be used as input back into the program:</p><pre id="53144a9c-9ba3-42f0-8d8f-87150b7a15f1" class="code"><code># masscan -p80,8000-8100 10.0.0.0/8 --echo &gt; xxx.conf
+# masscan -c xxx.conf --rate 1000</code></pre><h2 id="c500f541-8240-4ac3-89da-9695d6fcc813" class="">Banner checking</h2><p id="ccd4bad7-9a07-408e-985d-4338ac8ae715" class="">Masscan can do more than just detect whether ports are open. It can also complete the TCP connection and interaction with the application at that port in order to grab simple “banner” information.</p><p id="8e076bb8-6423-4341-9cc1-23c7dcba9e0f" class="">The problem with this is that masscan contains its own TCP/IP stack separate from the system you run it on. When the local system receives a SYN-ACK from the probed target, it responds with a RST packet that kills the connection before masscan can grab the banner.</p><p id="7a3aeab2-2db9-4274-9ce0-8deafd4fc296" class="">The easiest way to prevent this is to assign masscan a separate IP address. This would look like the following:</p><pre id="130e1a86-0478-41a7-b11a-286bbd26aa88" class="code"><code># masscan 10.0.0.0/8 -p80 --banners --source-ip 192.168.1.200</code></pre><p id="9557bc6c-5940-4d8f-a9cd-c0dd661cb05c" class="">The address you choose has to be on the local subnet and not otherwise be used by another system.</p><p id="01eb9aa6-e0f7-4566-8570-86e914a89a38" class="">In some cases, such as WiFi, this isn’t possible. In those cases, you can firewall the port that masscan uses. This prevents the local TCP/IP stack from seeing the packet, but masscan still sees it since it bypasses the local stack. For Linux, this would look like:</p><pre id="79568e29-8354-4a28-a7e1-5f9108dff0d1" class="code"><code># iptables -A INPUT -p tcp --dport 61000 -j DROP
+# masscan 10.0.0.0/8 -p80 --banners --source-port 61000</code></pre><p id="e764af4e-fa17-4da1-91ff-b326e14ff42e" class="">You probably want to pick ports that don’t conflict with ports Linux might otherwise choose for source-ports. You can see the range Linux uses, and reconfigure that range, by looking in the file:</p><pre id="e0ebcd39-ef59-41ba-a81c-fb81158a014a" class="code"><code>/proc/sys/net/ipv4/ip_local_port_range</code></pre><p id="75796adb-75a3-412b-894c-2ada1b31b6d9" class="">On the latest version of Kali Linux (2018-August), that range is 32768 to 60999, so you should choose ports either below 32768 or 61000 and above.</p><p id="7adce382-e13c-4966-9fd6-44286c35c80a" class="">Setting an <code>iptables</code> rule only lasts until the next reboot. You need to lookup how to save the configuration depending upon your distro, such as using <code>iptables-save</code> and/or <code>iptables-persistant</code>.</p><p id="621f5bb9-9048-481b-8599-1b6683372b53" class="">On Mac OS X and BSD, there are similar steps. To find out the ranges to avoid, use a command like the following:</p><pre id="b28fdf21-f386-4847-9567-02af62886956" class="code"><code># sysctl net.inet.ip.portrange.first net.inet.ip.portrange.last</code></pre><p id="f0a4ec6d-a0b1-408a-b89b-e38077cd8717" class="">On FreeBSD and older MacOS, use an <code>ipfw</code> command:</p><pre id="e1c38515-c02b-4c36-ba7e-478d6728d3e1" class="code"><code># sudo ipfw add 1 deny tcp from any to any 40000 in
+# masscan 10.0.0.0/8 -p80 --banners --source-port 40000</code></pre><p id="fdc7e8bf-b8a8-463f-95e9-df564ea52dc7" class="">On newer MacOS and OpenBSD, use the <code>pf</code> packet-filter utility. Edit the file <code>/etc/pf.conf</code> to add a line like the following:</p><pre id="44351933-2870-4e91-99ed-9a114d70100c" class="code"><code>block in proto tcp from any to any port 40000</code></pre><p id="d4203c2e-075c-4327-b195-45e2f333ee6f" class="">Then to enable the firewall, run the command:</p><pre id="9b073a0d-6fef-489c-9f70-22c9c5cda1a4" class="code"><code># pfctrl -E</code></pre><p id="ca1ada88-0487-42c2-acc5-2d53ca30f3f5" class="">If the firewall is already running, then either reboot or reload the rules with the following command:</p><pre id="21c57241-3126-470b-8962-36c025b42f34" class="code"><code># pfctl -f /etc/pf.conf</code></pre><p id="c5e0a1b5-bd1c-4bda-9331-9b0ff4cf52f7" class="">Windows doesn’t respond with RST packets, so neither of these techniques are necessary. However, masscan is still designed to work best using its own IP address, so you should run that way when possible, even when its not strictly necessary.</p><p id="30711ca3-92a0-4a31-a052-b81b228872a2" class="">The same thing is needed for other checks, such as the <code>--heartbleed</code> check, which is just a form of banner checking.</p><h2 id="15f01bbf-93d9-4334-80b3-c0f5e9f9be1a" class="">How to scan the entire Internet</h2><p id="7ec39efe-aaff-4b1d-8d19-00c15201245e" class="">While useful for smaller, internal networks, the program is really designed with the entire Internet in mind. It might look something like this:</p><pre id="57276b90-dbc9-49b3-8d6c-fb3ed31f44a5" class="code"><code># masscan 0.0.0.0/0 -p0-65535</code></pre><p id="5acb9007-e248-412d-bdad-6f9ed03332a9" class="">Scanning the entire Internet is bad. For one thing, parts of the Internet react badly to being scanned. For another thing, some sites track scans and add you to a ban list, which will get you firewalled from useful parts of the Internet. Therefore, you want to exclude a lot of ranges. To blacklist or exclude ranges, you want to use the following syntax:</p><pre id="ab558785-c9ab-496b-8faf-63a70966287a" class="code"><code># masscan 0.0.0.0/0 -p0-65535 --excludefile exclude.txt</code></pre><p id="e61b4f5a-28d9-4903-aa8e-890d96349b7a" class="">This just prints the results to the command-line. You probably want them saved to a file instead. Therefore, you want something like:</p><pre id="b7b9fbcc-7d12-442d-ad69-3b9450620a5b" class="code"><code># masscan 0.0.0.0/0 -p0-65535 -oX scan.xml</code></pre><p id="e9774b3b-ad0e-4730-a6ad-194b48619780" class="">This saves the results in an XML file, allowing you to easily dump the results in a database or something.</p><p id="ecaa07fe-c1a7-4053-a041-87f56d43aff3" class="">But, this only goes at the default rate of 100 packets/second, which will take forever to scan the Internet. You need to speed it up as so:</p><pre id="f3c9aa93-a39b-4276-9821-5c76c24ef79a" class="code"><code># masscan 0.0.0.0/0 -p0-65535 --max-rate 100000</code></pre><p id="bcf18e77-bdb1-4e21-acb5-b4c196364ebf" class="">This increases the rate to 100,000 packets/second, which will scan the entire Internet (minus excludes) in about 10 hours per port (or 655,360 hours if scanning all ports).</p><p id="5e5291aa-a34f-4253-9804-3a8bf32ef7eb" class="">The thing to notice about this command-line is that these are all <code>nmap</code> compatible options. In addition, “invisible” options compatible with <code>nmap</code> are also set for you: <code>-sS -Pn -n --randomize-hosts --send-eth</code>. Likewise, the format of the XML file is inspired by <code>nmap</code>. There are, of course, a lot of differences, because the <em>asynchronous</em> nature of the program leads to a fundamentally different approach to the problem.</p><p id="af60c685-93f0-423d-9e60-a35603961f87" class="">The above command-line is a bit cumbersome. Instead of putting everything on the command-line, it can be stored in a file instead. The above settings would look like this:</p><pre id="9815fba3-5512-4ec5-8ddb-f27f2ef9fc8d" class="code"><code># My Scan
+rate =  100000.00
+output-format = xml
+output-status = all
+output-filename = scan.xml
+ports = 0-65535
+range = 0.0.0.0-255.255.255.255
+excludefile = exclude.txt</code></pre><p id="abd60a63-5525-4bb0-b366-7b3789d1092f" class="">To use this configuration file, use the <code>-c</code>:</p><pre id="ab06f3bd-3e4b-4297-87bd-c3d32698f049" class="code"><code># masscan -c myscan.conf</code></pre><p id="feabd8cc-a07d-41a3-b6cb-158261764899" class="">This also makes things easier when you repeat a scan.</p><p id="79dee423-091f-43e9-9fec-667394442044" class="">By default, masscan first loads the configuration file <code>/etc/masscan/masscan.conf</code>. Any later configuration parameters override what’s in this default configuration file. That’s where I put my “excludefile” parameter, so that I don’t ever forget it. It just works automatically.</p><h2 id="57d8c479-06d5-4328-b846-8e276ac03db9" class="">Getting output</h2><p id="66ffce15-4821-44ae-8c98-2e25fe3ae5c0" class="">By default, masscan produces fairly large text files, but it’s easy to convert them into any other format. There are five supported output formats:</p><ol id="035fc874-44d5-41a3-81ff-534bf68d8457" class="numbered-list" start="1"><li>xml: Just use the parameter <code>-oX &lt;filename&gt;</code>. Or, use the parameters <code>--output-format xml</code> and <code>--output-filename &lt;filename&gt;</code>.</li></ol><ol id="6bebe0e9-65b3-4694-acb4-e39ed8da7f53" class="numbered-list" start="2"><li>binary: This is the masscan builtin format. It produces much smaller files, so that when I scan the Internet my disk doesn’t fill up. They need to be parsed, though. The command line option <code>--readscan</code> will read binary scan files. Using <code>--readscan</code> with the <code>-oX</code> option will produce a XML version of the results file.</li></ol><ol id="b0de24c7-adca-4666-98f7-bfb48797d26a" class="numbered-list" start="3"><li>grepable: This is an implementation of the Nmap -oG output that can be easily parsed by command-line tools. Just use the parameter <code>-oG &lt;filename&gt;</code>. Or, use the parameters <code>--output-format grepable</code> and <code>--output-filename &lt;filename&gt;</code>.</li></ol><ol id="79b3523f-c4c3-4be6-b9cb-57e58d33db28" class="numbered-list" start="4"><li>json: This saves the results in JSON format. Just use the parameter <code>-oJ &lt;filename&gt;</code>. Or, use the parameters <code>--output-format json</code> and <code>--output-filename &lt;filename&gt;</code>.</li></ol><ol id="7cc7fb23-26f2-406b-8c7a-011de59ef9a7" class="numbered-list" start="5"><li>list: This is a simple list with one host and port pair per line. Just use the parameter <code>-oL &lt;filename&gt;</code>. Or, use the parameters <code>--output-format list</code> and <code>--output-filename &lt;filename&gt;</code>. The format is:<pre id="241cdccf-0bb4-46d3-b6d6-f0d2ee66858d" class="code"><code>&lt;port state&gt; &lt;protocol&gt; &lt;port number&gt; &lt;IP address&gt; &lt;POSIX timestamp&gt;  
+open tcp 80 XXX.XXX.XXX.XXX 1390380064</code></pre></li></ol><h2 id="039b980f-e6ff-410b-9e36-82af10696c33" class="">Comparison with Nmap</h2><p id="2c8ded38-10be-4217-a8b1-0142b14933d9" class="">Where reasonable, every effort has been taken to make the program familiar to <code>nmap</code> users, even though it’s fundamentally different. Two important differences are:</p><ul id="5610dc0f-585d-49c8-a2ad-7304125993ee" class="bulleted-list"><li>no default ports to scan, you must specify <code>-p &lt;ports&gt;</code></li></ul><ul id="5be4232c-773e-4e92-ae77-3bb7efe3d0f1" class="bulleted-list"><li>target hosts are IP addresses or simple ranges, not DNS names, nor the funky subnet ranges <code>nmap</code> can use (like <code>10.0.0-255.0-255</code>).</li></ul><p id="58c09252-24d0-472c-b2b9-457a3674ad62" class="">You can think of <code>masscan</code> as having the following settings permanently enabled: * <code>-sS</code>: this does SYN scan only (currently, will change in the future) * <code>-Pn</code>: doesn’t ping hosts first, which is fundamental to the async operation * <code>-n</code>: no DNS resolution happens * <code>--randomize-hosts</code>: scan completely randomized * <code>--send-eth</code>: sends using raw <code>libpcap</code></p><p id="2f0c5644-6d2f-409a-8f53-2818bf6c893b" class="">If you want a list of additional <code>nmap</code> compatible settings, use the following command:</p><pre id="7d8a6e89-36b2-481b-b629-c78d3ac2128c" class="code"><code># masscan --nmap</code></pre><h2 id="7003ac08-f7b3-4413-8e9c-489fda615e5f" class="">Transmit rate (IMPORTANT!!)</h2><p id="62fb9002-0e9e-4324-b000-9503b3df699f" class="">This program spews out packets very fast. On Windows, or from VMs, it can do 300,000 packets/second. On Linux (no virtualization) it’ll do 1.6 million packets-per-second. That’s fast enough to melt most networks.</p><p id="60627c75-9657-4534-b7fe-04082b78c359" class="">Note that it’ll only melt your own network. It randomizes the target IP addresses so that it shouldn’t overwhelm any distant network.</p><p id="83c2642c-61ec-46fb-a2c0-9c7322d17969" class="">By default, the rate is set to 100 packets/second. To increase the rate to a million use something like <code>--rate 1000000</code>.</p></div></article></body></html>
